@@ -1,0 +1,7 @@
+.wp-block-group,
+.wp-block-columns,
+.wp-block-column,
+.wp-block-cover {
+	outline: 1px dashed rgba(128, 128, 128, 0.5);
+	outline-offset: -1px;
+}

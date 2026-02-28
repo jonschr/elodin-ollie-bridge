@@ -1,0 +1,332 @@
+{
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "name": "Brand",
+          "slug": "brand",
+          "color": "#5344F4"
+        },
+        {
+          "name": "Brand Accent",
+          "slug": "brand-accent",
+          "color": "#e9e7ff"
+        },
+        {
+          "name": "Brand Alt",
+          "slug": "brand-alt",
+          "color": "#DEC9FF"
+        },
+        {
+          "name": "Brand Alt Accent",
+          "slug": "brand-alt-accent",
+          "color": "#3d386b"
+        },
+        {
+          "name": "Contrast",
+          "slug": "contrast",
+          "color": "#1E1E26"
+        },
+        {
+          "name": "Contrast Accent",
+          "slug": "contrast-accent",
+          "color": "#d4d4ec"
+        },
+        {
+          "name": "Base",
+          "slug": "base",
+          "color": "#fff"
+        },
+        {
+          "name": "Base Accent",
+          "slug": "base-accent",
+          "color": "#545473"
+        },
+        {
+          "name": "Tint",
+          "slug": "tint",
+          "color": "#f8f7fc"
+        },
+        {
+          "name": "Border Base",
+          "slug": "border-base",
+          "color": "#E3E3F0"
+        },
+        {
+          "name": "Border Contrast",
+          "slug": "border-contrast",
+          "color": "#4E4E60"
+        }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        {
+          "name": "Extra Extra Small",
+          "size": "clamp(.25rem, 1.25vw, .5rem)",
+          "slug": "xx-small"
+        },
+        {
+          "name": "Extra Small",
+          "size": "clamp(.375rem, 1.875vw, .75rem)",
+          "slug": "x-small"
+        },
+        {
+          "name": "Small",
+          "size": "clamp(.5rem, 2.5vw, 1rem)",
+          "slug": "small"
+        },
+        {
+          "name": "Base",
+          "size": "clamp(1rem, 3.25vw, 1.5rem)",
+          "slug": "base"
+        },
+        {
+          "name": "Medium",
+          "size": "clamp(1.5rem, 4vw, 2rem)",
+          "slug": "medium"
+        },
+        {
+          "name": "Large",
+          "size": "clamp(2rem, 5vw, 3rem)",
+          "slug": "large"
+        },
+        {
+          "name": "Extra Large",
+          "size": "clamp(3rem, 7vw, 5rem)",
+          "slug": "x-large"
+        },
+        {
+          "name": "2xl",
+          "size": "clamp(4rem, 9vw, 7rem)",
+          "slug": "xx-large"
+        },
+        {
+          "name": "3xl",
+          "size": "clamp(5rem, 12vw, 9rem)",
+          "slug": "xxx-large"
+        },
+        {
+          "name": "4xl",
+          "size": "clamp(6rem, 14vw, 13rem)",
+          "slug": "xxxx-large"
+        }
+      ],
+      "units": [
+        "px",
+        "em",
+        "rem",
+        "vh",
+        "vw",
+        "%"
+      ],
+      "blockGap": true,
+      "padding": true,
+      "margin": true
+    },
+    "typography": {
+      "dropCap": false,
+      "customFontSize": true,
+      "defaultFontSizes": false,
+      "fontWeight": true,
+      "letterSpacing": false,
+      "fontStyle": false,
+      "lineHeight": true,
+      "textDecoration": false,
+      "fontSizes": [
+        {
+          "slug": "x-small",
+          "size": "clamp(.825rem, 0.825rem + ((1vw - 0.2rem) * 0.189), .95rem)",
+          "name": "X Small"
+        },
+        {
+          "slug": "small",
+          "size": "clamp(.9rem, 0.9rem + ((1vw - 0.2rem) * 0.226), 1.05rem)",
+          "name": "Small"
+        },
+        {
+          "slug": "base",
+          "size": "clamp(1rem, 1rem + ((1vw - 0.2rem) * 0.249), 1.165rem)",
+          "name": "Base"
+        },
+        {
+          "slug": "medium",
+          "size": "clamp(1.1rem, 1.1rem + ((1vw - 0.2rem) * 0.464), 1.4075rem)",
+          "name": "Medium"
+        },
+        {
+          "slug": "large",
+          "size": "clamp(1.2rem, 1.2rem + ((1vw - 0.2rem) * 0.679), 1.65rem)",
+          "name": "Large"
+        },
+        {
+          "slug": "x-large",
+          "size": "clamp(1.5rem, 1.5rem + ((1vw - 0.2rem) * 1.887), 2.75rem)",
+          "name": "X Large"
+        },
+        {
+          "slug": "xx-large",
+          "size": "clamp(1.875rem, 1.875rem + ((1vw - 0.2rem) * 2.453), 3.5rem)",
+          "name": "XX Large"
+        },
+        {
+          "slug": "xxx-large",
+          "size": "clamp(2.25rem, 2.25rem + ((1vw - 0.2rem) * 3.227), 4.3875rem)",
+          "name": "3XL"
+        },
+        {
+          "slug": "xxxx-large",
+          "size": "clamp(2.7rem, 2.7rem + ((1vw - 0.2rem) * 4.227), 5.5rem)",
+          "name": "4XL"
+        }
+      ]
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": false
+        }
+      },
+      "core/separator": {
+        "color": {
+          "background": true
+        }
+      },
+      "core/pullquote": {
+        "border": {
+          "color": true,
+          "radius": false,
+          "style": false,
+          "width": false
+        }
+      }
+    }
+  },
+  "styles": {
+    "typography": {
+      "lineHeight": "1.6"
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": "5px",
+          "style": "solid",
+          "width": "1px"
+        },
+        "spacing": {
+          "padding": {
+            "top": "var(--space-s)",
+            "right": "var(--space-m)",
+            "bottom": "var(--space-s)",
+            "left": "var(--space-m)"
+          }
+        },
+        "typography": {
+          "fontSize": "var(--font-s)",
+          "fontWeight": "800",
+          "letterSpacing": "0"
+        },
+        "variations": {
+          "outline": {
+            "border": {
+              "width": "1px"
+            }
+          }
+        }
+      },
+      "core/code": {
+        "border": {
+          "radius": "5px",
+          "width": "0px"
+        },
+        "color": {
+          "background": "var:preset|color|tint",
+          "text": "var:preset|color|contrast"
+        },
+        "spacing": {
+          "padding": {
+            "top": "var:preset|spacing|medium",
+            "right": "var:preset|spacing|medium",
+            "bottom": "var:preset|spacing|medium",
+            "left": "var:preset|spacing|medium"
+          }
+        },
+        "typography": {
+          "fontFamily": "monospace",
+          "fontSize": "var:preset|font-size|small"
+        }
+      },
+      "core/list": {
+        "spacing": {
+          "margin": {
+            "top": "var(--space-s)",
+            "bottom": "var(--space-s)"
+          }
+        },
+        "typography": {
+          "lineHeight": "1.6"
+        }
+      },
+      "core/paragraph": {
+        "typography": {
+          "lineHeight": "1.6"
+        }
+      },
+      "core/quote": {
+        "elements": {
+          "cite": {
+            "typography": {
+              "fontSize": "var:preset|font-size|small"
+            },
+            "color": {
+              "text": "var:preset|color|base-accent"
+            }
+          }
+        },
+        "css": "& :where(cite) { display: block }",
+        "border": {
+          "radius": "0",
+          "style": "solid",
+          "width": "0 0 0 5px",
+          "color": "var:preset|color|brand"
+        },
+        "spacing": {
+          "padding": {
+            "left": "var:preset|spacing|large",
+            "right": "var:preset|spacing|large"
+          },
+          "margin": {
+            "left": "0"
+          }
+        },
+        "typography": {
+          "lineHeight": "1.6",
+          "fontSize": "var:preset|font-size|medium",
+          "fontWeight": "500"
+        }
+      },
+      "core/separator": {
+        "spacing": {
+          "margin": {
+            "top": "var(--space-m)",
+            "bottom": "var(--space-m)"
+          }
+        },
+        "border": {
+          "color": "var(--border-base)",
+          "style": "solid",
+          "width": "1px"
+        }
+      },
+      "core/table": {
+        "typography": {
+          "fontSize": "var:preset|font-size|small"
+        }
+      }
+    }
+  }
+}

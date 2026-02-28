@@ -1,0 +1,6 @@
+.gb-inside-container .block-editor-inner-blocks,
+.block-editor-block-list__block.gb-container > .gb-container,
+.gb-is-root-block .wp-block-generateblocks-element,
+.is-root-container > .block-library-block__reusable-block-container .wp-block-generateblocks-element {
+	outline: 1px dashed rgba(128, 128, 128, 0.4) !important;
+}
