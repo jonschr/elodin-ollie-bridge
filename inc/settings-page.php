@@ -1291,6 +1291,15 @@ function elodin_bridge_is_mobile_fixed_background_repair_enabled() {
 }
 
 /**
+ * Check if Ollie Pro color palette overrides should be removed.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_remove_ollie_color_palettes_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES, 1 );
+}
+
+/**
  * Check if content type behavior mapping is enabled.
  *
  * @return bool
@@ -1420,6 +1429,16 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',

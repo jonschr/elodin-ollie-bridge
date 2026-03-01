@@ -92,6 +92,42 @@
 				</div>
 			</div>
 
+			<div class="elodin-bridge-admin__card" data-bridge-category="style">
+				<div class="elodin-bridge-admin__feature has-requirement <?php echo $remove_ollie_color_palettes_enabled ? 'is-enabled' : ''; ?> <?php echo ! $ollie_pro_available ? 'is-unavailable' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>">
+						<input
+							type="hidden"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
+							value="0"
+						/>
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
+							value="1"
+							<?php checked( $remove_ollie_color_palettes_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+							<span class="elodin-bridge-admin__toggle-thumb"></span>
+						</span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Remove Ollie\'s color palettes', 'elodin-bridge' ); ?></span>
+					</label>
+					<span class="elodin-bridge-admin__requirement-tag elodin-bridge-admin__requirement-tag--corner"><?php esc_html_e( 'Requires Ollie Pro', 'elodin-bridge' ); ?></span>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Removes Ollie Pro\'s theme.json palette filter so your child theme or active theme color palette is not overwritten.', 'elodin-bridge' ); ?>
+						</p>
+						<?php if ( ! $ollie_pro_available ) : ?>
+							<p class="elodin-bridge-admin__note">
+								<?php esc_html_e( 'This setting only takes effect when Ollie Pro is active.', 'elodin-bridge' ); ?>
+							</p>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+
 				<div class="elodin-bridge-admin__card" data-bridge-category="style">
 					<div class="elodin-bridge-admin__feature <?php echo $mobile_fixed_background_repair_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>">
