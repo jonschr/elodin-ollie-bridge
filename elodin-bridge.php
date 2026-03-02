@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.1
+	Version: 0.2
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.1' );
+define( 'ELODIN_BRIDGE_VERSION', '0.2' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT', 'elodin_bridge_enable_balanced_text' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
@@ -35,6 +35,7 @@ define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_PUBLISH_SIDEBAR_RESTRICTION', 'elodi
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_SHOW_TEMPLATE_DEFAULT', 'elodin_bridge_enable_editor_show_template_default' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING', 'elodin_bridge_enable_media_library_infinite_scrolling' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SHORTCODES', 'elodin_bridge_enable_shortcodes' );
+define( 'ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS', 'elodin_bridge_enable_svg_uploads' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS', 'elodin_bridge_enable_generateblocks_boundary_highlights' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_GROUP_BORDER', 'elodin_bridge_enable_editor_group_border' );
 define( 'ELODIN_BRIDGE_OPTION_THEME_JSON_SOURCE_MODE', 'elodin_bridge_theme_json_source_mode' );
@@ -56,6 +57,7 @@ require_once ELODIN_BRIDGE_DIR . '/inc/content-type-behavior.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/editor-ui-restrictions.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/media-library-infinite-scrolling.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/shortcodes.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/svg-uploads.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/mobile-fixed-background-repair.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/ollie-color-palettes.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/generateblocks-boundary-highlights.php';

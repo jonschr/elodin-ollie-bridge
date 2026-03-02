@@ -92,7 +92,7 @@
 				</div>
 			</div>
 
-			<div class="elodin-bridge-admin__card" data-bridge-category="style">
+			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
 				<div class="elodin-bridge-admin__feature has-requirement <?php echo $remove_ollie_color_palettes_enabled ? 'is-enabled' : ''; ?> <?php echo ! $ollie_pro_available ? 'is-unavailable' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>">
 						<input
@@ -265,7 +265,7 @@
 				</div>
 			</div>
 
-			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
 				<div class="elodin-bridge-admin__feature <?php echo $media_library_infinite_scrolling_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING ); ?>">
 						<input
@@ -320,6 +320,36 @@
 					<div class="elodin-bridge-admin__feature-body">
 						<p class="elodin-bridge-admin__description">
 							<?php esc_html_e( 'Registers [year], [c], [tm], and [r] shortcodes. Trademark and registered outputs use superscript markup.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
+				<div class="elodin-bridge-admin__feature <?php echo $svg_uploads_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS ); ?>">
+						<input
+							type="hidden"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS ); ?>"
+							value="0"
+						/>
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS ); ?>"
+							value="1"
+							<?php checked( $svg_uploads_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+							<span class="elodin-bridge-admin__toggle-thumb"></span>
+						</span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable SVG uploads', 'elodin-bridge' ); ?></span>
+					</label>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Allows SVG files in the Media Library by registering the image/svg+xml MIME type.', 'elodin-bridge' ); ?>
 						</p>
 					</div>
 				</div>
