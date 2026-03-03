@@ -56,7 +56,7 @@
 
 					<div class="elodin-bridge-admin__feature-body">
 						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Adds a separate block toolbar button to toggle the .balanced class on paragraphs and headings. When active, that class applies text-wrap: balance.', 'elodin-bridge' ); ?>
+							<?php esc_html_e( 'Adds a separate block toolbar button to toggle the .balanced class on paragraphs, headings, post titles, and post excerpts. When active, that class applies text-wrap: balance.', 'elodin-bridge' ); ?>
 						</p>
 					</div>
 				</div>

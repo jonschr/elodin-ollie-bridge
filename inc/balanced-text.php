@@ -6,7 +6,7 @@
  * @return string
  */
 function elodin_bridge_build_balanced_text_css() {
-	return ':is(p,h1,h2,h3,h4,h5,h6).balanced{text-wrap:balance!important;}';
+	return ':is(p,h1,h2,h3,h4,h5,h6).balanced,.wp-block-post-title.balanced,.wp-block-post-excerpt.balanced .wp-block-post-excerpt__excerpt,.wp-block-post-excerpt.balanced p{text-wrap:balance!important;}';
 }
 
 /**

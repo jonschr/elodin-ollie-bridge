@@ -20,7 +20,7 @@
 	const { dispatch } = wp.data;
 	const { __ } = wp.i18n;
 
-	const allowedBlocks = new Set( [ 'core/paragraph', 'core/heading' ] );
+	const allowedBlocks = new Set( [ 'core/paragraph', 'core/heading', 'core/post-title', 'core/post-excerpt' ] );
 	const balancedClass = 'balanced';
 
 	function parseClasses( className ) {
