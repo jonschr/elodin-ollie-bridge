@@ -32,6 +32,8 @@
 
 	const tokenPattern = /--[a-z0-9-]+/gi;
 	const textInputTypes = new Set( [ 'text', 'search', 'url', 'email', 'tel' ] );
+	const codeMirrorUpdateGuards = new WeakSet();
+	const boundCodeMirrorEditors = new WeakSet();
 	const inputValueSetter =
 		window.HTMLInputElement &&
 		window.Object.getOwnPropertyDescriptor( window.HTMLInputElement.prototype, 'value' ) &&
@@ -148,6 +150,178 @@
 		};
 	};
 
+	const getCodeMirrorEditorFromTarget = ( target ) => {
+		if ( ! target || ! ( target instanceof HTMLElement ) ) {
+			return null;
+		}
+
+		const wrapper = target.closest( '.CodeMirror' );
+		if ( ! wrapper || ! wrapper.CodeMirror ) {
+			return null;
+		}
+
+		return wrapper.CodeMirror;
+	};
+
+	const shouldHandleCodeMirrorEditor = ( editor ) => {
+		if ( ! editor || 'function' !== typeof editor.getTextArea ) {
+			return false;
+		}
+
+		const sourceField = editor.getTextArea();
+		if (
+			sourceField instanceof HTMLTextAreaElement &&
+			sourceField.classList.contains( 'ollie-css-textarea' )
+		) {
+			return true;
+		}
+
+		if ( 'function' !== typeof editor.getWrapperElement ) {
+			return false;
+		}
+
+		const wrapper = editor.getWrapperElement();
+		return !! ( wrapper && wrapper.closest( '.ollie-class-manager-editor-content' ) );
+	};
+
+	const getCodeMirrorCursorIndex = ( editor ) => {
+		if (
+			! editor ||
+			'function' !== typeof editor.getCursor ||
+			'function' !== typeof editor.indexFromPos
+		) {
+			return null;
+		}
+
+		try {
+			return editor.indexFromPos( editor.getCursor() );
+		} catch ( error ) {
+			return null;
+		}
+	};
+
+	const setCodeMirrorCursorFromIndex = ( editor, index ) => {
+		if (
+			! editor ||
+			'number' !== typeof index ||
+			index < 0 ||
+			'function' !== typeof editor.posFromIndex ||
+			'function' !== typeof editor.setCursor
+		) {
+			return;
+		}
+
+		try {
+			editor.setCursor( editor.posFromIndex( index ) );
+		} catch ( error ) {
+			// Cursor positioning should not block value transformation.
+		}
+	};
+
+	const transformCodeMirrorValue = ( editor ) => {
+		if ( ! shouldHandleCodeMirrorEditor( editor ) || codeMirrorUpdateGuards.has( editor ) ) {
+			return;
+		}
+
+		if ( 'function' !== typeof editor.getValue || 'function' !== typeof editor.setValue ) {
+			return;
+		}
+
+		const currentValue = editor.getValue();
+		const cursorIndex = getCodeMirrorCursorIndex( editor );
+		const result = transformValue( currentValue, cursorIndex );
+		if ( ! result.changed || result.value === currentValue ) {
+			return;
+		}
+
+		codeMirrorUpdateGuards.add( editor );
+		try {
+			if ( 'function' === typeof editor.operation ) {
+				editor.operation( () => {
+					editor.setValue( result.value );
+					setCodeMirrorCursorFromIndex( editor, result.cursor );
+				} );
+			} else {
+				editor.setValue( result.value );
+				setCodeMirrorCursorFromIndex( editor, result.cursor );
+			}
+
+			if ( 'function' === typeof editor.save ) {
+				editor.save();
+			}
+		} finally {
+			codeMirrorUpdateGuards.delete( editor );
+		}
+	};
+
+	const bindCodeMirrorEditor = ( editor ) => {
+		if (
+			! shouldHandleCodeMirrorEditor( editor ) ||
+			boundCodeMirrorEditors.has( editor ) ||
+			'function' !== typeof editor.on
+		) {
+			return;
+		}
+
+		boundCodeMirrorEditors.add( editor );
+		editor.on( 'change', ( instance, change ) => {
+			if ( change && 'setValue' === change.origin ) {
+				return;
+			}
+
+			transformCodeMirrorValue( instance );
+		} );
+	};
+
+	const bindCodeMirrorEditorsInNode = ( node ) => {
+		if ( ! node || ! ( node instanceof HTMLElement ) ) {
+			return;
+		}
+
+		if ( node.classList.contains( 'CodeMirror' ) && node.CodeMirror ) {
+			bindCodeMirrorEditor( node.CodeMirror );
+		}
+
+		if ( 'function' !== typeof node.querySelectorAll ) {
+			return;
+		}
+
+		node.querySelectorAll( '.CodeMirror' ).forEach( ( wrapper ) => {
+			if ( wrapper && wrapper.CodeMirror ) {
+				bindCodeMirrorEditor( wrapper.CodeMirror );
+			}
+		} );
+	};
+
+	const initializeCodeMirrorBindings = () => {
+		if ( ! document || ! document.documentElement ) {
+			return;
+		}
+
+		bindCodeMirrorEditorsInNode( document.documentElement );
+
+		const observer = new MutationObserver( ( mutations ) => {
+			mutations.forEach( ( mutation ) => {
+				if ( ! mutation.addedNodes || 0 === mutation.addedNodes.length ) {
+					return;
+				}
+
+				mutation.addedNodes.forEach( ( addedNode ) => {
+					if ( addedNode instanceof HTMLElement ) {
+						bindCodeMirrorEditorsInNode( addedNode );
+					}
+				} );
+			} );
+		} );
+
+		observer.observe( document.documentElement, {
+			childList: true,
+			subtree: true,
+		} );
+	};
+
+	initializeCodeMirrorBindings();
+
 	const shouldHandleField = ( target ) => {
 		if ( ! target || ! ( target instanceof HTMLElement ) ) {
 			return false;
@@ -199,6 +373,12 @@
 			}
 
 			const target = event.target;
+			const codeMirrorEditor = getCodeMirrorEditorFromTarget( target );
+			if ( codeMirrorEditor ) {
+				transformCodeMirrorValue( codeMirrorEditor );
+				return;
+			}
+
 			if ( ! shouldHandleField( target ) ) {
 				return;
 			}

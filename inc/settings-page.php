@@ -1300,12 +1300,21 @@ function elodin_bridge_is_edit_site_admin_bar_links_enabled() {
 }
 
 /**
+ * Check if the experimental Site Editor admin bar override is enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_site_editor_admin_bar_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR, 0 );
+}
+
+/**
  * Check if mobile fixed-background repair is enabled.
  *
  * @return bool
  */
 function elodin_bridge_is_mobile_fixed_background_repair_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR, 1 );
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR, 0 );
 }
 
 /**
@@ -1466,11 +1475,21 @@ function elodin_bridge_register_settings() {
 
 	register_setting(
 		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 0,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 1,
+			'default'           => 0,
 		)
 	);
 

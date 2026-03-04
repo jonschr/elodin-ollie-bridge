@@ -162,6 +162,9 @@ function elodin_bridge_get_heading_paragraph_typography_presets() {
 			),
 		)
 	);
+	if ( ! array_key_exists( 'text-transform', $paragraph_typography ) ) {
+		$paragraph_typography['text-transform'] = 'none';
+	}
 
 	$presets = array();
 	if ( ! empty( $paragraph_typography ) ) {

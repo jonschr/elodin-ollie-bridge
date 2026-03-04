@@ -54,13 +54,14 @@
 						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable balanced text toggle', 'elodin-bridge' ); ?></span>
 					</label>
 
-					<div class="elodin-bridge-admin__feature-body">
-						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Adds a separate block toolbar button to toggle the .balanced class on paragraphs, headings, post titles, and post excerpts. When active, that class applies text-wrap: balance.', 'elodin-bridge' ); ?>
-						</p>
+						<div class="elodin-bridge-admin__feature-body">
+							<p class="elodin-bridge-admin__description">
+								<?php esc_html_e( 'Adds a separate block toolbar button to toggle the .balanced class on paragraphs, headings, post titles, and post excerpts. When active, that class applies text-wrap: balance.', 'elodin-bridge' ); ?>
+							</p>
+							<?php elodin_bridge_render_feature_video_trigger( 'balanced_text' ); ?>
+						</div>
 					</div>
 				</div>
-			</div>
 
 			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
 				<div class="elodin-bridge-admin__feature <?php echo $heading_paragraph_overrides_enabled ? 'is-enabled' : ''; ?>">
@@ -88,6 +89,7 @@
 						<p class="elodin-bridge-admin__description">
 							<?php esc_html_e( 'Adds a toolbar style override picker for paragraph and heading blocks. Override values come from your active theme.json typography styles, with missing pieces filled from the parent theme.json when available.', 'elodin-bridge' ); ?>
 						</p>
+						<?php elodin_bridge_render_feature_video_trigger( 'heading_paragraph_overrides' ); ?>
 					</div>
 				</div>
 			</div>
@@ -119,6 +121,7 @@
 						<p class="elodin-bridge-admin__description">
 							<?php esc_html_e( 'Removes Ollie Pro\'s theme.json palette filter so your child theme or active theme color palette is not overwritten.', 'elodin-bridge' ); ?>
 						</p>
+						<?php elodin_bridge_render_feature_video_trigger( 'remove_ollie_color_palettes' ); ?>
 						<?php if ( ! $ollie_pro_available ) : ?>
 							<p class="elodin-bridge-admin__note">
 								<?php esc_html_e( 'This setting only takes effect when Ollie Pro is active.', 'elodin-bridge' ); ?>
@@ -195,6 +198,7 @@
 						<p class="elodin-bridge-admin__description">
 							<?php esc_html_e( 'Turns fullscreen mode off in the block editor.', 'elodin-bridge' ); ?>
 						</p>
+						<?php elodin_bridge_render_feature_video_trigger( 'editor_fullscreen_show_template' ); ?>
 					</div>
 				</div>
 			</div>
@@ -256,6 +260,7 @@
 						<p class="elodin-bridge-admin__description">
 							<?php esc_html_e( 'For block themes, forces the editor to load with Show template on for each editor load. Users can still switch it off while editing.', 'elodin-bridge' ); ?>
 						</p>
+						<?php elodin_bridge_render_feature_video_trigger( 'editor_fullscreen_show_template' ); ?>
 						<?php if ( ! $editor_show_template_default_available ) : ?>
 							<p class="elodin-bridge-admin__note">
 								<?php esc_html_e( 'This setting only takes effect when a block theme is active.', 'elodin-bridge' ); ?>
@@ -284,13 +289,51 @@
 						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
 							<span class="elodin-bridge-admin__toggle-thumb"></span>
 						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Add Edit Site shortcut links in the admin bar', 'elodin-bridge' ); ?></span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Add "Edit Site" shortcut links in the admin bar', 'elodin-bridge' ); ?></span>
 					</label>
 
 					<div class="elodin-bridge-admin__feature-body">
 						<p class="elodin-bridge-admin__description">
 							<?php esc_html_e( 'Adds Styles, Navigation, Pages, Templates, and Patterns links under the core "Edit Site" toolbar item.', 'elodin-bridge' ); ?>
 						</p>
+						<?php elodin_bridge_render_feature_video_trigger( 'edit_site_admin_bar_links' ); ?>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+				<div class="elodin-bridge-admin__feature has-requirement <?php echo $site_editor_admin_bar_enabled ? 'is-enabled' : ''; ?> <?php echo ! $site_editor_admin_bar_available ? 'is-unavailable' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR ); ?>">
+						<input
+							type="hidden"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR ); ?>"
+							value="0"
+						/>
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR ); ?>"
+							value="1"
+							<?php checked( $site_editor_admin_bar_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+							<span class="elodin-bridge-admin__toggle-thumb"></span>
+						</span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Show WP admin bar in Site Editor', 'elodin-bridge' ); ?></span>
+					</label>
+					<span class="elodin-bridge-admin__requirement-tag elodin-bridge-admin__requirement-tag--corner elodin-bridge-admin__requirement-tag--experimental"><?php esc_html_e( 'Experimental', 'elodin-bridge' ); ?></span>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'For the Site Editor screen, forces fullscreen mode off and keeps the WordPress admin bar visible so you can quickly navigate back to the front end or other admin areas.', 'elodin-bridge' ); ?>
+						</p>
+						<?php elodin_bridge_render_feature_video_trigger( 'site_editor_admin_bar' ); ?>
+						<?php if ( ! $site_editor_admin_bar_available ) : ?>
+							<p class="elodin-bridge-admin__note">
+								<?php esc_html_e( 'This setting only takes effect when a block theme is active.', 'elodin-bridge' ); ?>
+							</p>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -411,6 +454,7 @@
 						<p class="elodin-bridge-admin__description">
 							<?php esc_html_e( 'When you type a supported token like --space-m or --font-l (or shorthands like --sm and --f2xl) in backend text fields, Bridge expands it to WordPress preset variables (for example, var(--wp--preset--spacing--medium)).', 'elodin-bridge' ); ?>
 						</p>
+						<?php elodin_bridge_render_feature_video_trigger( 'css_variable_autowrap' ); ?>
 					</div>
 				</div>
 			</div>
@@ -478,6 +522,7 @@
 							<p class="elodin-bridge-admin__description">
 								<?php esc_html_e( 'Attempts to highlight the boundaries of core blocks in the editor, including Group, Columns, and Cover blocks.', 'elodin-bridge' ); ?>
 							</p>
+							<?php elodin_bridge_render_feature_video_trigger( 'editor_group_border' ); ?>
 						</div>
 					</div>
 				</div>
@@ -748,6 +793,38 @@
 					</div>
 				</div>
 
+			</div>
+
+			<div class="elodin-bridge-admin__video-modal" data-elodin-video-modal hidden>
+				<div class="elodin-bridge-admin__video-modal-backdrop" data-elodin-video-close></div>
+				<div class="elodin-bridge-admin__video-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="elodin-bridge-video-modal-title">
+					<div class="elodin-bridge-admin__video-modal-header">
+						<h2 class="elodin-bridge-admin__video-modal-title" id="elodin-bridge-video-modal-title" data-elodin-video-modal-title>
+							<?php esc_html_e( 'Feature walkthrough', 'elodin-bridge' ); ?>
+						</h2>
+						<button
+							type="button"
+							class="elodin-bridge-admin__video-modal-close"
+							data-elodin-video-close
+							aria-label="<?php esc_attr_e( 'Close video', 'elodin-bridge' ); ?>"
+						>
+							&times;
+						</button>
+					</div>
+					<div class="elodin-bridge-admin__video-modal-frame-wrap" data-elodin-video-frame-wrap>
+						<div class="elodin-bridge-admin__video-modal-aspect" data-elodin-video-aspect>
+							<iframe
+								data-elodin-video-iframe
+								src=""
+								title=""
+								loading="lazy"
+								referrerpolicy="strict-origin-when-cross-origin"
+								allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+								allowfullscreen
+							></iframe>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</form>
