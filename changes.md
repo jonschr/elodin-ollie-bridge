@@ -1,3 +1,9 @@
+## Version 0.5.1
+
+- Updated image size registration and editor integration so custom image sizes are always available in editor image-size pickers, including FSE/featured image workflows.
+- Added a stronger fallback injection into block editor settings to ensure custom sizes have both labels and dimensions in `imageSizes` / `imageDimensions`.
+- Simplified image-size UI by removing the redundant per-size gallery toggle and treating custom sizes as always exposed.
+
 ## Version 0.5
 
 - Added reusable backend feature walkthrough videos with a settings-card trigger (`See this in action`) and a shared lightbox player.
