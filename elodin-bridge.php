@@ -38,6 +38,7 @@ define( 'ELODIN_BRIDGE_OPTION_ENABLE_SHORTCODES', 'elodin_bridge_enable_shortcod
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS', 'elodin_bridge_enable_svg_uploads' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS', 'elodin_bridge_enable_generateblocks_boundary_highlights' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_GROUP_BORDER', 'elodin_bridge_enable_editor_group_border' );
+define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDIT_SITE_ADMIN_BAR_LINKS', 'elodin_bridge_enable_edit_site_admin_bar_links' );
 define( 'ELODIN_BRIDGE_OPTION_THEME_JSON_SOURCE_MODE', 'elodin_bridge_theme_json_source_mode' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR', 'elodin_bridge_enable_mobile_fixed_background_repair' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES', 'elodin_bridge_enable_remove_ollie_color_palettes' );
@@ -70,4 +71,5 @@ require_once ELODIN_BRIDGE_DIR . '/inc/font-size-variables.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/css-variable-autowrap.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/generateblocks-inner-container-appender.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/fse-content-top-margin-reset.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/edit-site-admin-bar-links.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/update-checker.php';

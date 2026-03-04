@@ -1291,6 +1291,15 @@ function elodin_bridge_is_editor_group_border_enabled() {
 }
 
 /**
+ * Check if Edit Site admin-bar shortcuts are enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_edit_site_admin_bar_links_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_EDIT_SITE_ADMIN_BAR_LINKS, 1 );
+}
+
+/**
  * Check if mobile fixed-background repair is enabled.
  *
  * @return bool
@@ -1438,6 +1447,16 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_GROUP_BORDER,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_EDIT_SITE_ADMIN_BAR_LINKS,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
