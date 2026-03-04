@@ -48,14 +48,86 @@ function elodin_bridge_add_gallery_sizes( $sizes ) {
 	}
 
 	foreach ( elodin_bridge_get_registered_bridge_image_sizes() as $slug => $size ) {
-		if ( empty( $size['gallery'] ) ) {
-			continue;
-		}
-
 		$label = ! empty( $size['label'] ) ? (string) $size['label'] : ucwords( str_replace( array( '-', '_' ), ' ', $slug ) );
 		$sizes[ $slug ] = $label;
 	}
 
 	return $sizes;
 }
-add_filter( 'image_size_names_choose', 'elodin_bridge_add_gallery_sizes' );
+add_filter( 'image_size_names_choose', 'elodin_bridge_add_gallery_sizes', 100 );
+
+/**
+ * Ensure Bridge sizes are included in block editor image settings.
+ *
+ * @param array<string,mixed> $settings      Editor settings.
+ * @param mixed               $editor_context Editor context object.
+ * @return array<string,mixed>
+ */
+function elodin_bridge_inject_image_sizes_into_block_editor_settings( $settings, $editor_context ) {
+	unset( $editor_context );
+
+	if ( ! elodin_bridge_is_image_sizes_enabled() ) {
+		return $settings;
+	}
+
+	$bridge_sizes = elodin_bridge_get_registered_bridge_image_sizes();
+	if ( empty( $bridge_sizes ) ) {
+		return $settings;
+	}
+
+	if ( ! is_array( $settings ) ) {
+		$settings = array();
+	}
+
+	$image_sizes = isset( $settings['imageSizes'] ) && is_array( $settings['imageSizes'] ) ? $settings['imageSizes'] : array();
+	$image_dimensions = isset( $settings['imageDimensions'] ) && is_array( $settings['imageDimensions'] ) ? $settings['imageDimensions'] : array();
+	$registered_sizes = wp_get_registered_image_subsizes();
+
+	foreach ( $bridge_sizes as $slug => $size ) {
+		$has_dimensions = isset( $image_dimensions[ $slug ] ) && is_array( $image_dimensions[ $slug ] );
+		if ( ! $has_dimensions && isset( $registered_sizes[ $slug ] ) && is_array( $registered_sizes[ $slug ] ) ) {
+			$image_dimensions[ $slug ] = $registered_sizes[ $slug ];
+			$has_dimensions = true;
+		}
+
+		if ( ! $has_dimensions && isset( $size['width'], $size['height'] ) ) {
+			$image_dimensions[ $slug ] = array(
+				'width'  => absint( $size['width'] ),
+				'height' => absint( $size['height'] ),
+				'crop'   => ! empty( $size['crop'] ),
+			);
+			$has_dimensions = true;
+		}
+
+		if ( ! $has_dimensions ) {
+			continue;
+		}
+
+		$label = ! empty( $size['label'] ) ? (string) $size['label'] : ucwords( str_replace( array( '-', '_' ), ' ', $slug ) );
+		$already_registered = false;
+		foreach ( $image_sizes as $existing_size ) {
+			if ( isset( $existing_size['slug'] ) && $existing_size['slug'] === $slug ) {
+				$already_registered = true;
+				break;
+			}
+		}
+
+		if ( ! $already_registered ) {
+			$image_sizes[] = array(
+				'slug' => $slug,
+				'name' => $label,
+			);
+		}
+	}
+
+	if ( ! empty( $image_sizes ) ) {
+		$settings['imageSizes'] = $image_sizes;
+	}
+
+	if ( ! empty( $image_dimensions ) ) {
+		$settings['imageDimensions'] = $image_dimensions;
+	}
+
+	return $settings;
+}
+add_filter( 'block_editor_settings_all', 'elodin_bridge_inject_image_sizes_into_block_editor_settings', 999, 2 );

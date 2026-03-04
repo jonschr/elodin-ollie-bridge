@@ -129,7 +129,7 @@ function elodin_bridge_sanitize_image_size_row( $row, $blocked_slugs = array() )
 		'width'   => $width,
 		'height'  => $height,
 		'crop'    => elodin_bridge_sanitize_toggle( $row['crop'] ?? 0 ),
-		'gallery' => elodin_bridge_sanitize_toggle( $row['gallery'] ?? 0 ),
+		'gallery' => 1,
 	);
 }
 

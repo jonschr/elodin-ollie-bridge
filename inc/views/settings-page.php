@@ -546,12 +546,12 @@
 						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
 							<span class="elodin-bridge-admin__toggle-thumb"></span>
 						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable additional image sizes and gallery size controls', 'elodin-bridge' ); ?></span>
+							<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable additional image sizes and controls', 'elodin-bridge' ); ?></span>
 					</label>
 
 					<div class="elodin-bridge-admin__feature-body">
 						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Registers custom image sizes for your site. Gallery checkboxes add selected custom sizes to the size picker in addition to WordPress defaults.', 'elodin-bridge' ); ?>
+								<?php esc_html_e( 'Registers custom image sizes for your site and exposes them in size pickers in addition to WordPress defaults.', 'elodin-bridge' ); ?>
 						</p>
 							<div class="elodin-bridge-admin__image-size-section">
 								<h3 class="elodin-bridge-admin__subheading"><?php esc_html_e( 'Custom Image Sizes', 'elodin-bridge' ); ?></h3>
@@ -630,26 +630,6 @@
 													</span>
 													<span><?php esc_html_e( 'Hard Crop', 'elodin-bridge' ); ?></span>
 												</label>
-												<label class="elodin-bridge-admin__image-size-field elodin-bridge-admin__image-size-field--checkbox elodin-bridge-admin__image-size-field--gallery">
-													<input
-														type="hidden"
-														name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_IMAGE_SIZES ); ?>[sizes][<?php echo esc_attr( (string) $index ); ?>][gallery]"
-														value="0"
-													/>
-													<span class="elodin-bridge-admin__image-size-switch">
-														<input
-															type="checkbox"
-															class="elodin-bridge-admin__toggle-input elodin-bridge-admin__image-size-toggle-input"
-															name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_IMAGE_SIZES ); ?>[sizes][<?php echo esc_attr( (string) $index ); ?>][gallery]"
-															value="1"
-															<?php checked( ! empty( $size['gallery'] ) ); ?>
-														/>
-														<span class="elodin-bridge-admin__toggle-track elodin-bridge-admin__toggle-track--small" aria-hidden="true">
-															<span class="elodin-bridge-admin__toggle-thumb"></span>
-														</span>
-													</span>
-													<span><?php esc_html_e( 'Allow In Galleries', 'elodin-bridge' ); ?></span>
-												</label>
 												<div class="elodin-bridge-admin__image-size-actions">
 													<button type="button" class="button-link-delete elodin-bridge-admin__remove-image-size"><?php esc_html_e( 'Remove', 'elodin-bridge' ); ?></button>
 												</div>
@@ -692,26 +672,16 @@
 										</span>
 										<span><?php esc_html_e( 'Hard Crop', 'elodin-bridge' ); ?></span>
 									</label>
-									<label class="elodin-bridge-admin__image-size-field elodin-bridge-admin__image-size-field--checkbox elodin-bridge-admin__image-size-field--gallery">
-										<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_IMAGE_SIZES ); ?>[sizes][__INDEX__][gallery]" value="0" />
-										<span class="elodin-bridge-admin__image-size-switch">
-											<input type="checkbox" class="elodin-bridge-admin__toggle-input elodin-bridge-admin__image-size-toggle-input" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_IMAGE_SIZES ); ?>[sizes][__INDEX__][gallery]" value="1" />
-											<span class="elodin-bridge-admin__toggle-track elodin-bridge-admin__toggle-track--small" aria-hidden="true">
-												<span class="elodin-bridge-admin__toggle-thumb"></span>
-											</span>
-										</span>
-										<span><?php esc_html_e( 'Allow In Galleries', 'elodin-bridge' ); ?></span>
-									</label>
-									<div class="elodin-bridge-admin__image-size-actions">
-										<button type="button" class="button-link-delete elodin-bridge-admin__remove-image-size"><?php esc_html_e( 'Remove', 'elodin-bridge' ); ?></button>
-									</div>
+										<div class="elodin-bridge-admin__image-size-actions">
+											<button type="button" class="button-link-delete elodin-bridge-admin__remove-image-size"><?php esc_html_e( 'Remove', 'elodin-bridge' ); ?></button>
+										</div>
 								</div>
 							</div>
 						</script>
 
 						<p class="elodin-bridge-admin__note">
 							<strong><?php esc_html_e( 'Important:', 'elodin-bridge' ); ?></strong>
-							<?php esc_html_e( 'after enabling or changing image sizes, regenerate thumbnails before those sizes appear in galleries or are available for existing images.', 'elodin-bridge' ); ?>
+								<?php esc_html_e( 'after enabling or changing image sizes, regenerate thumbnails before those sizes appear in pickers or are available for existing images.', 'elodin-bridge' ); ?>
 						</p>
 					</div>
 				</div>
