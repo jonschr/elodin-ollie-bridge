@@ -279,7 +279,7 @@ function elodin_bridge_build_heading_paragraph_override_css() {
 		return '';
 	}
 
-	$css = ':where(p,h1,h2,h3,h4,h5,h6).h1,:where(p,h1,h2,h3,h4,h5,h6).h2,:where(p,h1,h2,h3,h4,h5,h6).h3,:where(p,h1,h2,h3,h4,h5,h6).h4,:where(p,h1,h2,h3,h4,h5,h6).h5,:where(p,h1,h2,h3,h4,h5,h6).h6{margin-top:0;}';
+	$css = ':where(p,h1,h2,h3,h4,h5,h6):where(.h1,.h2,.h3,.h4,.h5,.h6){margin-top:0;}';
 	$source_selector = ':where(p,h1,h2,h3,h4,h5,h6)';
 
 	foreach ( $presets as $class_name => $declarations ) {
@@ -315,14 +315,36 @@ function elodin_bridge_build_heading_paragraph_override_css() {
 }
 
 /**
+ * Build default non-first heading margin CSS.
+ *
+ * @return string
+ */
+function elodin_bridge_build_heading_non_first_margin_top_css() {
+	if ( ! elodin_bridge_is_heading_non_first_margin_top_enabled() ) {
+		return '';
+	}
+
+	// Match core flow spacing context and use widely supported selector syntax.
+	$flow_large_selector = ':root :where(.is-layout-flow) > h2:not(:first-child),:root :where(.is-layout-flow) > .h2:not(:first-child)';
+	$flow_medium_selector = ':root :where(.is-layout-flow) > h3:not(:first-child),:root :where(.is-layout-flow) > h4:not(:first-child),:root :where(.is-layout-flow) > .h3:not(:first-child),:root :where(.is-layout-flow) > .h4:not(:first-child)';
+	$fallback_large_selector = 'h2:not(:first-child),.h2:not(:first-child)';
+	$fallback_medium_selector = 'h3:not(:first-child),h4:not(:first-child),.h3:not(:first-child),.h4:not(:first-child)';
+
+	return $flow_large_selector . '{margin-block-start:var(--wp--preset--spacing--large);margin-top:var(--wp--preset--spacing--large);}' .
+		$flow_medium_selector . '{margin-block-start:var(--wp--preset--spacing--medium);margin-top:var(--wp--preset--spacing--medium);}' .
+		$fallback_large_selector . '{margin-top:var(--wp--preset--spacing--large);}' .
+		$fallback_medium_selector . '{margin-top:var(--wp--preset--spacing--medium);}';
+}
+
+/**
  * Enqueue heading/paragraph override styles on front-end and in block editor content.
  */
 function elodin_bridge_enqueue_heading_paragraph_override_styles() {
-	if ( ! elodin_bridge_is_heading_paragraph_overrides_enabled() ) {
-		return;
+	$css = '';
+	if ( elodin_bridge_is_heading_paragraph_overrides_enabled() ) {
+		$css .= elodin_bridge_build_heading_paragraph_override_css();
 	}
-
-	$css = elodin_bridge_build_heading_paragraph_override_css();
+	$css .= elodin_bridge_build_heading_non_first_margin_top_css();
 	if ( '' === $css ) {
 		return;
 	}

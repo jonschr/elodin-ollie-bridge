@@ -1210,6 +1210,15 @@ function elodin_bridge_is_heading_paragraph_overrides_enabled() {
 }
 
 /**
+ * Check if default non-first heading margins are enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_heading_non_first_margin_top_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP, 0 );
+}
+
+/**
  * Check if editor fullscreen restriction is enabled.
  *
  * @return bool
@@ -1318,12 +1327,30 @@ function elodin_bridge_is_mobile_fixed_background_repair_enabled() {
 }
 
 /**
+ * Check if the nested-group shortcut is enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_nested_group_shortcut_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT, 1 );
+}
+
+/**
  * Check if Ollie Pro color palette overrides should be removed.
  *
  * @return bool
  */
 function elodin_bridge_is_remove_ollie_color_palettes_enabled() {
 	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES, 1 );
+}
+
+/**
+ * Check if child-theme gradient and duotone autogeneration is enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_child_theme_gradient_duotone_autogen_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_CHILD_THEME_GRADIENT_DUOTONE_AUTOGEN, 1 );
 }
 
 /**
@@ -1370,6 +1397,16 @@ function elodin_bridge_register_settings() {
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
 			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 0,
 		)
 	);
 
@@ -1456,6 +1493,26 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_GROUP_BORDER,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_CHILD_THEME_GRADIENT_DUOTONE_AUTOGEN,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',

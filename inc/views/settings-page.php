@@ -30,149 +30,237 @@
 				</div>
 			</div>
 
-			<div class="elodin-bridge-admin__cards">
-
-			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
-				<div class="elodin-bridge-admin__feature <?php echo $balanced_text_enabled ? 'is-enabled' : ''; ?>">
-					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>">
-						<input
-							type="hidden"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
-							value="0"
-						/>
-						<input
-							type="checkbox"
-							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
-							value="1"
-							<?php checked( $balanced_text_enabled ); ?>
-						/>
-						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-							<span class="elodin-bridge-admin__toggle-thumb"></span>
-						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable balanced text toggle', 'elodin-bridge' ); ?></span>
-					</label>
-
-						<div class="elodin-bridge-admin__feature-body">
-							<p class="elodin-bridge-admin__description">
-								<?php esc_html_e( 'Adds a separate block toolbar button to toggle the .balanced class on paragraphs, headings, post titles, and post excerpts. When active, that class applies text-wrap: balance.', 'elodin-bridge' ); ?>
-							</p>
-							<?php elodin_bridge_render_feature_video_trigger( 'balanced_text' ); ?>
-						</div>
-					</div>
-				</div>
-
-			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
-				<div class="elodin-bridge-admin__feature <?php echo $heading_paragraph_overrides_enabled ? 'is-enabled' : ''; ?>">
-					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>">
-						<input
-							type="hidden"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>"
-							value="0"
-						/>
-						<input
-							type="checkbox"
-							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>"
-							value="1"
-							<?php checked( $heading_paragraph_overrides_enabled ); ?>
-						/>
-						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-							<span class="elodin-bridge-admin__toggle-thumb"></span>
-						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable heading and paragraph style overrides', 'elodin-bridge' ); ?></span>
-					</label>
-
-					<div class="elodin-bridge-admin__feature-body">
-						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Adds a toolbar style override picker for paragraph and heading blocks. Override values come from your active theme.json typography styles, with missing pieces filled from the parent theme.json when available.', 'elodin-bridge' ); ?>
-						</p>
-						<?php elodin_bridge_render_feature_video_trigger( 'heading_paragraph_overrides' ); ?>
-					</div>
+	<div class="elodin-bridge-admin__cards">
+		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+			<div class="elodin-bridge-admin__feature <?php echo $balanced_text_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
+						value="1"
+						<?php checked( $balanced_text_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable balanced text toggle', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'Adds a separate block toolbar button to toggle the .balanced class on paragraphs, headings, post titles, and post excerpts. When active, that class applies text-wrap: balance.', 'elodin-bridge' ); ?>
+					</p>
+					<?php elodin_bridge_render_feature_video_trigger( 'balanced_text' ); ?>
 				</div>
 			</div>
+		</div>
 
-			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
-				<div class="elodin-bridge-admin__feature has-requirement <?php echo $remove_ollie_color_palettes_enabled ? 'is-enabled' : ''; ?> <?php echo ! $ollie_pro_available ? 'is-unavailable' : ''; ?>">
-					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>">
-						<input
-							type="hidden"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
-							value="0"
-						/>
-						<input
-							type="checkbox"
-							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
-							value="1"
-							<?php checked( $remove_ollie_color_palettes_enabled ); ?>
-						/>
-						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-							<span class="elodin-bridge-admin__toggle-thumb"></span>
-						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Remove Ollie\'s color palettes', 'elodin-bridge' ); ?></span>
-					</label>
-					<span class="elodin-bridge-admin__requirement-tag elodin-bridge-admin__requirement-tag--corner"><?php esc_html_e( 'Requires Ollie Pro', 'elodin-bridge' ); ?></span>
-
-					<div class="elodin-bridge-admin__feature-body">
-						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Removes Ollie Pro\'s theme.json palette filter so your child theme or active theme color palette is not overwritten.', 'elodin-bridge' ); ?>
-						</p>
-						<?php elodin_bridge_render_feature_video_trigger( 'remove_ollie_color_palettes' ); ?>
-						<?php if ( ! $ollie_pro_available ) : ?>
-							<p class="elodin-bridge-admin__note">
-								<?php esc_html_e( 'This setting only takes effect when Ollie Pro is active.', 'elodin-bridge' ); ?>
-							</p>
-						<?php endif; ?>
-					</div>
+		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+			<div class="elodin-bridge-admin__feature <?php echo $heading_paragraph_overrides_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>"
+						value="1"
+						<?php checked( $heading_paragraph_overrides_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable heading and paragraph style overrides', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'Adds a toolbar style override picker for paragraph and heading blocks. Override values come from your active theme.json typography styles, with missing pieces filled from the parent theme.json when available.', 'elodin-bridge' ); ?>
+					</p>
+					<?php elodin_bridge_render_feature_video_trigger( 'heading_paragraph_overrides' ); ?>
 				</div>
 			</div>
+		</div>
 
-				<div class="elodin-bridge-admin__card" data-bridge-category="style">
-					<div class="elodin-bridge-admin__feature <?php echo $mobile_fixed_background_repair_enabled ? 'is-enabled' : ''; ?>">
-					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>">
-						<input
-							type="hidden"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>"
-							value="0"
-						/>
-						<input
-							type="checkbox"
-							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>"
-							value="1"
-							<?php checked( $mobile_fixed_background_repair_enabled ); ?>
-						/>
-						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-							<span class="elodin-bridge-admin__toggle-thumb"></span>
-						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Repair fixed-position background images on mobile', 'elodin-bridge' ); ?></span>
-					</label>
+		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+			<div class="elodin-bridge-admin__feature <?php echo $nested_group_shortcut_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
+						value="1"
+						<?php checked( $nested_group_shortcut_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable CMD + OPTION + G nested group shortcut', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'Press CMD + OPTION + G to insert the registered nested-group pattern at the current selection.', 'elodin-bridge' ); ?>
+					</p>
+				</div>
+			</div>
+		</div>
 
-					<div class="elodin-bridge-admin__feature-body">
-						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'On mobile breakpoints, scans for elements using fixed background attachments and switches them to non-fixed to avoid known browser rendering bugs.', 'elodin-bridge' ); ?>
-						</p>
+		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+			<div class="elodin-bridge-admin__feature has-requirement <?php echo $remove_ollie_color_palettes_enabled ? 'is-enabled' : ''; ?> <?php echo ! $ollie_pro_available ? 'is-unavailable' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>"
+						value="1"
+						<?php checked( $remove_ollie_color_palettes_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Remove Ollie\'s color palettes', 'elodin-bridge' ); ?></span>
+				</label>
+				<span class="elodin-bridge-admin__requirement-tag elodin-bridge-admin__requirement-tag--corner"><?php esc_html_e( 'Requires Ollie Pro', 'elodin-bridge' ); ?></span>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'Removes Ollie Pro\'s theme.json palette filter so your child theme or active theme color palette is not overwritten.', 'elodin-bridge' ); ?>
+					</p>
+					<?php elodin_bridge_render_feature_video_trigger( 'remove_ollie_color_palettes' ); ?>
+					<?php if ( ! $ollie_pro_available ) : ?>
 						<p class="elodin-bridge-admin__note">
-							<?php
-							echo wp_kses_post(
-								sprintf(
-									/* translators: %s: Can I Use URL for background-attachment support. */
-									__( 'Compatibility note: <a href="%s" target="_blank" rel="noopener noreferrer">background-attachment browser support</a> is mixed on mobile. At present, Safari on iOS and the Android Browser show partial to no support.', 'elodin-bridge' ),
-									esc_url( 'https://caniuse.com/background-attachment' )
-								)
-							);
-							?>
+							<?php esc_html_e( 'This setting only takes effect when Ollie Pro is active.', 'elodin-bridge' ); ?>
 						</p>
-					</div>
+					<?php endif; ?>
 				</div>
 			</div>
+		</div>
 
-			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+			<div class="elodin-bridge-admin__feature has-requirement <?php echo $child_theme_gradient_duotone_autogen_enabled ? 'is-enabled' : ''; ?> <?php echo ! $ollie_pro_available ? 'is-unavailable' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHILD_THEME_GRADIENT_DUOTONE_AUTOGEN ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHILD_THEME_GRADIENT_DUOTONE_AUTOGEN ); ?>"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHILD_THEME_GRADIENT_DUOTONE_AUTOGEN ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHILD_THEME_GRADIENT_DUOTONE_AUTOGEN ); ?>"
+						value="1"
+						<?php checked( $child_theme_gradient_duotone_autogen_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Auto-generate missing gradients and duotones from the child theme palette', 'elodin-bridge' ); ?></span>
+				</label>
+				<span class="elodin-bridge-admin__requirement-tag elodin-bridge-admin__requirement-tag--corner"><?php esc_html_e( 'Requires Ollie Pro', 'elodin-bridge' ); ?></span>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'When your child theme theme.json does not define gradients and/or duotones, this recreates missing presets from built-in Ollie palette-variable combinations.', 'elodin-bridge' ); ?>
+					</p>
+					<?php if ( ! $ollie_pro_available ) : ?>
+						<p class="elodin-bridge-admin__note">
+							<?php esc_html_e( 'This setting only takes effect when Ollie Pro is active.', 'elodin-bridge' ); ?>
+						</p>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+
+		<div class="elodin-bridge-admin__card" data-bridge-category="style">
+			<div class="elodin-bridge-admin__feature <?php echo $heading_non_first_margin_top_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP ); ?>"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP ); ?>"
+						value="1"
+						<?php checked( $heading_non_first_margin_top_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Default non-first heading spacing', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Applies default non-first-child heading spacing: h2 and .h2 use var(--wp--preset--spacing--large), while h3/h4 and .h3/.h4 use var(--wp--preset--spacing--medium). h1/.h1 are excluded. This is intentionally low-specificity so editor Styles settings can override it.', 'elodin-bridge' ); ?>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="elodin-bridge-admin__card" data-bridge-category="style">
+			<div class="elodin-bridge-admin__feature <?php echo $mobile_fixed_background_repair_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>"
+						value="1"
+						<?php checked( $mobile_fixed_background_repair_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Repair fixed-position background images on mobile', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'On mobile breakpoints, scans for elements using fixed background attachments and switches them to non-fixed to avoid known browser rendering bugs.', 'elodin-bridge' ); ?>
+					</p>
+					<p class="elodin-bridge-admin__note">
+						<?php
+						echo wp_kses_post(
+							sprintf(
+								/* translators: %s: Can I Use URL for background-attachment support. */
+								__( 'Compatibility note: <a href="%s" target="_blank" rel="noopener noreferrer">background-attachment browser support</a> is mixed on mobile. At present, Safari on iOS and the Android Browser show partial to no support.', 'elodin-bridge' ),
+								esc_url( 'https://caniuse.com/background-attachment' )
+							)
+						);
+						?>
+					</p>
+				</div>
+			</div>
+		</div>
+
+				<div class="elodin-bridge-admin__card" data-bridge-category="editor">
 				<div class="elodin-bridge-admin__feature <?php echo $editor_ui_restrictions_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS ); ?>">
 						<input

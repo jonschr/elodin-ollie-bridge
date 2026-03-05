@@ -207,6 +207,7 @@ function elodin_bridge_render_admin_page() {
 
 	$balanced_text_enabled = elodin_bridge_is_balanced_text_enabled();
 	$heading_paragraph_overrides_enabled = elodin_bridge_is_heading_paragraph_overrides_enabled();
+	$heading_non_first_margin_top_enabled = elodin_bridge_is_heading_non_first_margin_top_enabled();
 	$generateblocks_available = elodin_bridge_is_generateblocks_available();
 	$editor_ui_restrictions_enabled = elodin_bridge_is_editor_ui_restrictions_enabled();
 	$editor_publish_sidebar_restriction_enabled = elodin_bridge_is_editor_publish_sidebar_restriction_enabled();
@@ -221,6 +222,8 @@ function elodin_bridge_render_admin_page() {
 	$site_editor_admin_bar_enabled = elodin_bridge_is_site_editor_admin_bar_enabled();
 	$mobile_fixed_background_repair_enabled = elodin_bridge_is_mobile_fixed_background_repair_enabled();
 	$remove_ollie_color_palettes_enabled = elodin_bridge_is_remove_ollie_color_palettes_enabled();
+	$child_theme_gradient_duotone_autogen_enabled = elodin_bridge_is_child_theme_gradient_duotone_autogen_enabled();
+	$nested_group_shortcut_enabled = elodin_bridge_is_nested_group_shortcut_enabled();
 	$ollie_pro_available = class_exists( 'olpo\\Helper' );
 	$block_edge_class_settings = elodin_bridge_get_block_edge_class_settings();
 	$block_edge_classes_enabled = elodin_bridge_is_block_edge_classes_enabled();

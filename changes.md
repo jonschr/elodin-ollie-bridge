@@ -1,8 +1,16 @@
+## Version 0.6.0
+
+- Added a standalone, default-off Style Tweaks setting for default non-first heading spacing.
+- Added heading spacing defaults scoped to non-first children: `h2`/`.h2` use `var(--wp--preset--spacing--large)` and `h3`/`h4`/`.h3`/`.h4` use `var(--wp--preset--spacing--medium)`.
+- Explicitly excluded `h1`/`.h1` from this new heading spacing behavior.
+- Updated selector output to target block flow layout spacing (`margin-block-start`) with fallback `margin-top`, while keeping editor Styles overrides possible.
+
 ## Version 0.5.2
 
 - Updated image size registration and editor integration so custom image sizes are always available in editor image-size pickers, including FSE/featured image workflows.
 - Added a stronger fallback injection into block editor settings to ensure custom sizes have both labels and dimensions in `imageSizes` / `imageDimensions`.
 - Simplified image-size UI by removing the redundant per-size gallery toggle and treating custom sizes as always exposed.
+- Added an editor setting to auto-generate missing child-theme gradient and duotone presets from color-variable pair combinations declared in the child theme's existing presets.
 
 ## Version 0.5
 
