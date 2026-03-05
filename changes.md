@@ -1,4 +1,4 @@
-## Version 0.5.1
+## Version 0.5.2
 
 - Updated image size registration and editor integration so custom image sizes are always available in editor image-size pickers, including FSE/featured image workflows.
 - Added a stronger fallback injection into block editor settings to ensure custom sizes have both labels and dimensions in `imageSizes` / `imageDimensions`.

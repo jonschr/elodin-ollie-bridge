@@ -1206,7 +1206,7 @@ function elodin_bridge_is_balanced_text_enabled() {
  * @return bool
  */
 function elodin_bridge_is_heading_paragraph_overrides_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES, 0 );
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES, 1 );
 }
 
 /**
@@ -1260,7 +1260,7 @@ function elodin_bridge_is_shortcodes_enabled() {
  * @return bool
  */
 function elodin_bridge_is_svg_uploads_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS, 0 );
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS, 1 );
 }
 
 /**
@@ -1278,7 +1278,7 @@ function elodin_bridge_is_css_variable_autowrap_enabled() {
  * @return bool
  */
 function elodin_bridge_is_generateblocks_boundary_highlights_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS, 1 );
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS, 0 );
 }
 
 /**
@@ -1305,7 +1305,7 @@ function elodin_bridge_is_edit_site_admin_bar_links_enabled() {
  * @return bool
  */
 function elodin_bridge_is_site_editor_admin_bar_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR, 0 );
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR, 1 );
 }
 
 /**
@@ -1369,7 +1369,7 @@ function elodin_bridge_register_settings() {
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 0,
+			'default'           => 1,
 		)
 	);
 
@@ -1429,7 +1429,7 @@ function elodin_bridge_register_settings() {
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 0,
+			'default'           => 1,
 		)
 	);
 
@@ -1449,7 +1449,7 @@ function elodin_bridge_register_settings() {
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 1,
+			'default'           => 0,
 		)
 	);
 
@@ -1479,7 +1479,7 @@ function elodin_bridge_register_settings() {
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 0,
+			'default'           => 1,
 		)
 	);
 
