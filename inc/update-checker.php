@@ -120,9 +120,15 @@ function elodin_bridge_validate_update_checker_branch( $branch ) {
 		return null;
 	}
 
-	$raw_allowed = apply_filters( 'elodin_bridge_update_checker_allowed_branches', array() );
+	$default_allowed = array();
+	$configured_default = trim( (string) ELODIN_BRIDGE_UPDATE_BRANCH );
+	if ( '' !== $configured_default ) {
+		$default_allowed[] = $configured_default;
+	}
+
+	$raw_allowed = apply_filters( 'elodin_bridge_update_checker_allowed_branches', $default_allowed );
 	if ( ! is_array( $raw_allowed ) ) {
-		$raw_allowed = array();
+		$raw_allowed = $default_allowed;
 	}
 
 	$allowed_lookup = array();
@@ -169,7 +175,7 @@ function elodin_bridge_boot_update_checker() {
 	$update_checker = Puc_v4_Factory::buildUpdateChecker(
 		$repository . '/',
 		ELODIN_BRIDGE_DIR . '/elodin-bridge.php',
-		'elodin-bridge'
+		'elodin-ollie-bridge'
 	);
 
 	if ( '' !== $branch && method_exists( $update_checker, 'setBranch' ) ) {

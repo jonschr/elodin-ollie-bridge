@@ -1,11 +1,4 @@
 <?php
-/**
- * Plugin Name: Nested Group Shortcut
- * Description: Cmd+Option+G inserts an unsynced nested-group pattern.
- * Version: 1.0
- * Requires at least: 6.6
- * Requires PHP: 8.0
- */
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return string
  */
-function nested_group_shortcut_get_pattern_slug() {
+function elodin_bridge_nested_group_shortcut_get_pattern_slug() {
 	return 'elodin-bridge-nested-group-shortcut';
 }
 
@@ -26,7 +19,7 @@ function nested_group_shortcut_get_pattern_slug() {
  *
  * @return string
  */
-function nested_group_shortcut_get_pattern_content() {
+function elodin_bridge_nested_group_shortcut_get_pattern_content() {
 	return '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|x-large","bottom":"var:preset|spacing|x-large","left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--x-large);padding-right:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--x-large);padding-left:var(--wp--preset--spacing--medium)"><!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide"><!-- wp:paragraph -->
@@ -41,7 +34,7 @@ function nested_group_shortcut_get_pattern_content() {
  *
  * @return int Pattern post ID.
  */
-function nested_group_shortcut_ensure_user_pattern() {
+function elodin_bridge_nested_group_shortcut_ensure_user_pattern() {
 	$pattern_version = 2;
 	static $pattern_id = null;
 
@@ -55,7 +48,7 @@ function nested_group_shortcut_ensure_user_pattern() {
 	}
 
 	$pattern = get_page_by_path(
-		nested_group_shortcut_get_pattern_slug(),
+		elodin_bridge_nested_group_shortcut_get_pattern_slug(),
 		OBJECT,
 		'wp_block'
 	);
@@ -68,8 +61,8 @@ function nested_group_shortcut_ensure_user_pattern() {
 				'post_type'    => 'wp_block',
 				'post_status'  => 'publish',
 				'post_title'   => __( 'Nested Group Shortcut Pattern', 'elodin-bridge' ),
-				'post_name'    => nested_group_shortcut_get_pattern_slug(),
-				'post_content' => nested_group_shortcut_get_pattern_content(),
+				'post_name'    => elodin_bridge_nested_group_shortcut_get_pattern_slug(),
+				'post_content' => elodin_bridge_nested_group_shortcut_get_pattern_content(),
 			),
 			true
 		);
@@ -95,7 +88,7 @@ function nested_group_shortcut_ensure_user_pattern() {
 		wp_update_post(
 			array(
 				'ID'           => $pattern_id,
-				'post_content' => nested_group_shortcut_get_pattern_content(),
+				'post_content' => elodin_bridge_nested_group_shortcut_get_pattern_content(),
 			)
 		);
 		update_post_meta(
@@ -161,15 +154,15 @@ function nested_group_shortcut_ensure_user_pattern() {
 
 	return $pattern_id;
 }
-add_action( 'init', 'nested_group_shortcut_ensure_user_pattern', 20 );
+add_action( 'init', 'elodin_bridge_nested_group_shortcut_ensure_user_pattern', 20 );
 
 /**
  * Get the inserter pattern name from the user pattern ID.
  *
  * @return string
  */
-function nested_group_shortcut_get_pattern_name() {
-	$pattern_id = nested_group_shortcut_ensure_user_pattern();
+function elodin_bridge_nested_group_shortcut_get_pattern_name() {
+	$pattern_id = elodin_bridge_nested_group_shortcut_ensure_user_pattern();
 	if ( $pattern_id > 0 ) {
 		return 'core/block/' . $pattern_id;
 	}
@@ -182,34 +175,36 @@ function nested_group_shortcut_get_pattern_name() {
  *
  * @return array<string,mixed>
  */
-function nested_group_shortcut_get_script_data() {
-	$pattern_id = nested_group_shortcut_ensure_user_pattern();
+function elodin_bridge_nested_group_shortcut_get_script_data() {
+	$pattern_id = elodin_bridge_nested_group_shortcut_ensure_user_pattern();
 
 	return array(
 		'patternId'      => $pattern_id,
-		'patternName'    => nested_group_shortcut_get_pattern_name(),
-		'patternContent' => nested_group_shortcut_get_pattern_content(),
+		'patternName'    => elodin_bridge_nested_group_shortcut_get_pattern_name(),
+		'patternContent' => elodin_bridge_nested_group_shortcut_get_pattern_content(),
 	);
 }
 
 /**
  * Register and enqueue the editor shortcut script.
  */
-function nested_group_shortcut_enqueue_assets() {
+function elodin_bridge_enqueue_nested_group_shortcut_assets() {
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return;
 	}
 
-	if (
-		function_exists( 'elodin_bridge_is_nested_group_shortcut_enabled' ) &&
-		! elodin_bridge_is_nested_group_shortcut_enabled()
-	) {
+	if ( ! elodin_bridge_is_nested_group_shortcut_enabled() ) {
+		return;
+	}
+
+	$script_path = ELODIN_BRIDGE_DIR . '/assets/editor-nested-group-shortcut.js';
+	if ( ! file_exists( $script_path ) ) {
 		return;
 	}
 
 	wp_enqueue_script(
-		'nested-group-shortcut',
-		plugin_dir_url( __FILE__ ) . 'nested-group-shortcut.js',
+		'elodin-bridge-editor-nested-group-shortcut',
+		ELODIN_BRIDGE_URL . 'assets/editor-nested-group-shortcut.js',
 		array(
 			'wp-blocks',
 			'wp-block-editor',
@@ -218,17 +213,18 @@ function nested_group_shortcut_enqueue_assets() {
 			'wp-keyboard-shortcuts',
 			'wp-keycodes',
 			'wp-dom',
+			'wp-i18n',
 		),
-		(string) filemtime( plugin_dir_path( __FILE__ ) . 'nested-group-shortcut.js' ),
+		(string) filemtime( $script_path ),
 		true
 	);
 
 	wp_add_inline_script(
-		'nested-group-shortcut',
+		'elodin-bridge-editor-nested-group-shortcut',
 		'window.elodinBridgeNestedGroupShortcut = ' . wp_json_encode(
-			nested_group_shortcut_get_script_data()
+			elodin_bridge_nested_group_shortcut_get_script_data()
 		) . ';',
 		'before'
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'nested_group_shortcut_enqueue_assets' );
+add_action( 'enqueue_block_editor_assets', 'elodin_bridge_enqueue_nested_group_shortcut_assets' );

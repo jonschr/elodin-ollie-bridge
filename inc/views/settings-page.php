@@ -31,38 +31,8 @@
 			</div>
 
 	<div class="elodin-bridge-admin__cards">
-		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
-			<div class="elodin-bridge-admin__feature <?php echo $balanced_text_enabled ? 'is-enabled' : ''; ?>">
-				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>">
-					<input
-						type="hidden"
-						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
-						value="0"
-					/>
-					<input
-						type="checkbox"
-						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
-						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT ); ?>"
-						value="1"
-						<?php checked( $balanced_text_enabled ); ?>
-					/>
-					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-						<span class="elodin-bridge-admin__toggle-thumb"></span>
-					</span>
-					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable balanced text toggle', 'elodin-bridge' ); ?></span>
-				</label>
-				<div class="elodin-bridge-admin__feature-body">
-					<p class="elodin-bridge-admin__description">
-						<?php esc_html_e( 'Adds a separate block toolbar button to toggle the .balanced class on paragraphs, headings, post titles, and post excerpts. When active, that class applies text-wrap: balance.', 'elodin-bridge' ); ?>
-					</p>
-					<?php elodin_bridge_render_feature_video_trigger( 'balanced_text' ); ?>
-				</div>
-			</div>
-		</div>
-
-		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
-			<div class="elodin-bridge-admin__feature <?php echo $heading_paragraph_overrides_enabled ? 'is-enabled' : ''; ?>">
+			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+				<div class="elodin-bridge-admin__feature <?php echo $heading_paragraph_overrides_enabled ? 'is-enabled' : ''; ?>">
 				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES ); ?>">
 					<input
 						type="hidden"
@@ -91,37 +61,8 @@
 			</div>
 		</div>
 
-		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
-			<div class="elodin-bridge-admin__feature <?php echo $nested_group_shortcut_enabled ? 'is-enabled' : ''; ?>">
-				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>">
-					<input
-						type="hidden"
-						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
-						value="0"
-					/>
-					<input
-						type="checkbox"
-						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
-						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
-						value="1"
-						<?php checked( $nested_group_shortcut_enabled ); ?>
-					/>
-					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-						<span class="elodin-bridge-admin__toggle-thumb"></span>
-					</span>
-					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable CMD + OPTION + G nested group shortcut', 'elodin-bridge' ); ?></span>
-				</label>
-				<div class="elodin-bridge-admin__feature-body">
-					<p class="elodin-bridge-admin__description">
-						<?php esc_html_e( 'Press CMD + OPTION + G to insert the registered nested-group pattern at the current selection.', 'elodin-bridge' ); ?>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="elodin-bridge-admin__card" data-bridge-category="editor">
-			<div class="elodin-bridge-admin__feature has-requirement <?php echo $remove_ollie_color_palettes_enabled ? 'is-enabled' : ''; ?> <?php echo ! $ollie_pro_available ? 'is-unavailable' : ''; ?>">
+			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+				<div class="elodin-bridge-admin__feature has-requirement <?php echo $remove_ollie_color_palettes_enabled ? 'is-enabled' : ''; ?> <?php echo ! $ollie_pro_available ? 'is-unavailable' : ''; ?>">
 				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES ); ?>">
 					<input
 						type="hidden"
@@ -611,12 +552,41 @@
 								<?php esc_html_e( 'Attempts to highlight the boundaries of core blocks in the editor, including Group, Columns, and Cover blocks.', 'elodin-bridge' ); ?>
 							</p>
 							<?php elodin_bridge_render_feature_video_trigger( 'editor_group_border' ); ?>
-						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="elodin-bridge-admin__card elodin-bridge-admin__card--wide" data-bridge-category="misc">
-					<div class="elodin-bridge-admin__feature <?php echo ! empty( $image_sizes_settings['enabled'] ) ? 'is-enabled' : ''; ?>">
+			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+				<div class="elodin-bridge-admin__feature <?php echo $nested_group_shortcut_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>">
+						<input
+							type="hidden"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
+							value="0"
+						/>
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT ); ?>"
+							value="1"
+							<?php checked( $nested_group_shortcut_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+							<span class="elodin-bridge-admin__toggle-thumb"></span>
+						</span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable CMD + OPTION + G nested group shortcut', 'elodin-bridge' ); ?></span>
+					</label>
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Press CMD + OPTION + G to insert the registered nested-group pattern at the current selection.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+					<div class="elodin-bridge-admin__card elodin-bridge-admin__card--wide" data-bridge-category="misc">
+						<div class="elodin-bridge-admin__feature <?php echo ! empty( $image_sizes_settings['enabled'] ) ? 'is-enabled' : ''; ?>">
 						<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-image-sizes-enabled">
 						<input
 							type="hidden"

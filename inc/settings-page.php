@@ -1192,15 +1192,6 @@ function elodin_bridge_is_font_size_variables_enabled() {
 }
 
 /**
- * Check if balanced text toolbar feature is enabled.
- *
- * @return bool
- */
-function elodin_bridge_is_balanced_text_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT, 1 );
-}
-
-/**
  * Check if heading/paragraph style overrides are enabled.
  *
  * @return bool
@@ -1380,16 +1371,6 @@ function elodin_bridge_is_post_type_page_like( $post_type ) {
  * Register plugin settings.
  */
 function elodin_bridge_register_settings() {
-	register_setting(
-		'elodin_bridge_settings',
-		ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT,
-		array(
-			'type'              => 'boolean',
-			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 1,
-		)
-	);
-
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES,

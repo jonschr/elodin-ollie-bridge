@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.6.0
+	Version: 0.6.2
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,8 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.6.0' );
-define( 'ELODIN_BRIDGE_OPTION_ENABLE_BALANCED_TEXT', 'elodin_bridge_enable_balanced_text' );
+define( 'ELODIN_BRIDGE_VERSION', '0.6.2' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
@@ -52,11 +51,9 @@ define( 'ELODIN_BRIDGE_OPTION_SPACING_VARIABLES', 'elodin_bridge_spacing_variabl
 define( 'ELODIN_BRIDGE_OPTION_FONT_SIZE_VARIABLES', 'elodin_bridge_font_size_variables' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_CSS_VARIABLE_AUTOWRAP', 'elodin_bridge_enable_css_variable_autowrap' );
 define( 'ELODIN_BRIDGE_UPDATE_REPOSITORY', 'https://github.com/jonschr/elodin-ollie-bridge' );
-// Empty branch means update checks are tag/release-based by default.
-define( 'ELODIN_BRIDGE_UPDATE_BRANCH', '' );
+define( 'ELODIN_BRIDGE_UPDATE_BRANCH', 'master' );
 
 require_once ELODIN_BRIDGE_DIR . '/inc/settings-page.php';
-require_once ELODIN_BRIDGE_DIR . '/inc/balanced-text.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/heading-paragraph-overrides.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/content-type-behavior.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/editor-ui-restrictions.php';
@@ -79,4 +76,4 @@ require_once ELODIN_BRIDGE_DIR . '/inc/fse-content-top-margin-reset.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/edit-site-admin-bar-links.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/site-editor-admin-bar.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/update-checker.php';
-require_once ELODIN_BRIDGE_DIR . '/nested-group-shortcut.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/nested-group-shortcut.php';

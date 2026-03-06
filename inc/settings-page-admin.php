@@ -72,11 +72,6 @@ add_action( 'admin_enqueue_scripts', 'elodin_bridge_enqueue_admin_assets' );
  */
 function elodin_bridge_get_feature_videos() {
 	$videos = array(
-		'balanced_text' => array(
-			'url'          => 'https://www.loom.com/embed/f0f44c08584c4efd94d1261cc6e24520',
-			'title'        => __( 'Balanced text feature walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
 		'heading_paragraph_overrides' => array(
 			'url'          => 'https://www.loom.com/embed/7e19ac22e9eb4bf38fa53e37465edd53',
 			'title'        => __( 'Heading and paragraph style overrides walkthrough', 'elodin-bridge' ),
@@ -205,7 +200,6 @@ function elodin_bridge_render_admin_page() {
 		return;
 	}
 
-	$balanced_text_enabled = elodin_bridge_is_balanced_text_enabled();
 	$heading_paragraph_overrides_enabled = elodin_bridge_is_heading_paragraph_overrides_enabled();
 	$heading_non_first_margin_top_enabled = elodin_bridge_is_heading_non_first_margin_top_enabled();
 	$generateblocks_available = elodin_bridge_is_generateblocks_available();

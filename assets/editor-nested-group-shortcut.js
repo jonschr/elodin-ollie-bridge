@@ -293,13 +293,13 @@
 		return true;
 	}
 
-	function registerShortcutMetadata() {
-		const config = {
-			name: shortcutName,
-			description: __(
-				'Insert nested group (Cmd+Option+G)',
-				'nested-group-shortcut'
-			),
+		function registerShortcutMetadata() {
+			const config = {
+				name: shortcutName,
+				description: __(
+					'Insert nested group (Cmd+Option+G)',
+					'elodin-bridge'
+				),
 			keywords: [ 'group', 'nested' ],
 			category: 'main',
 			keyCombination: {

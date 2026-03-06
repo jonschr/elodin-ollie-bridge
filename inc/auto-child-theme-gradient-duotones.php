@@ -296,9 +296,73 @@ function elodin_bridge_child_theme_has_duotone_presets( $theme_data ) {
 }
 
 /**
+ * Check if a palette color value is variable-based instead of a concrete color.
+ *
+ * @param mixed $value Raw palette color value.
+ * @return bool
+ */
+function elodin_bridge_is_variable_palette_color_value( $value ) {
+	$value = strtolower( trim( (string) $value ) );
+	if ( '' === $value ) {
+		return false;
+	}
+
+	return 0 === strpos( $value, 'var(' )
+		|| 0 === strpos( $value, 'var:preset|' )
+		|| 0 === strpos( $value, 'var:custom|' );
+}
+
+/**
+ * Resolve a child-theme palette slug to a concrete color value.
+ *
+ * Resolves simple references to other palette slugs and rejects unresolved
+ * variable-based values.
+ *
+ * @param string                           $slug            Palette slug to resolve.
+ * @param array<string,array{name:string,color:string}> $palette_by_slug Palette lookup map.
+ * @param array<string,bool>               $visited         Internal recursion guard.
+ * @return string
+ */
+function elodin_bridge_resolve_child_theme_palette_color_value( $slug, $palette_by_slug, $visited = array() ) {
+	$slug = sanitize_key( $slug );
+	if ( '' === $slug || isset( $visited[ $slug ] ) ) {
+		return '';
+	}
+
+	if ( ! is_array( $palette_by_slug ) || ! isset( $palette_by_slug[ $slug ]['color'] ) ) {
+		return '';
+	}
+
+	$visited[ $slug ] = true;
+
+	$raw_color = $palette_by_slug[ $slug ]['color'];
+	$color = function_exists( 'elodin_bridge_sanitize_theme_json_css_value' )
+		? elodin_bridge_sanitize_theme_json_css_value( $raw_color )
+		: sanitize_text_field( (string) $raw_color );
+	if ( '' === $color ) {
+		return '';
+	}
+
+	if ( ! elodin_bridge_is_variable_palette_color_value( $color ) ) {
+		return $color;
+	}
+
+	if ( preg_match( '/^var:preset\|color\|([a-zA-Z0-9-]+)$/i', $color, $matches ) ) {
+		return elodin_bridge_resolve_child_theme_palette_color_value( $matches[1], $palette_by_slug, $visited );
+	}
+
+	if ( preg_match( '/^var\(\s*--wp--preset--color--([a-zA-Z0-9-]+)\s*(?:,[^)]+)?\)$/i', $color, $matches ) ) {
+		return elodin_bridge_resolve_child_theme_palette_color_value( $matches[1], $palette_by_slug, $visited );
+	}
+
+	return '';
+}
+
+/**
  * Build gradient presets from configured palette color pairs.
  *
- * @param array<int,array{name:string,slug:string,color:string}> $palette Palette entries.
+ * @param array<int,array{name:string,slug:string,from:string,to:string,angle:string}> $palette_pairs Pair definitions.
+ * @param array<string,array{name:string,color:string}>                                 $palette_by_slug Palette lookup map.
  * @return array<int,array{name:string,slug:string,gradient:string}>
  */
 function elodin_bridge_build_child_theme_gradient_presets( $palette_pairs, $palette_by_slug ) {
@@ -321,6 +385,11 @@ function elodin_bridge_build_child_theme_gradient_presets( $palette_pairs, $pale
 		if ( ! isset( $palette_by_slug[ $from_slug ] ) || ! isset( $palette_by_slug[ $to_slug ] ) ) {
 			continue;
 		}
+		$from_color = elodin_bridge_resolve_child_theme_palette_color_value( $from_slug, $palette_by_slug );
+		$to_color   = elodin_bridge_resolve_child_theme_palette_color_value( $to_slug, $palette_by_slug );
+		if ( '' === $from_color || '' === $to_color ) {
+			continue;
+		}
 
 		$slug = ! empty( $pair['slug'] ) ? sanitize_title( $pair['slug'] ) : sanitize_title( $from_slug . '-to-' . $to_slug );
 		if ( isset( $seen_slugs[ $slug ] ) ) {
@@ -334,6 +403,13 @@ function elodin_bridge_build_child_theme_gradient_presets( $palette_pairs, $pale
 		$to_name   = isset( $palette_by_slug[ $to_slug ]['name'] ) && '' !== $palette_by_slug[ $to_slug ]['name']
 			? $palette_by_slug[ $to_slug ]['name']
 			: ucwords( str_replace( '-', ' ', $to_slug ) );
+		$angle = ! empty( $pair['angle'] ) ? sanitize_text_field( (string) $pair['angle'] ) : '90deg';
+		if ( function_exists( 'elodin_bridge_sanitize_theme_json_css_value' ) ) {
+			$angle = elodin_bridge_sanitize_theme_json_css_value( $angle );
+		}
+		if ( '' === $angle ) {
+			$angle = '90deg';
+		}
 
 		$gradient_presets[] = array(
 			'name'     => sprintf(
@@ -344,10 +420,10 @@ function elodin_bridge_build_child_theme_gradient_presets( $palette_pairs, $pale
 			),
 			'slug'     => $slug,
 			'gradient' => sprintf(
-				'linear-gradient( %3$s, var(--wp--preset--color--%1$s), var(--wp--preset--color--%2$s) )',
-				$from_slug,
-				$to_slug,
-				! empty( $pair['angle'] ) ? sanitize_text_field( $pair['angle'] ) : '90deg'
+				'linear-gradient( %3$s, %1$s, %2$s )',
+				$from_color,
+				$to_color,
+				$angle
 			),
 		);
 	}
@@ -358,7 +434,8 @@ function elodin_bridge_build_child_theme_gradient_presets( $palette_pairs, $pale
 /**
  * Build duotone presets from configured palette color pairs.
  *
- * @param array<int,array{name:string,slug:string,color:string}> $palette Palette entries.
+ * @param array<int,array{name:string,slug:string,from:string,to:string}> $palette_pairs Pair definitions.
+ * @param array<string,array{name:string,color:string}>                   $palette_by_slug Palette lookup map.
  * @return array<int,array{name:string,slug:string,colors:array<int,string>}>
  */
 function elodin_bridge_build_child_theme_duotone_presets( $palette_pairs, $palette_by_slug ) {
@@ -379,6 +456,11 @@ function elodin_bridge_build_child_theme_duotone_presets( $palette_pairs, $palet
 			continue;
 		}
 		if ( ! isset( $palette_by_slug[ $from_slug ] ) || ! isset( $palette_by_slug[ $to_slug ] ) ) {
+			continue;
+		}
+		$from_color = elodin_bridge_resolve_child_theme_palette_color_value( $from_slug, $palette_by_slug );
+		$to_color   = elodin_bridge_resolve_child_theme_palette_color_value( $to_slug, $palette_by_slug );
+		if ( '' === $from_color || '' === $to_color ) {
 			continue;
 		}
 
@@ -404,8 +486,8 @@ function elodin_bridge_build_child_theme_duotone_presets( $palette_pairs, $palet
 			),
 			'slug'  => $slug,
 			'colors' => array(
-				sprintf( 'var(--wp--preset--color--%s)', $from_slug ),
-				sprintf( 'var(--wp--preset--color--%s)', $to_slug ),
+				$from_color,
+				$to_color,
 			),
 		);
 	}

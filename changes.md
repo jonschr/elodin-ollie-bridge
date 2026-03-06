@@ -1,3 +1,16 @@
+## Version 0.6.2
+
+- Configured plugin updates via `plugin-update-checker` against the GitHub repository (`jonschr/elodin-ollie-bridge`).
+- Set update checks to target the `master` branch by default.
+- Updated branch allowlist behavior so the configured default branch is permitted without extra filter setup.
+- Fixed auto-generated gradients/duotones to use concrete theme palette color values instead of `var(--wp--preset--color--...)` references, preventing invalid preset output.
+
+## Version 0.6.1
+
+- Refactored the Nested Group Shortcut feature into standard plugin module locations (`inc/` + `assets/`) and removed its standalone plugin header so it no longer appears as a separate plugin entry.
+- Repositioned the Nested Group Shortcut toggle within the Editor settings list so it follows existing settings order.
+- Removed the Balanced Text toggle feature and related setting/module assets because equivalent functionality now exists in WordPress core.
+
 ## Version 0.6.0
 
 - Added a standalone, default-off Style Tweaks setting for default non-first heading spacing.
