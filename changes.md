@@ -1,3 +1,13 @@
+## Version 0.6.3
+
+- Added a new default-on `Patterns` settings category and checkerboard pattern toggle.
+- Added a checkerboard block pattern built from Cover, Columns, and inner Group blocks, matching saved block markup so it inserts cleanly in the editor.
+- Added per-instance checkerboard layout controls on the parent Cover block for local content width, section padding, and left/right width ratios.
+- Added checkerboard front-end and editor styling with runtime CSS-variable overrides so each inserted checkerboard instance can be configured independently.
+- Updated checkerboard section padding controls to use WordPress spacing-preset style values and a core-like editor experience for preset/custom spacing entry.
+- Updated the `Edit Site` admin-bar shortcut feature so the `Edit Site` menu appears anywhere the admin bar is shown, not just on the front end.
+- Tightened the Ollie palette-removal cleanup so it removes only persisted palette data and no longer deletes user-created gradient or duotone settings.
+
 ## Version 0.6.2
 
 - Configured plugin updates via `plugin-update-checker` against the GitHub repository (`jonschr/elodin-ollie-bridge`).

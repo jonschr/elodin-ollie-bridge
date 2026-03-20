@@ -1,0 +1,81 @@
+.checkerboard {
+	--local-content-width: var(--wp--style--global--wide-size);
+	--section-padding-horizontal: var(--wp--preset--spacing--x-large);
+	--section-padding-vertical: var(--wp--preset--spacing--x-large);
+	--width-ratio-left: 0.5;
+	--width-ratio-right: 0.5;
+	min-height: auto;
+}
+
+.checkerboard .wp-block-columns {
+	gap: 0;
+}
+
+.checkerboard .checkerboard__column {
+	display: flex;
+	margin: 0;
+}
+
+.checkerboard .checkerboard__cover-background {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.checkerboard .checkerboard__cover-background.wp-block-cover:not(.has-aspect-ratio) {
+	min-height: auto !important;
+}
+
+.checkerboard .checkerboard__cover-background .wp-block-cover__inner-container {
+	display: flex;
+	padding-top: var(--section-padding-vertical);
+	padding-bottom: var(--section-padding-vertical);
+}
+
+@media (max-width: 1400px) {
+	.checkerboard .checkerboard__cover-background .wp-block-cover__inner-container {
+		padding: var(--section-padding-vertical) var(--section-padding-horizontal);
+	}
+}
+
+.checkerboard .checkerboard__column:first-child {
+	min-width: calc(100% * var(--width-ratio-left)) !important;
+}
+
+.checkerboard .checkerboard__content-area {
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.checkerboard .checkerboard__column:first-child .checkerboard__cover-background .wp-block-cover__inner-container {
+	justify-content: flex-end;
+}
+
+@media (min-width: 1260px) {
+	.checkerboard .checkerboard__column:first-child .checkerboard__cover-background .wp-block-cover__inner-container {
+		padding-right: var(--section-padding-horizontal);
+	}
+}
+
+.checkerboard .checkerboard__column:first-child .checkerboard__content-area {
+	max-width: calc(var(--width-ratio-left) * 100vw - (100vw - var(--local-content-width)) / 2 - var(--section-padding-horizontal));
+}
+
+.checkerboard .checkerboard__column:last-child {
+	min-width: calc(100% * var(--width-ratio-right)) !important;
+}
+
+.checkerboard .checkerboard__column:last-child .checkerboard__cover-background .wp-block-cover__inner-container {
+	justify-content: flex-start;
+}
+
+@media (min-width: 1260px) {
+	.checkerboard .checkerboard__column:last-child .checkerboard__cover-background .wp-block-cover__inner-container {
+		padding-left: var(--section-padding-horizontal);
+	}
+}
+
+.checkerboard .checkerboard__column:last-child .checkerboard__content-area {
+	max-width: calc(var(--width-ratio-right) * 100vw - (100vw - var(--local-content-width)) / 2 - var(--section-padding-horizontal));
+}

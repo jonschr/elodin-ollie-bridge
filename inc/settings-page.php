@@ -1327,6 +1327,15 @@ function elodin_bridge_is_nested_group_shortcut_enabled() {
 }
 
 /**
+ * Check if the checkerboard pattern should be registered.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_checkerboard_pattern_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN, 1 );
+}
+
+/**
  * Check if Ollie Pro color palette overrides should be removed.
  *
  * @return bool
@@ -1494,6 +1503,16 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',

@@ -218,6 +218,7 @@ function elodin_bridge_render_admin_page() {
 	$remove_ollie_color_palettes_enabled = elodin_bridge_is_remove_ollie_color_palettes_enabled();
 	$child_theme_gradient_duotone_autogen_enabled = elodin_bridge_is_child_theme_gradient_duotone_autogen_enabled();
 	$nested_group_shortcut_enabled = elodin_bridge_is_nested_group_shortcut_enabled();
+	$checkerboard_pattern_enabled = elodin_bridge_is_checkerboard_pattern_enabled();
 	$ollie_pro_available = class_exists( 'olpo\\Helper' );
 	$block_edge_class_settings = elodin_bridge_get_block_edge_class_settings();
 	$block_edge_classes_enabled = elodin_bridge_is_block_edge_classes_enabled();

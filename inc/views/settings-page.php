@@ -14,6 +14,7 @@
 					<div class="elodin-bridge-admin__category-nav" role="tablist" aria-label="<?php esc_attr_e( 'Bridge settings categories', 'elodin-bridge' ); ?>">
 						<button type="button" class="elodin-bridge-admin__category-button is-active" data-bridge-category="editor" aria-pressed="true"><?php esc_html_e( 'Editor Tweaks', 'elodin-bridge' ); ?></button>
 						<button type="button" class="elodin-bridge-admin__category-button" data-bridge-category="style" aria-pressed="false"><?php esc_html_e( 'Style Tweaks', 'elodin-bridge' ); ?></button>
+						<button type="button" class="elodin-bridge-admin__category-button" data-bridge-category="patterns" aria-pressed="false"><?php esc_html_e( 'Patterns', 'elodin-bridge' ); ?></button>
 						<button type="button" class="elodin-bridge-admin__category-button" data-bridge-category="misc" aria-pressed="false"><?php esc_html_e( 'Miscellaneous', 'elodin-bridge' ); ?></button>
 					</div>
 				<div class="elodin-bridge-admin__toolbar-save">
@@ -323,7 +324,7 @@
 
 					<div class="elodin-bridge-admin__feature-body">
 						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Adds Styles, Navigation, Pages, Templates, and Patterns links under the core "Edit Site" toolbar item.', 'elodin-bridge' ); ?>
+							<?php esc_html_e( 'Makes sure the "Edit Site" admin bar item is available anywhere the admin bar is shown, and adds Styles, Navigation, Pages, Templates, and Patterns links beneath it.', 'elodin-bridge' ); ?>
 						</p>
 						<?php elodin_bridge_render_feature_video_trigger( 'edit_site_admin_bar_links' ); ?>
 					</div>
@@ -585,10 +586,42 @@
 				</div>
 			</div>
 
+			<div class="elodin-bridge-admin__card" data-bridge-category="patterns">
+				<div class="elodin-bridge-admin__feature <?php echo $checkerboard_pattern_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN ); ?>">
+						<input
+							type="hidden"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN ); ?>"
+							value="0"
+						/>
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN ); ?>"
+							value="1"
+							<?php checked( $checkerboard_pattern_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+							<span class="elodin-bridge-admin__toggle-thumb"></span>
+						</span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Register checkerboard pattern', 'elodin-bridge' ); ?></span>
+					</label>
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Adds a checkerboard cover pattern to the inserter. The parent Cover block exposes layout controls for content width, section padding, and left/right width ratios whenever it uses the checkerboard class.', 'elodin-bridge' ); ?>
+						</p>
+						<p class="elodin-bridge-admin__note">
+							<?php esc_html_e( 'Turning this off hides the inserter pattern, but existing checkerboard blocks keep their styling and editor controls.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
 					<div class="elodin-bridge-admin__card elodin-bridge-admin__card--wide" data-bridge-category="misc">
 						<div class="elodin-bridge-admin__feature <?php echo ! empty( $image_sizes_settings['enabled'] ) ? 'is-enabled' : ''; ?>">
 						<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-image-sizes-enabled">
-						<input
+							<input
 							type="hidden"
 							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_IMAGE_SIZES ); ?>[enabled]"
 							value="0"

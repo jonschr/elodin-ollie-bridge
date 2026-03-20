@@ -292,7 +292,7 @@ function elodin_bridge_filter_global_styles_variations_response( $response, $han
 add_filter( 'rest_request_after_callbacks', 'elodin_bridge_filter_global_styles_variations_response', 10, 3 );
 
 /**
- * Remove persisted global-styles color settings for the active stylesheet.
+ * Remove persisted global-styles palette settings for the active stylesheet.
  *
  * @return bool True when at least one post was updated.
  */
@@ -344,11 +344,23 @@ function elodin_bridge_remove_persisted_global_styles_color_settings() {
 			continue;
 		}
 
-		if ( ! isset( $decoded['settings']['color'] ) ) {
+		if (
+			! isset( $decoded['settings']['color'] ) ||
+			! is_array( $decoded['settings']['color'] ) ||
+			! array_key_exists( 'palette', $decoded['settings']['color'] )
+		) {
 			continue;
 		}
 
-		unset( $decoded['settings']['color'] );
+		unset( $decoded['settings']['color']['palette'] );
+		if ( empty( $decoded['settings']['color'] ) ) {
+			unset( $decoded['settings']['color'] );
+		}
+
+		if ( isset( $decoded['settings'] ) && is_array( $decoded['settings'] ) && empty( $decoded['settings'] ) ) {
+			unset( $decoded['settings'] );
+		}
+
 		wp_update_post(
 			array(
 				'ID'           => $post->ID,

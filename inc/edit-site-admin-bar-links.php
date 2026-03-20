@@ -14,13 +14,24 @@ function elodin_bridge_add_edit_site_admin_bar_links( $wp_admin_bar ) {
 		return;
 	}
 
-	if ( ! current_user_can( 'edit_theme_options' ) || is_admin() ) {
+	if ( ! current_user_can( 'edit_theme_options' ) ) {
 		return;
 	}
 
 	$edit_site_node = $wp_admin_bar->get_node( 'site-editor' );
 	if ( ! $edit_site_node ) {
-		return;
+		$wp_admin_bar->add_node(
+			array(
+				'id'    => 'site-editor',
+				'title' => __( 'Edit Site', 'elodin-bridge' ),
+				'href'  => admin_url( 'site-editor.php' ),
+			)
+		);
+
+		$edit_site_node = $wp_admin_bar->get_node( 'site-editor' );
+		if ( ! $edit_site_node ) {
+			return;
+		}
 	}
 
 	$sections = array(
