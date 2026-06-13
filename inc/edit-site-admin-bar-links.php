@@ -34,6 +34,8 @@ function elodin_bridge_add_edit_site_admin_bar_links( $wp_admin_bar ) {
 		}
 	}
 
+	$template_part_base_path = '/wp_template_part/' . get_stylesheet() . '//';
+
 	$sections = array(
 		'styles'     => array(
 			'title' => __( 'Styles', 'elodin-bridge' ),
@@ -51,9 +53,33 @@ function elodin_bridge_add_edit_site_admin_bar_links( $wp_admin_bar ) {
 			'title' => __( 'Templates', 'elodin-bridge' ),
 			'path'  => '/template',
 		),
+		'header'     => array(
+			'title'      => __( '- Header', 'elodin-bridge' ),
+			'path'       => $template_part_base_path . 'header',
+			'canvas'     => 'edit',
+			'focus_mode' => 'true',
+		),
+		'footer'     => array(
+			'title'      => __( '- Footer', 'elodin-bridge' ),
+			'path'       => $template_part_base_path . 'footer',
+			'canvas'     => 'edit',
+			'focus_mode' => 'true',
+		),
+		'menu-parts' => array(
+			'title'       => __( '- Menus', 'elodin-bridge' ),
+			'path'        => '/pattern',
+			'post_type'   => 'wp_template_part',
+			'category_id' => 'menu',
+		),
 		'patterns'   => array(
 			'title' => __( 'Patterns', 'elodin-bridge' ),
 			'path'  => '/pattern',
+		),
+		'my-patterns' => array(
+			'title'       => __( '- My Patterns', 'elodin-bridge' ),
+			'path'        => '/pattern',
+			'post_type'   => 'wp_block',
+			'category_id' => 'my-patterns',
 		),
 	);
 
@@ -64,8 +90,14 @@ function elodin_bridge_add_edit_site_admin_bar_links( $wp_admin_bar ) {
 				'id'     => 'elodin-bridge-site-editor-' . $section_key,
 				'title'  => $section['title'],
 				'href'   => add_query_arg(
-					array(
-						'p' => $section['path'],
+					array_filter(
+						array(
+							'p'          => $section['path'],
+							'postType'   => $section['post_type'] ?? null,
+							'categoryId' => $section['category_id'] ?? null,
+							'canvas'     => $section['canvas'] ?? null,
+							'focusMode'  => $section['focus_mode'] ?? null,
+						)
 					),
 					admin_url( 'site-editor.php' )
 				),

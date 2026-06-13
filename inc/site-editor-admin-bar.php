@@ -110,6 +110,7 @@ function elodin_bridge_enqueue_site_editor_admin_bar_assets( $hook_suffix ) {
 		body.js.site-editor-php #wpcontent,body.js.site-editor-php #wpfooter{margin-left:0!important;}
 		body.js.site-editor-php .edit-site .interface-interface-skeleton,body.js.site-editor-php .editor-editor-interface .edit-site-editor__editor-interface .interface-interface-skeleton{left:0!important;right:0!important;}
 		body.js.site-editor-php #wpbody{padding-top:var(--wp-admin--admin-bar--height,32px)!important;}
+		body.js.site-editor-php .edit-site-layout{height:calc(100% - 32px)!important;}
 		body.js.site-editor-php .edit-site{top:var(--wp-admin--admin-bar--height,32px)!important;height:calc(100vh - var(--wp-admin--admin-bar--height,32px))!important;}'
 	);
 

@@ -264,6 +264,36 @@
 			</div>
 
 			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
+				<div class="elodin-bridge-admin__feature <?php echo $editor_list_view_default_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT ); ?>">
+						<input
+							type="hidden"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT ); ?>"
+							value="0"
+						/>
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT ); ?>"
+							value="1"
+							<?php checked( $editor_list_view_default_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+							<span class="elodin-bridge-admin__toggle-thumb"></span>
+						</span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Default list view to open in the editor', 'elodin-bridge' ); ?></span>
+					</label>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Opens list view when the block editor loads. Users can still close it while editing.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="editor">
 				<div class="elodin-bridge-admin__feature has-requirement <?php echo $editor_show_template_default_enabled ? 'is-enabled' : ''; ?> <?php echo ! $editor_show_template_default_available ? 'is-unavailable' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_SHOW_TEMPLATE_DEFAULT ); ?>">
 						<input

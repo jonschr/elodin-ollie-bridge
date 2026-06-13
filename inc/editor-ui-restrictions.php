@@ -19,8 +19,9 @@ function elodin_bridge_enqueue_editor_ui_restrictions() {
 	$disable_fullscreen = elodin_bridge_is_editor_ui_restrictions_enabled();
 	$disable_publish_sidebar = elodin_bridge_is_editor_publish_sidebar_restriction_enabled();
 	$enable_show_template_default = elodin_bridge_is_editor_show_template_default_enabled();
+	$enable_list_view_default = elodin_bridge_is_editor_list_view_default_enabled();
 	$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
-	if ( ! $disable_fullscreen && ! $disable_publish_sidebar && ! $enable_show_template_default ) {
+	if ( ! $disable_fullscreen && ! $disable_publish_sidebar && ! $enable_show_template_default && ! $enable_list_view_default ) {
 		return;
 	}
 
@@ -40,6 +41,7 @@ function elodin_bridge_enqueue_editor_ui_restrictions() {
 				'disableFullscreen'     => $disable_fullscreen,
 				'disablePublishSidebar' => $disable_publish_sidebar,
 				'enableShowTemplateDefault' => $enable_show_template_default,
+				'enableListViewDefault' => $enable_list_view_default,
 				'isBlockTheme'          => $is_block_theme,
 			)
 		) . ';',
@@ -68,6 +70,53 @@ function elodin_bridge_enqueue_editor_ui_restrictions() {
 						const dispatchEditor = wp.data.dispatch( "core/editor" );
 						if ( dispatchEditor && typeof dispatchEditor.disablePublishSidebar === "function" ) {
 							dispatchEditor.disablePublishSidebar();
+						}
+					}
+
+					if ( config.enableListViewDefault ) {
+						const openListViewOnLoad = function() {
+							const editorStores = [
+								"core/edit-post",
+								"core/edit-site",
+								"core/edit-widgets",
+								"core/customize-widgets",
+							];
+
+							return editorStores.some( function( storeName ) {
+								let dispatchStore = null;
+								try {
+									dispatchStore = wp.data.dispatch( storeName );
+								} catch ( error ) {
+									return false;
+								}
+
+								if ( dispatchStore && typeof dispatchStore.setIsListViewOpened === "function" ) {
+									dispatchStore.setIsListViewOpened( true );
+									return true;
+								}
+
+								return false;
+							} );
+						};
+
+						if ( ! openListViewOnLoad() ) {
+							let listViewAttempts = 0;
+							let isOpeningListView = false;
+							const maxListViewAttempts = 200;
+							const unsubscribeListView = wp.data.subscribe( function() {
+								if ( isOpeningListView ) {
+									return;
+								}
+
+								listViewAttempts += 1;
+								isOpeningListView = true;
+								const didOpenListView = openListViewOnLoad();
+								isOpeningListView = false;
+
+								if ( didOpenListView || listViewAttempts >= maxListViewAttempts ) {
+									unsubscribeListView();
+								}
+							} );
 						}
 					}
 

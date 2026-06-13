@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.6.3
+	Version: 0.6.4
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,12 +27,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.6.3' );
+define( 'ELODIN_BRIDGE_VERSION', '0.6.4' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_PUBLISH_SIDEBAR_RESTRICTION', 'elodin_bridge_enable_editor_publish_sidebar_restriction' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_SHOW_TEMPLATE_DEFAULT', 'elodin_bridge_enable_editor_show_template_default' );
+define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT', 'elodin_bridge_enable_editor_list_view_default' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING', 'elodin_bridge_enable_media_library_infinite_scrolling' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SHORTCODES', 'elodin_bridge_enable_shortcodes' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS', 'elodin_bridge_enable_svg_uploads' );

@@ -1,3 +1,10 @@
+## Version 0.6.4
+
+- Added a default-on editor setting to open List View automatically when supported block editor screens load.
+- Added Header, Footer, Menus, and My Patterns shortcuts beneath the Edit Site admin-bar menu.
+- Updated Edit Site shortcut URL generation to support Site Editor canvas, focus mode, post type, and category filters.
+- Adjusted the Site Editor admin-bar layout fix so the editor layout height accounts for the visible admin bar.
+
 ## Version 0.6.3
 
 - Added a new default-on `Patterns` settings category and checkerboard pattern toggle.

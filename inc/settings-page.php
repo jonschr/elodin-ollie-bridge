@@ -1237,6 +1237,15 @@ function elodin_bridge_is_editor_show_template_default_enabled() {
 }
 
 /**
+ * Check if block editor list view should default to open.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_editor_list_view_default_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT, 1 );
+}
+
+/**
  * Check if media library infinite scrolling is enabled.
  *
  * @return bool
@@ -1423,6 +1432,16 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_SHOW_TEMPLATE_DEFAULT,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
