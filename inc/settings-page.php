@@ -435,7 +435,7 @@ function elodin_bridge_get_sticky_below_header_block_style_settings() {
 /**
  * Default values for scroll-hide element settings.
  *
- * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:int,show_threshold:int}>}
+ * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:string,show_threshold:string}>}
  */
 function elodin_bridge_get_scroll_hide_elements_defaults() {
 	return array(
@@ -448,7 +448,7 @@ function elodin_bridge_get_scroll_hide_elements_defaults() {
  * Sanitize one scroll-hide rule.
  *
  * @param mixed $row Raw rule.
- * @return array{selectors:string,threshold:int,show_threshold:int}|array{}
+ * @return array{selectors:string,threshold:string,show_threshold:string}|array{}
  */
 function elodin_bridge_sanitize_scroll_hide_rule( $row ) {
 	if ( ! is_array( $row ) ) {
@@ -460,15 +460,24 @@ function elodin_bridge_sanitize_scroll_hide_rule( $row ) {
 		return array();
 	}
 
-	$threshold = max( 0, absint( $row['threshold'] ?? 0 ) );
-	$show_threshold = array_key_exists( 'show_threshold', $row )
-		? max( 0, absint( $row['show_threshold'] ) )
-		: max( 0, $threshold - 50 );
+	$raw_threshold = trim( (string) ( $row['threshold'] ?? '' ) );
+	if ( '' !== $raw_threshold && is_numeric( $raw_threshold ) ) {
+		$raw_threshold .= 'px';
+	}
+
+	$threshold = elodin_bridge_sanitize_css_value( $raw_threshold, '0px' );
+
+	$raw_show_threshold = trim( (string) ( $row['show_threshold'] ?? '' ) );
+	if ( '' !== $raw_show_threshold && is_numeric( $raw_show_threshold ) ) {
+		$raw_show_threshold .= 'px';
+	}
+
+	$show_threshold = elodin_bridge_sanitize_css_value( $raw_show_threshold, '0px' );
 
 	return array(
 		'selectors'      => $selectors,
 		'threshold'      => $threshold,
-		'show_threshold' => min( $show_threshold, $threshold ),
+		'show_threshold' => $show_threshold,
 	);
 }
 
@@ -476,7 +485,7 @@ function elodin_bridge_sanitize_scroll_hide_rule( $row ) {
  * Sanitize scroll-hide element settings.
  *
  * @param mixed $value Raw setting value.
- * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:int,show_threshold:int}>}
+ * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:string,show_threshold:string}>}
  */
 function elodin_bridge_sanitize_scroll_hide_elements_settings( $value ) {
 	$defaults = elodin_bridge_get_scroll_hide_elements_defaults();
@@ -502,7 +511,7 @@ function elodin_bridge_sanitize_scroll_hide_elements_settings( $value ) {
 /**
  * Get normalized scroll-hide element settings.
  *
- * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:int,show_threshold:int}>}
+ * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:string,show_threshold:string}>}
  */
 function elodin_bridge_get_scroll_hide_elements_settings() {
 	$saved = get_option( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS, null );

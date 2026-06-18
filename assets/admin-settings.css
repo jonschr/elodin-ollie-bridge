@@ -715,6 +715,11 @@ body.elodin-bridge-admin--video-open {
 	color: #646970;
 }
 
+.elodin-bridge-admin__note--compact {
+	margin-top: 6px;
+	line-height: 1.45;
+}
+
 .elodin-bridge-admin__note--warning {
 	color: #8a2424;
 	background: #fcf0f1;
@@ -973,9 +978,51 @@ body.elodin-bridge-admin--video-open {
 	text-decoration: none;
 }
 
+.elodin-bridge-admin__sticky-controls {
+	display: grid;
+	gap: 14px;
+	margin-top: 16px;
+}
+
+.elodin-bridge-admin__setting-control {
+	display: grid;
+	gap: 7px;
+	margin: 0;
+}
+
+.elodin-bridge-admin__setting-control > span {
+	color: #2c3338;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+.elodin-bridge-admin__setting-control--full {
+	width: 100%;
+}
+
+.elodin-bridge-admin__code-input {
+	width: 100%;
+	max-width: none;
+	min-height: 38px;
+	padding: 7px 10px;
+	border-color: #c3c4c7;
+	border-radius: 6px;
+	background: #fff;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.elodin-bridge-admin__code-input:focus {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+	outline: none;
+}
+
 .elodin-bridge-admin__scroll-hide-builder {
 	display: grid;
-	gap: 12px;
+	gap: 10px;
 	margin-top: 16px;
 }
 
@@ -986,31 +1033,87 @@ body.elodin-bridge-admin--video-open {
 
 .elodin-bridge-admin__scroll-hide-row {
 	align-items: end;
-	background: #fff;
-	border: 1px solid #dcdcde;
-	border-radius: 6px;
+	background: #fbfbfc;
+	border: 1px solid #d9dfe5;
+	border-radius: 8px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
 	display: grid;
-	gap: 12px;
-	grid-template-columns: minmax(220px, 1fr) minmax(120px, 160px) minmax(120px, 180px) auto;
+	gap: 8px;
+	grid-template-columns: minmax(210px, 1fr) minmax(110px, 125px) minmax(145px, 160px) auto;
 	padding: 12px;
 }
 
 .elodin-bridge-admin__scroll-hide-field {
 	display: grid;
-	gap: 6px;
+	gap: 7px;
 	margin: 0;
 }
 
 .elodin-bridge-admin__scroll-hide-field > span {
-	color: #50575e;
+	color: #2c3338;
 	font-size: 12px;
-	font-weight: 600;
+	font-weight: 700;
+	line-height: 1.3;
+	white-space: nowrap;
 }
 
-.elodin-bridge-admin__scroll-hide-field .regular-text,
-.elodin-bridge-admin__scroll-hide-field .small-text {
+.elodin-bridge-admin__scroll-hide-field .regular-text {
+	min-height: 38px;
 	max-width: 100%;
+	padding: 7px 10px;
+	border-color: #c3c4c7;
+	border-radius: 6px;
+	background: #fff;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+	font-size: 13px;
+	line-height: 1.4;
 	width: 100%;
+}
+
+.elodin-bridge-admin__scroll-hide-field .regular-text:focus {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+	outline: none;
+}
+
+.elodin-bridge-admin__remove-scroll-hide-rule {
+	appearance: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 36px;
+	padding: 0 12px;
+	border: 1px solid #d0d7de;
+	border-radius: 6px;
+	background: #fff;
+	color: #8a2424;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.elodin-bridge-admin__remove-scroll-hide-rule:hover {
+	border-color: #d63638;
+	background: #fcf0f1;
+	color: #8a2424;
+}
+
+.elodin-bridge-admin__remove-scroll-hide-rule:focus-visible {
+	outline: 2px solid #d63638;
+	outline-offset: 1px;
+}
+
+.elodin-bridge-admin__add-scroll-hide-rule {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 38px;
+	width: 100%;
+	border-radius: 6px;
+	font-weight: 700;
+	text-transform: none;
 }
 
 @media (max-width: 782px) {
@@ -1028,6 +1131,14 @@ body.elodin-bridge-admin--video-open {
 
 	.elodin-bridge-admin__cards {
 		column-count: 1;
+	}
+
+	.elodin-bridge-admin__scroll-hide-row {
+		grid-template-columns: 1fr;
+	}
+
+	.elodin-bridge-admin__remove-scroll-hide-rule {
+		justify-self: start;
 	}
 
 	.elodin-bridge-admin__intro {

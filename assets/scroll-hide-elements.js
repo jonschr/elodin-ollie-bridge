@@ -8,6 +8,30 @@
 		return;
 	}
 
+	const resolveScrollDistance = function ( value ) {
+		const rawValue = String( value || '' ).trim();
+		const cssValue = rawValue === '' ? '0px' : rawValue;
+		const normalizedValue = /^-?\d+(\.\d+)?$/.test( cssValue )
+			? cssValue + 'px'
+			: cssValue;
+
+		if ( ! resolveScrollDistance.measureElement ) {
+			resolveScrollDistance.measureElement = document.createElement( 'div' );
+			resolveScrollDistance.measureElement.style.cssText =
+				'position:absolute;visibility:hidden;pointer-events:none;width:0;height:0;overflow:hidden;';
+			body.appendChild( resolveScrollDistance.measureElement );
+		}
+
+		resolveScrollDistance.measureElement.style.height = '0px';
+		resolveScrollDistance.measureElement.style.height = normalizedValue;
+
+		const pixels = Number.parseFloat(
+			window.getComputedStyle( resolveScrollDistance.measureElement ).height
+		);
+
+		return Number.isFinite( pixels ) ? Math.max( pixels, 0 ) : 0;
+	};
+
 	const entries = rules
 		.map( function ( rule ) {
 			const selectors = rule.selectors || '';
@@ -25,12 +49,9 @@
 
 			return {
 				elements,
-				threshold: Math.max( Number.parseInt( rule.threshold, 10 ) || 0, 0 ),
+				threshold: resolveScrollDistance( rule.threshold ),
 				isHidden: false,
-				showThreshold: Math.max(
-					Number.parseInt( rule.show_threshold, 10 ) || 0,
-					0
-				),
+				showThreshold: resolveScrollDistance( rule.show_threshold ),
 			};
 		} )
 		.filter( function ( entry ) {
