@@ -216,6 +216,11 @@ function elodin_bridge_render_admin_page() {
 	$edit_site_admin_bar_links_enabled = elodin_bridge_is_edit_site_admin_bar_links_enabled();
 	$site_editor_admin_bar_enabled = elodin_bridge_is_site_editor_admin_bar_enabled();
 	$mobile_fixed_background_repair_enabled = elodin_bridge_is_mobile_fixed_background_repair_enabled();
+	$sticky_below_header_block_style_settings = elodin_bridge_get_sticky_below_header_block_style_settings();
+	$sticky_below_header_block_style_enabled = elodin_bridge_is_sticky_below_header_block_style_enabled();
+	$scroll_hide_elements_settings = elodin_bridge_get_scroll_hide_elements_settings();
+	$scroll_hide_elements_enabled = elodin_bridge_is_scroll_hide_elements_enabled();
+	$scroll_hide_element_rows = array_values( $scroll_hide_elements_settings['rules'] );
 	$remove_ollie_color_palettes_enabled = elodin_bridge_is_remove_ollie_color_palettes_enabled();
 	$child_theme_gradient_duotone_autogen_enabled = elodin_bridge_is_child_theme_gradient_duotone_autogen_enabled();
 	$nested_group_shortcut_enabled = elodin_bridge_is_nested_group_shortcut_enabled();

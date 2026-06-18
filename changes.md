@@ -1,5 +1,9 @@
 ## Version 0.6.4
 
+- Added a default-on Style setting for a reusable `Sticky Below Header` block style that measures the active header and admin bar before positioning sticky blocks.
+- Added Sticky Below Header sub-settings for custom measured selectors and custom additional sticky offset spacing.
+- Added a default-off Style setting with repeatable selector/threshold rows for hiding elements after a configured scroll distance.
+- Added separate scroll-hide restore thresholds to prevent jitter when scrolling back up near a hide point.
 - Added a default-on editor setting to open List View automatically when supported block editor screens load.
 - Added Header, Footer, Menus, and My Patterns shortcuts beneath the Edit Site admin-bar menu.
 - Updated Edit Site shortcut URL generation to support Site Editor canvas, focus mode, post type, and category filters.

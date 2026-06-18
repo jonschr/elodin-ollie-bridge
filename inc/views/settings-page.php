@@ -202,6 +202,149 @@
 			</div>
 		</div>
 
+		<div class="elodin-bridge-admin__card" data-bridge-category="style">
+			<div class="elodin-bridge-admin__feature <?php echo $sticky_below_header_block_style_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[enabled]"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[enabled]"
+						value="1"
+						<?php checked( $sticky_below_header_block_style_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Sticky below header block style', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'Adds a reusable block style that sticks selected blocks below measured page chrome, with an additional spacing offset.', 'elodin-bridge' ); ?>
+					</p>
+					<label class="elodin-bridge-admin__field">
+						<span><?php esc_html_e( 'Measured selectors', 'elodin-bridge' ); ?></span>
+						<input
+							type="text"
+							class="regular-text code"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[selectors]"
+							value="<?php echo esc_attr( $sticky_below_header_block_style_settings['selectors'] ); ?>"
+							placeholder="header, #wpadminbar"
+						/>
+					</label>
+					<p class="elodin-bridge-admin__note">
+						<?php esc_html_e( 'Use a CSS selector list, such as header, #wpadminbar or .site-header, .announcement-bar. Matched element heights are added together; missing selectors contribute zero.', 'elodin-bridge' ); ?>
+					</p>
+					<label class="elodin-bridge-admin__field">
+						<span><?php esc_html_e( 'Additional sticky offset', 'elodin-bridge' ); ?></span>
+						<input
+							type="text"
+							class="regular-text code"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[offset]"
+							value="<?php echo esc_attr( $sticky_below_header_block_style_settings['offset'] ); ?>"
+							placeholder="var(--wp--preset--spacing--large, 3rem)"
+						/>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="elodin-bridge-admin__card elodin-bridge-admin__card--wide" data-bridge-category="style">
+			<div class="elodin-bridge-admin__feature <?php echo $scroll_hide_elements_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-scroll-hide-elements-enabled">
+					<input
+						type="hidden"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[enabled]"
+						value="0"
+					/>
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="elodin-bridge-scroll-hide-elements-enabled"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[enabled]"
+						value="1"
+						<?php checked( $scroll_hide_elements_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Hide elements on scroll', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'Collapses configured elements after the visitor scrolls beyond each rule threshold.', 'elodin-bridge' ); ?>
+					</p>
+					<div
+						class="elodin-bridge-admin__scroll-hide-builder"
+						data-next-index="<?php echo esc_attr( (string) count( $scroll_hide_element_rows ) ); ?>"
+					>
+						<div class="elodin-bridge-admin__scroll-hide-rules">
+							<?php foreach ( $scroll_hide_element_rows as $index => $rule ) : ?>
+								<div class="elodin-bridge-admin__scroll-hide-row">
+									<label class="elodin-bridge-admin__scroll-hide-field elodin-bridge-admin__scroll-hide-field--selectors">
+										<span><?php esc_html_e( 'Selectors', 'elodin-bridge' ); ?></span>
+										<input
+											type="text"
+											class="regular-text code"
+											name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[rules][<?php echo esc_attr( (string) $index ); ?>][selectors]"
+											value="<?php echo esc_attr( $rule['selectors'] ?? '' ); ?>"
+											placeholder=".site-header"
+										/>
+									</label>
+									<label class="elodin-bridge-admin__scroll-hide-field elodin-bridge-admin__scroll-hide-field--threshold">
+										<span><?php esc_html_e( 'Hide after px', 'elodin-bridge' ); ?></span>
+										<input
+											type="number"
+											class="small-text"
+											min="0"
+											step="1"
+											name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[rules][<?php echo esc_attr( (string) $index ); ?>][threshold]"
+											value="<?php echo esc_attr( isset( $rule['threshold'] ) ? (string) $rule['threshold'] : '0' ); ?>"
+										/>
+									</label>
+									<label class="elodin-bridge-admin__scroll-hide-field elodin-bridge-admin__scroll-hide-field--show-threshold">
+										<span><?php esc_html_e( 'Show again below px', 'elodin-bridge' ); ?></span>
+										<input
+											type="number"
+											class="small-text"
+											min="0"
+											step="1"
+											name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[rules][<?php echo esc_attr( (string) $index ); ?>][show_threshold]"
+											value="<?php echo esc_attr( isset( $rule['show_threshold'] ) ? (string) $rule['show_threshold'] : '0' ); ?>"
+										/>
+									</label>
+									<button type="button" class="button-link-delete elodin-bridge-admin__remove-scroll-hide-rule"><?php esc_html_e( 'Remove', 'elodin-bridge' ); ?></button>
+								</div>
+							<?php endforeach; ?>
+						</div>
+						<button type="button" class="button button-secondary elodin-bridge-admin__add-scroll-hide-rule"><?php esc_html_e( 'Add Hide Rule', 'elodin-bridge' ); ?></button>
+					</div>
+					<script type="text/template" id="elodin-bridge-scroll-hide-row-template">
+						<div class="elodin-bridge-admin__scroll-hide-row">
+							<label class="elodin-bridge-admin__scroll-hide-field elodin-bridge-admin__scroll-hide-field--selectors">
+								<span><?php esc_html_e( 'Selectors', 'elodin-bridge' ); ?></span>
+								<input type="text" class="regular-text code" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[rules][__INDEX__][selectors]" placeholder=".site-header" />
+							</label>
+							<label class="elodin-bridge-admin__scroll-hide-field elodin-bridge-admin__scroll-hide-field--threshold">
+								<span><?php esc_html_e( 'Hide after px', 'elodin-bridge' ); ?></span>
+								<input type="number" class="small-text" min="0" step="1" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[rules][__INDEX__][threshold]" value="0" />
+							</label>
+							<label class="elodin-bridge-admin__scroll-hide-field elodin-bridge-admin__scroll-hide-field--show-threshold">
+								<span><?php esc_html_e( 'Show again below px', 'elodin-bridge' ); ?></span>
+								<input type="number" class="small-text" min="0" step="1" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS ); ?>[rules][__INDEX__][show_threshold]" value="0" />
+							</label>
+							<button type="button" class="button-link-delete elodin-bridge-admin__remove-scroll-hide-rule"><?php esc_html_e( 'Remove', 'elodin-bridge' ); ?></button>
+						</div>
+					</script>
+				</div>
+			</div>
+		</div>
+
 				<div class="elodin-bridge-admin__card" data-bridge-category="editor">
 				<div class="elodin-bridge-admin__feature <?php echo $editor_ui_restrictions_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS ); ?>">

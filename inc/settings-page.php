@@ -358,6 +358,162 @@ function elodin_bridge_is_block_edge_classes_enabled() {
 }
 
 /**
+ * Default values for Sticky Below Header block style settings.
+ *
+ * @return array{enabled:int,selectors:string,offset:string}
+ */
+function elodin_bridge_get_sticky_below_header_block_style_defaults() {
+	return array(
+		'enabled'   => 1,
+		'selectors' => 'header, #wpadminbar',
+		'offset'    => 'var(--wp--preset--spacing--large, 3rem)',
+	);
+}
+
+/**
+ * Sanitize Sticky Below Header selector list.
+ *
+ * @param mixed $value Raw selector list.
+ * @param string $fallback Fallback selector list.
+ * @return string
+ */
+function elodin_bridge_sanitize_selector_list( $value, $fallback = 'header, #wpadminbar' ) {
+	$value = trim( wp_strip_all_tags( (string) $value ) );
+	if ( '' === $value ) {
+		return $fallback;
+	}
+
+	if ( false !== strpbrk( $value, ';{}\\' ) ) {
+		return $fallback;
+	}
+
+	if ( ! preg_match( '/^[a-zA-Z0-9_#.:\[\]=~|^$*(),>+\'" -]+$/', $value ) ) {
+		return $fallback;
+	}
+
+	return preg_replace( '/\s+/', ' ', $value );
+}
+
+/**
+ * Sanitize Sticky Below Header block style settings.
+ *
+ * @param mixed $value Raw setting value.
+ * @return array{enabled:int,selectors:string,offset:string}
+ */
+function elodin_bridge_sanitize_sticky_below_header_block_style_settings( $value ) {
+	$defaults = elodin_bridge_get_sticky_below_header_block_style_defaults();
+
+	if ( ! is_array( $value ) ) {
+		return array(
+			'enabled'   => elodin_bridge_sanitize_toggle( $value ),
+			'selectors' => $defaults['selectors'],
+			'offset'    => $defaults['offset'],
+		);
+	}
+
+	return array(
+		'enabled'   => elodin_bridge_sanitize_toggle( $value['enabled'] ?? $defaults['enabled'] ),
+		'selectors' => elodin_bridge_sanitize_selector_list( $value['selectors'] ?? $defaults['selectors'], $defaults['selectors'] ),
+		'offset'    => elodin_bridge_sanitize_css_value( $value['offset'] ?? $defaults['offset'], $defaults['offset'] ),
+	);
+}
+
+/**
+ * Get normalized Sticky Below Header block style settings.
+ *
+ * @return array{enabled:int,selectors:string,offset:string}
+ */
+function elodin_bridge_get_sticky_below_header_block_style_settings() {
+	$saved = get_option( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE, null );
+	if ( null === $saved || false === $saved ) {
+		return elodin_bridge_get_sticky_below_header_block_style_defaults();
+	}
+
+	return elodin_bridge_sanitize_sticky_below_header_block_style_settings( $saved );
+}
+
+/**
+ * Default values for scroll-hide element settings.
+ *
+ * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:int,show_threshold:int}>}
+ */
+function elodin_bridge_get_scroll_hide_elements_defaults() {
+	return array(
+		'enabled' => 0,
+		'rules'   => array(),
+	);
+}
+
+/**
+ * Sanitize one scroll-hide rule.
+ *
+ * @param mixed $row Raw rule.
+ * @return array{selectors:string,threshold:int,show_threshold:int}|array{}
+ */
+function elodin_bridge_sanitize_scroll_hide_rule( $row ) {
+	if ( ! is_array( $row ) ) {
+		return array();
+	}
+
+	$selectors = elodin_bridge_sanitize_selector_list( $row['selectors'] ?? '', '' );
+	if ( '' === $selectors ) {
+		return array();
+	}
+
+	$threshold = max( 0, absint( $row['threshold'] ?? 0 ) );
+	$show_threshold = array_key_exists( 'show_threshold', $row )
+		? max( 0, absint( $row['show_threshold'] ) )
+		: max( 0, $threshold - 50 );
+
+	return array(
+		'selectors'      => $selectors,
+		'threshold'      => $threshold,
+		'show_threshold' => min( $show_threshold, $threshold ),
+	);
+}
+
+/**
+ * Sanitize scroll-hide element settings.
+ *
+ * @param mixed $value Raw setting value.
+ * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:int,show_threshold:int}>}
+ */
+function elodin_bridge_sanitize_scroll_hide_elements_settings( $value ) {
+	$defaults = elodin_bridge_get_scroll_hide_elements_defaults();
+	$value = is_array( $value ) ? $value : array();
+	$raw_rules = isset( $value['rules'] ) && is_array( $value['rules'] ) ? $value['rules'] : $defaults['rules'];
+	$rules = array();
+
+	foreach ( $raw_rules as $raw_rule ) {
+		$rule = elodin_bridge_sanitize_scroll_hide_rule( $raw_rule );
+		if ( empty( $rule ) ) {
+			continue;
+		}
+
+		$rules[] = $rule;
+	}
+
+	return array(
+		'enabled' => elodin_bridge_sanitize_toggle( $value['enabled'] ?? $defaults['enabled'] ),
+		'rules'   => $rules,
+	);
+}
+
+/**
+ * Get normalized scroll-hide element settings.
+ *
+ * @return array{enabled:int,rules:array<int,array{selectors:string,threshold:int,show_threshold:int}>}
+ */
+function elodin_bridge_get_scroll_hide_elements_settings() {
+	$saved = get_option( ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS, null );
+	if ( null === $saved || false === $saved ) {
+		return elodin_bridge_get_scroll_hide_elements_defaults();
+	}
+
+	return elodin_bridge_sanitize_scroll_hide_elements_settings( $saved );
+}
+
+/**
  * Get spacing alias tokens and their expected theme.json slugs.
  *
  * @return array<int,array{token:string,label:string,source_slugs:array<int,string>}>
@@ -1327,6 +1483,26 @@ function elodin_bridge_is_mobile_fixed_background_repair_enabled() {
 }
 
 /**
+ * Check if the Sticky Below Header block style is enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_sticky_below_header_block_style_enabled() {
+	$settings = elodin_bridge_get_sticky_below_header_block_style_settings();
+	return ! empty( $settings['enabled'] );
+}
+
+/**
+ * Check if scroll-hide elements are enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_scroll_hide_elements_enabled() {
+	$settings = elodin_bridge_get_scroll_hide_elements_settings();
+	return ! empty( $settings['enabled'] );
+}
+
+/**
  * Check if the nested-group shortcut is enabled.
  *
  * @return bool
@@ -1566,6 +1742,24 @@ function elodin_bridge_register_settings() {
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
 			'default'           => 0,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE,
+		array(
+			'sanitize_callback' => 'elodin_bridge_sanitize_sticky_below_header_block_style_settings',
+			'default'           => elodin_bridge_get_sticky_below_header_block_style_defaults(),
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS,
+		array(
+			'sanitize_callback' => 'elodin_bridge_sanitize_scroll_hide_elements_settings',
+			'default'           => elodin_bridge_get_scroll_hide_elements_defaults(),
 		)
 	);
 

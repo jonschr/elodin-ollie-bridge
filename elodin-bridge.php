@@ -43,6 +43,8 @@ define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDIT_SITE_ADMIN_BAR_LINKS', 'elodin_bridge_
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR', 'elodin_bridge_enable_site_editor_admin_bar' );
 define( 'ELODIN_BRIDGE_OPTION_THEME_JSON_SOURCE_MODE', 'elodin_bridge_theme_json_source_mode' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR', 'elodin_bridge_enable_mobile_fixed_background_repair' );
+define( 'ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE', 'elodin_bridge_enable_sticky_below_header_block_style' );
+define( 'ELODIN_BRIDGE_OPTION_SCROLL_HIDE_ELEMENTS', 'elodin_bridge_scroll_hide_elements' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_REMOVE_OLLIE_COLOR_PALETTES', 'elodin_bridge_enable_remove_ollie_color_palettes' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_CHILD_THEME_GRADIENT_DUOTONE_AUTOGEN', 'elodin_bridge_enable_child_theme_gradient_duotone_autogen' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT', 'elodin_bridge_enable_nested_group_shortcut' );
@@ -63,6 +65,8 @@ require_once ELODIN_BRIDGE_DIR . '/inc/media-library-infinite-scrolling.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/shortcodes.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/svg-uploads.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/mobile-fixed-background-repair.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/sticky-below-header-block-style.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/scroll-hide-elements.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/ollie-color-palettes.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/auto-child-theme-gradient-duotones.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/generateblocks-boundary-highlights.php';

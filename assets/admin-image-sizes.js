@@ -50,19 +50,53 @@
 	}
 
 	const template = document.getElementById( 'elodin-bridge-image-size-row-template' );
-	if ( ! template ) {
-		return;
-	}
-
 	const builders = document.querySelectorAll( '.elodin-bridge-admin__image-size-builder' );
-	if ( ! builders.length ) {
+	if ( template && builders.length ) {
+		builders.forEach( ( builder ) => {
+			const tableBody = builder.querySelector( '.elodin-bridge-admin__custom-image-sizes' );
+			const addButton = builder.querySelector( '.elodin-bridge-admin__add-image-size' );
+			if ( ! tableBody || ! addButton ) {
+				return;
+			}
+
+			let nextIndex = parseInt( builder.getAttribute( 'data-next-index' ) || '0', 10 );
+			if ( Number.isNaN( nextIndex ) || nextIndex < 0 ) {
+				nextIndex = 0;
+			}
+
+			addButton.addEventListener( 'click', () => {
+				const html = template.innerHTML.split( '__INDEX__' ).join( String( nextIndex ) );
+				nextIndex += 1;
+				tableBody.insertAdjacentHTML( 'beforeend', html );
+				builder.setAttribute( 'data-next-index', String( nextIndex ) );
+				document.dispatchEvent( new CustomEvent( 'elodinBridgeSettingsChanged' ) );
+			} );
+
+			tableBody.addEventListener( 'click', ( event ) => {
+				const target = event.target;
+				if ( ! target || ! target.classList || ! target.classList.contains( 'elodin-bridge-admin__remove-image-size' ) ) {
+					return;
+				}
+
+				const row = target.closest( '.elodin-bridge-admin__image-size-row' );
+				if ( row ) {
+					row.remove();
+					document.dispatchEvent( new CustomEvent( 'elodinBridgeSettingsChanged' ) );
+				}
+			} );
+		} );
+	}
+
+	const scrollHideTemplate = document.getElementById( 'elodin-bridge-scroll-hide-row-template' );
+	const scrollHideBuilders = document.querySelectorAll( '.elodin-bridge-admin__scroll-hide-builder' );
+	if ( ! scrollHideTemplate || ! scrollHideBuilders.length ) {
 		return;
 	}
 
-	builders.forEach( ( builder ) => {
-		const tableBody = builder.querySelector( '.elodin-bridge-admin__custom-image-sizes' );
-		const addButton = builder.querySelector( '.elodin-bridge-admin__add-image-size' );
-		if ( ! tableBody || ! addButton ) {
+	scrollHideBuilders.forEach( ( builder ) => {
+		const rules = builder.querySelector( '.elodin-bridge-admin__scroll-hide-rules' );
+		const addButton = builder.querySelector( '.elodin-bridge-admin__add-scroll-hide-rule' );
+		if ( ! rules || ! addButton ) {
 			return;
 		}
 
@@ -72,20 +106,20 @@
 		}
 
 		addButton.addEventListener( 'click', () => {
-			const html = template.innerHTML.split( '__INDEX__' ).join( String( nextIndex ) );
+			const html = scrollHideTemplate.innerHTML.split( '__INDEX__' ).join( String( nextIndex ) );
 			nextIndex += 1;
-			tableBody.insertAdjacentHTML( 'beforeend', html );
+			rules.insertAdjacentHTML( 'beforeend', html );
 			builder.setAttribute( 'data-next-index', String( nextIndex ) );
 			document.dispatchEvent( new CustomEvent( 'elodinBridgeSettingsChanged' ) );
 		} );
 
-		tableBody.addEventListener( 'click', ( event ) => {
+		rules.addEventListener( 'click', ( event ) => {
 			const target = event.target;
-			if ( ! target || ! target.classList || ! target.classList.contains( 'elodin-bridge-admin__remove-image-size' ) ) {
+			if ( ! target || ! target.classList || ! target.classList.contains( 'elodin-bridge-admin__remove-scroll-hide-rule' ) ) {
 				return;
 			}
 
-			const row = target.closest( '.elodin-bridge-admin__image-size-row' );
+			const row = target.closest( '.elodin-bridge-admin__scroll-hide-row' );
 			if ( row ) {
 				row.remove();
 				document.dispatchEvent( new CustomEvent( 'elodinBridgeSettingsChanged' ) );
