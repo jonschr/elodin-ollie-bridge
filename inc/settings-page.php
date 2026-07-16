@@ -424,12 +424,89 @@ function elodin_bridge_sanitize_sticky_below_header_block_style_settings( $value
  * @return array{enabled:int,selectors:string,offset:string}
  */
 function elodin_bridge_get_sticky_below_header_block_style_settings() {
-	$saved = get_option( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE, null );
-	if ( null === $saved || false === $saved ) {
-		return elodin_bridge_get_sticky_below_header_block_style_defaults();
+	$settings = elodin_bridge_get_header_aware_positioning_settings();
+
+	return array(
+		'enabled'   => $settings['sticky']['enabled'],
+		'selectors' => $settings['selectors'],
+		'offset'    => $settings['sticky']['offset'],
+	);
+}
+
+/**
+ * Default values for shared header-aware positioning settings.
+ *
+ * @return array{selectors:string,sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ */
+function elodin_bridge_get_header_aware_positioning_defaults() {
+	return array(
+		'selectors'     => 'header, #wpadminbar',
+		'sticky'        => array(
+			'enabled' => 1,
+			'offset'  => 'var(--wp--preset--spacing--large, 3rem)',
+		),
+		'smooth_scroll' => array(
+			'enabled' => 0,
+			'offset'  => '0px',
+		),
+	);
+}
+
+/**
+ * Sanitize shared header-aware positioning settings.
+ *
+ * @param mixed $value Raw settings.
+ * @return array{selectors:string,sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ */
+function elodin_bridge_sanitize_header_aware_positioning_settings( $value ) {
+	$defaults = elodin_bridge_get_header_aware_positioning_defaults();
+	$value = is_array( $value ) ? $value : array();
+	$sticky = isset( $value['sticky'] ) && is_array( $value['sticky'] ) ? $value['sticky'] : array();
+	$smooth_scroll = isset( $value['smooth_scroll'] ) && is_array( $value['smooth_scroll'] ) ? $value['smooth_scroll'] : array();
+
+	return array(
+		'selectors'     => elodin_bridge_sanitize_selector_list( $value['selectors'] ?? $defaults['selectors'], $defaults['selectors'] ),
+		'sticky'        => array(
+			'enabled' => elodin_bridge_sanitize_toggle( $sticky['enabled'] ?? $defaults['sticky']['enabled'] ),
+			'offset'  => elodin_bridge_sanitize_css_value( $sticky['offset'] ?? $defaults['sticky']['offset'], $defaults['sticky']['offset'] ),
+		),
+		'smooth_scroll' => array(
+			'enabled' => elodin_bridge_sanitize_toggle( $smooth_scroll['enabled'] ?? $defaults['smooth_scroll']['enabled'] ),
+			'offset'  => elodin_bridge_sanitize_css_value( $smooth_scroll['offset'] ?? $defaults['smooth_scroll']['offset'], $defaults['smooth_scroll']['offset'] ),
+		),
+	);
+}
+
+/**
+ * Get normalized shared header-aware positioning settings.
+ *
+ * Existing sticky settings are used as a compatibility fallback until the
+ * combined setting is first saved.
+ *
+ * @return array{selectors:string,sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ */
+function elodin_bridge_get_header_aware_positioning_settings() {
+	$saved = get_option( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING, null );
+	if ( null !== $saved && false !== $saved ) {
+		return elodin_bridge_sanitize_header_aware_positioning_settings( $saved );
 	}
 
-	return elodin_bridge_sanitize_sticky_below_header_block_style_settings( $saved );
+	$legacy_saved = get_option( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE, null );
+	if ( null === $legacy_saved || false === $legacy_saved ) {
+		return elodin_bridge_get_header_aware_positioning_defaults();
+	}
+
+	$legacy = elodin_bridge_sanitize_sticky_below_header_block_style_settings( $legacy_saved );
+	$defaults = elodin_bridge_get_header_aware_positioning_defaults();
+
+	return array(
+		'selectors'     => $legacy['selectors'],
+		'sticky'        => array(
+			'enabled' => $legacy['enabled'],
+			'offset'  => $legacy['offset'],
+		),
+		'smooth_scroll' => $defaults['smooth_scroll'],
+	);
 }
 
 /**
@@ -1497,8 +1574,18 @@ function elodin_bridge_is_mobile_fixed_background_repair_enabled() {
  * @return bool
  */
 function elodin_bridge_is_sticky_below_header_block_style_enabled() {
-	$settings = elodin_bridge_get_sticky_below_header_block_style_settings();
-	return ! empty( $settings['enabled'] );
+	$settings = elodin_bridge_get_header_aware_positioning_settings();
+	return ! empty( $settings['sticky']['enabled'] );
+}
+
+/**
+ * Check if anchor smooth scrolling is enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_anchor_smooth_scroll_enabled() {
+	$settings = elodin_bridge_get_header_aware_positioning_settings();
+	return ! empty( $settings['smooth_scroll']['enabled'] );
 }
 
 /**
@@ -1760,6 +1847,16 @@ function elodin_bridge_register_settings() {
 		array(
 			'sanitize_callback' => 'elodin_bridge_sanitize_sticky_below_header_block_style_settings',
 			'default'           => elodin_bridge_get_sticky_below_header_block_style_defaults(),
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING,
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'elodin_bridge_sanitize_header_aware_positioning_settings',
+			'default'           => elodin_bridge_get_header_aware_positioning_defaults(),
 		)
 	);
 

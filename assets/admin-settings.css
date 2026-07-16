@@ -984,6 +984,27 @@ body.elodin-bridge-admin--video-open {
 	margin-top: 16px;
 }
 
+.elodin-bridge-admin__header-aware-features {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 12px;
+	margin-top: 18px;
+}
+
+.elodin-bridge-admin__header-aware-feature {
+	min-width: 0;
+	padding: 14px;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	background: #f9f9f9;
+}
+
+.elodin-bridge-admin__header-aware-feature .elodin-bridge-admin__feature-body {
+	display: grid;
+	gap: 10px;
+	margin-left: 42px;
+}
+
 .elodin-bridge-admin__setting-control {
 	display: grid;
 	gap: 7px;

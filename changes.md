@@ -1,3 +1,10 @@
+## Version 0.6.6
+
+- Added shared header-aware positioning settings that measure configured page-chrome selectors once for multiple frontend features.
+- Refactored the Sticky Below Header block style to consume the shared measured header height while retaining its independent additional offset.
+- Added optional anchor smooth scrolling with an independent anchor offset, initial hash correction, and reduced-motion support.
+- Grouped the shared selectors and feature-specific controls in one Header-aware Positioning settings card, with clearer spacing between descriptions and offset fields.
+
 ## Version 0.6.5
 
 - Added a default-on Style setting for a reusable `Sticky Below Header` block style that measures the active header and admin bar before positioning sticky blocks.

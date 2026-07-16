@@ -202,30 +202,14 @@
 			</div>
 		</div>
 
-		<div class="elodin-bridge-admin__card" data-bridge-category="style">
-			<div class="elodin-bridge-admin__feature <?php echo $sticky_below_header_block_style_enabled ? 'is-enabled' : ''; ?>">
-				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>">
-					<input
-						type="hidden"
-						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[enabled]"
-						value="0"
-					/>
-					<input
-						type="checkbox"
-						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>"
-						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[enabled]"
-						value="1"
-						<?php checked( $sticky_below_header_block_style_enabled ); ?>
-					/>
-					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-						<span class="elodin-bridge-admin__toggle-thumb"></span>
-					</span>
-					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Sticky below header block style', 'elodin-bridge' ); ?></span>
-				</label>
+		<div class="elodin-bridge-admin__card elodin-bridge-admin__card--wide" data-bridge-category="style">
+			<div class="elodin-bridge-admin__feature elodin-bridge-admin__header-aware-positioning">
+				<div class="elodin-bridge-admin__feature-heading-row">
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Header-aware positioning', 'elodin-bridge' ); ?></span>
+				</div>
 				<div class="elodin-bridge-admin__feature-body">
 					<p class="elodin-bridge-admin__description">
-						<?php esc_html_e( 'Adds a reusable block style that sticks selected blocks below measured page chrome, with an additional spacing offset.', 'elodin-bridge' ); ?>
+						<?php esc_html_e( 'Measures page chrome once and shares its live height with sticky positioning and anchor scrolling.', 'elodin-bridge' ); ?>
 					</p>
 					<div class="elodin-bridge-admin__sticky-controls">
 						<label class="elodin-bridge-admin__setting-control elodin-bridge-admin__setting-control--full">
@@ -233,24 +217,74 @@
 							<input
 								type="text"
 								class="regular-text code elodin-bridge-admin__code-input"
-								name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[selectors]"
-								value="<?php echo esc_attr( $sticky_below_header_block_style_settings['selectors'] ); ?>"
+								name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[selectors]"
+								value="<?php echo esc_attr( $header_aware_positioning_settings['selectors'] ); ?>"
 								placeholder="header, #wpadminbar"
 							/>
 						</label>
 						<p class="elodin-bridge-admin__note elodin-bridge-admin__note--compact">
 							<?php esc_html_e( 'Use a CSS selector list, such as header, #wpadminbar or .site-header, .announcement-bar. Matched element heights are added together; missing selectors contribute zero.', 'elodin-bridge' ); ?>
 						</p>
-						<label class="elodin-bridge-admin__setting-control elodin-bridge-admin__setting-control--full">
-							<span><?php esc_html_e( 'Additional sticky offset', 'elodin-bridge' ); ?></span>
-							<input
-								type="text"
-								class="regular-text code elodin-bridge-admin__code-input"
-								name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE ); ?>[offset]"
-								value="<?php echo esc_attr( $sticky_below_header_block_style_settings['offset'] ); ?>"
-								placeholder="var(--wp--preset--spacing--large, 3rem)"
-							/>
-						</label>
+					</div>
+
+					<div class="elodin-bridge-admin__header-aware-features">
+						<div class="elodin-bridge-admin__header-aware-feature <?php echo $sticky_below_header_block_style_enabled ? 'is-enabled' : ''; ?>">
+							<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-sticky-below-header-enabled">
+								<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[sticky][enabled]" value="0" />
+								<input
+									type="checkbox"
+									class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+									id="elodin-bridge-sticky-below-header-enabled"
+									name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[sticky][enabled]"
+									value="1"
+									<?php checked( $sticky_below_header_block_style_enabled ); ?>
+								/>
+								<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+								<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Sticky below header block style', 'elodin-bridge' ); ?></span>
+							</label>
+							<div class="elodin-bridge-admin__feature-body">
+								<p class="elodin-bridge-admin__description"><?php esc_html_e( 'Adds a reusable block style that keeps selected blocks below the measured page chrome.', 'elodin-bridge' ); ?></p>
+								<label class="elodin-bridge-admin__setting-control elodin-bridge-admin__setting-control--full">
+									<span><?php esc_html_e( 'Additional sticky offset', 'elodin-bridge' ); ?></span>
+									<input
+										type="text"
+										class="regular-text code elodin-bridge-admin__code-input"
+										name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[sticky][offset]"
+										value="<?php echo esc_attr( $header_aware_positioning_settings['sticky']['offset'] ); ?>"
+										placeholder="var(--wp--preset--spacing--large, 3rem)"
+									/>
+								</label>
+							</div>
+						</div>
+
+						<div class="elodin-bridge-admin__header-aware-feature <?php echo $anchor_smooth_scroll_enabled ? 'is-enabled' : ''; ?>">
+							<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-anchor-smooth-scroll-enabled">
+								<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[smooth_scroll][enabled]" value="0" />
+								<input
+									type="checkbox"
+									class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+									id="elodin-bridge-anchor-smooth-scroll-enabled"
+									name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[smooth_scroll][enabled]"
+									value="1"
+									<?php checked( $anchor_smooth_scroll_enabled ); ?>
+								/>
+								<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+								<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Anchor smooth scrolling', 'elodin-bridge' ); ?></span>
+							</label>
+							<div class="elodin-bridge-admin__feature-body">
+								<p class="elodin-bridge-admin__description"><?php esc_html_e( 'Smoothly scrolls to anchor targets while keeping them below the measured page chrome.', 'elodin-bridge' ); ?></p>
+								<label class="elodin-bridge-admin__setting-control elodin-bridge-admin__setting-control--full">
+									<span><?php esc_html_e( 'Additional anchor offset', 'elodin-bridge' ); ?></span>
+									<input
+										type="text"
+										class="regular-text code elodin-bridge-admin__code-input"
+										name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[smooth_scroll][offset]"
+										value="<?php echo esc_attr( $header_aware_positioning_settings['smooth_scroll']['offset'] ); ?>"
+										placeholder="0px"
+									/>
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

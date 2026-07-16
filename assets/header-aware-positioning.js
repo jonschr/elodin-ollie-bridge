@@ -1,14 +1,16 @@
 ( function () {
-	const config = window.elodinBridgeStickyBelowHeader || {};
+	'use strict';
+
+	const config = window.elodinBridgeHeaderAwarePositioning || {};
+	const root = document.documentElement;
 	const body = document.body;
 	const selectors = config.selectors || 'header, #wpadminbar';
-	const offset = config.offset || 'var(--wp--preset--spacing--large, 3rem)';
 	let animationFrame = null;
-	let currentOffsetHeight = null;
+	let currentHeight = null;
 	let measuredElements = [];
 	const pendingElementHeights = new Map();
 
-	if ( ! body ) {
+	if ( ! root || ! body ) {
 		return;
 	}
 
@@ -19,7 +21,9 @@
 	}
 
 	const getObservedHeight = function ( entry ) {
-		const borderBoxSize = entry.borderBoxSize && entry.borderBoxSize[ 0 ];
+		const borderBoxSize = Array.isArray( entry.borderBoxSize )
+			? entry.borderBoxSize[ 0 ]
+			: entry.borderBoxSize;
 
 		return Math.ceil(
 			borderBoxSize ? borderBoxSize.blockSize : entry.contentRect.height
@@ -38,26 +42,29 @@
 		}, 0 );
 	};
 
-	const setHeaderOffset = function ( offsetHeight ) {
-		animationFrame = null;
-
-		if ( offsetHeight === currentOffsetHeight ) {
+	const setHeaderHeight = function ( height ) {
+		if ( height === currentHeight ) {
 			return;
 		}
 
-		currentOffsetHeight = offsetHeight;
+		currentHeight = height;
+		const value = `${ height }px`;
 
-		const offsetHeightValue = `${ offsetHeight }px`;
+		root.style.setProperty( '--elodin-bridge-header-height', value );
+		body.style.setProperty( '--elodin-bridge-header-height', value );
+		document.dispatchEvent(
+			new CustomEvent( 'elodinBridgeHeaderHeightChange', {
+				detail: { height },
+			} )
+		);
+	};
 
-		body.style.setProperty( '--elodin-bridge-header-height', offsetHeightValue );
-		body.style.setProperty(
-			'--elodin-bridge-sticky-below-header-bonus-offset',
-			offset
-		);
-		body.style.setProperty(
-			'--elodin-bridge-sticky-below-header-offset',
-			`calc(${ offsetHeightValue } + ${ offset })`
-		);
+	const update = function () {
+		animationFrame = null;
+		const height = measureSelectedElementsHeight();
+
+		pendingElementHeights.clear();
+		setHeaderHeight( height );
 	};
 
 	const requestUpdate = function () {
@@ -65,15 +72,18 @@
 			return;
 		}
 
-		animationFrame = window.requestAnimationFrame( function () {
-			const elementsHeight = measureSelectedElementsHeight();
-
-			pendingElementHeights.clear();
-			setHeaderOffset( elementsHeight );
-		} );
+		animationFrame = window.requestAnimationFrame( update );
 	};
 
-	requestUpdate();
+	window.elodinBridgeHeaderOffset = {
+		getHeight: function () {
+			return currentHeight || 0;
+		},
+		refresh: requestUpdate,
+	};
+
+	// Establish the CSS contract before the browser performs initial hash navigation.
+	update();
 	window.addEventListener( 'load', requestUpdate, { once: true } );
 
 	if ( 'ResizeObserver' in window ) {
