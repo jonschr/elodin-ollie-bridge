@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.6.6
+	Version: 0.6.7
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.6.6' );
+define( 'ELODIN_BRIDGE_VERSION', '0.6.7' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );

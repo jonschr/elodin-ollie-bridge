@@ -1,3 +1,8 @@
+## Version 0.6.7
+
+- Completed heading and paragraph typography presets with omission resets so properties attached to the source element cannot leak through when it is made to appear as another type.
+- Preserved local block typography overrides, including class-based font-size and font-family presets and inline typography declarations.
+
 ## Version 0.6.6
 
 - Added shared header-aware positioning settings that measure configured page-chrome selectors once for multiple frontend features.

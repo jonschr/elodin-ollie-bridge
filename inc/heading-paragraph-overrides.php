@@ -88,6 +88,54 @@ function elodin_bridge_merge_theme_json_typography_layers( $layers ) {
 }
 
 /**
+ * Complete typography presets so source-element styles cannot leak through.
+ *
+ * A type override can be applied to any paragraph or heading element. When a
+ * typography property is used by one preset but omitted from another, the
+ * target preset must explicitly unset that property or a declaration attached
+ * to the source element (for example, h2 text-transform) will remain active.
+ *
+ * @param array<string,array<string,string>> $presets Typography presets.
+ * @return array<string,array<string,string>>
+ */
+function elodin_bridge_complete_heading_paragraph_typography_presets( $presets ) {
+	$managed_properties = array();
+
+	foreach ( $presets as $declarations ) {
+		if ( ! is_array( $declarations ) ) {
+			continue;
+		}
+
+		foreach ( $declarations as $property => $value ) {
+			$property = trim( (string) $property );
+			if ( '' !== $property ) {
+				$managed_properties[ $property ] = true;
+			}
+		}
+	}
+
+	if ( empty( $managed_properties ) ) {
+		return $presets;
+	}
+
+	foreach ( $presets as $class_name => $declarations ) {
+		if ( ! is_array( $declarations ) ) {
+			continue;
+		}
+
+		foreach ( $managed_properties as $property => $unused ) {
+			if ( ! array_key_exists( $property, $declarations ) ) {
+				$declarations[ $property ] = 'unset';
+			}
+		}
+
+		$presets[ $class_name ] = $declarations;
+	}
+
+	return $presets;
+}
+
+/**
  * Build class-based paragraph/heading typography presets from theme.json styles.
  *
  * @return array<string,array<string,string>>
@@ -196,7 +244,7 @@ function elodin_bridge_get_heading_paragraph_typography_presets() {
 		}
 	}
 
-	$cached_presets = $presets;
+	$cached_presets = elodin_bridge_complete_heading_paragraph_typography_presets( $presets );
 	return $cached_presets;
 }
 
@@ -279,8 +327,12 @@ function elodin_bridge_build_heading_paragraph_override_css() {
 		return '';
 	}
 
-	$css = ':where(p,h1,h2,h3,h4,h5,h6):where(.h1,.h2,.h3,.h4,.h5,.h6){margin-top:0;}';
-	$source_selector = ':where(p,h1,h2,h3,h4,h5,h6)';
+	$css                         = ':where(p,h1,h2,h3,h4,h5,h6):where(.h1,.h2,.h3,.h4,.h5,.h6){margin-top:0;}';
+	$source_selector             = ':where(p,h1,h2,h3,h4,h5,h6)';
+	$class_based_local_overrides = array(
+		'font-family' => '-font-family',
+		'font-size'   => '-font-size',
+	);
 
 	foreach ( $presets as $class_name => $declarations ) {
 		$class_name = sanitize_html_class( $class_name );
@@ -288,10 +340,20 @@ function elodin_bridge_build_heading_paragraph_override_css() {
 			continue;
 		}
 
-		$font_size_value = '';
-		if ( isset( $declarations['font-size'] ) ) {
-			$font_size_value = trim( (string) $declarations['font-size'] );
-			unset( $declarations['font-size'] );
+		$local_override_declarations = array();
+		foreach ( $class_based_local_overrides as $property => $class_fragment ) {
+			if ( ! isset( $declarations[ $property ] ) ) {
+				continue;
+			}
+
+			$value = trim( (string) $declarations[ $property ] );
+			unset( $declarations[ $property ] );
+			if ( '' !== $value ) {
+				$local_override_declarations[ $property ] = array(
+					'class_fragment' => $class_fragment,
+					'value'          => $value,
+				);
+			}
 		}
 
 		$css .= elodin_bridge_build_heading_paragraph_override_css_rule(
@@ -299,13 +361,15 @@ function elodin_bridge_build_heading_paragraph_override_css() {
 			$declarations
 		);
 
-		// Keep font-size as a default only: if a local block font-size class exists,
-		// do not force the preset class-size from this feature.
-		if ( '' !== $font_size_value ) {
+		// Font presets use classes rather than inline styles. Apply type values
+		// only when the block does not have the corresponding local preset class.
+		// Other local typography values serialize inline and naturally take
+		// precedence over these stylesheet declarations.
+		foreach ( $local_override_declarations as $property => $local_override ) {
 			$css .= elodin_bridge_build_heading_paragraph_override_css_rule(
-				$source_selector . '.' . $class_name . ':not([class*="-font-size"])',
+				$source_selector . '.' . $class_name . ':not([class*="' . $local_override['class_fragment'] . '"])',
 				array(
-					'font-size' => $font_size_value,
+					$property => $local_override['value'],
 				)
 			);
 		}
