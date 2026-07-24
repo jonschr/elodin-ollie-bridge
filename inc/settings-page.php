@@ -1841,22 +1841,18 @@ function elodin_bridge_register_settings() {
 		)
 	);
 
-	register_setting(
-		'elodin_bridge_settings',
-		ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE,
-		array(
-			'sanitize_callback' => 'elodin_bridge_sanitize_sticky_below_header_block_style_settings',
-			'default'           => elodin_bridge_get_sticky_below_header_block_style_defaults(),
-		)
-	);
-
+	/*
+	 * Do not register the retired sticky-only option or a default for the
+	 * combined option. The legacy option remains a read-only migration fallback,
+	 * while omitting the registered default ensures WordPress persists the first
+	 * combined submission even when it matches the plugin defaults.
+	 */
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING,
 		array(
 			'type'              => 'array',
 			'sanitize_callback' => 'elodin_bridge_sanitize_header_aware_positioning_settings',
-			'default'           => elodin_bridge_get_header_aware_positioning_defaults(),
 		)
 	);
 
