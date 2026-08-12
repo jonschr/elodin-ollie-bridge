@@ -115,62 +115,6 @@ function elodin_bridge_get_child_theme_color_palette_candidate() {
 }
 
 /**
- * Get child theme style-variation titles (theme scope only).
- *
- * @return array<int,string>
- */
-function elodin_bridge_get_child_theme_style_variation_titles() {
-	static $cache = null;
-	if ( null !== $cache ) {
-		return $cache;
-	}
-
-	$cache = array();
-	$styles_directory = trailingslashit( get_stylesheet_directory() ) . 'styles';
-	if ( ! is_dir( $styles_directory ) ) {
-		return $cache;
-	}
-
-	$seen = array();
-	$iterator = new RecursiveIteratorIterator(
-		new RecursiveDirectoryIterator( $styles_directory, FilesystemIterator::SKIP_DOTS )
-	);
-
-	foreach ( $iterator as $file ) {
-		if ( ! ( $file instanceof SplFileInfo ) || ! $file->isFile() ) {
-			continue;
-		}
-
-		if ( 'json' !== strtolower( (string) $file->getExtension() ) ) {
-			continue;
-		}
-
-		$decoded = wp_json_file_decode( $file->getPathname(), array( 'associative' => true ) );
-		if ( ! is_array( $decoded ) ) {
-			continue;
-		}
-
-		// Match core's "theme" scope behavior: style variations without blockTypes.
-		if ( isset( $decoded['blockTypes'] ) ) {
-			continue;
-		}
-
-		$title = sanitize_text_field( $decoded['title'] ?? '' );
-		if ( '' === $title ) {
-			$title = sanitize_text_field( $file->getBasename( '.json' ) );
-		}
-		if ( '' === $title || isset( $seen[ $title ] ) ) {
-			continue;
-		}
-
-		$cache[] = $title;
-		$seen[ $title ] = true;
-	}
-
-	return $cache;
-}
-
-/**
  * Enforce the child theme color palette at the theme.json theme layer.
  *
  * @param WP_Theme_JSON_Data $theme_json Theme JSON data object.

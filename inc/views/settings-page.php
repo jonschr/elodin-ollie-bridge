@@ -219,15 +219,63 @@
 								class="regular-text code elodin-bridge-admin__code-input"
 								name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[selectors]"
 								value="<?php echo esc_attr( $header_aware_positioning_settings['selectors'] ); ?>"
-								placeholder="header, #wpadminbar"
+								placeholder="*.site-header, #wpadminbar"
 							/>
 						</label>
 						<p class="elodin-bridge-admin__note elodin-bridge-admin__note--compact">
-							<?php esc_html_e( 'Use a CSS selector list, such as header, #wpadminbar or .site-header, .announcement-bar. Matched element heights are added together; missing selectors contribute zero.', 'elodin-bridge' ); ?>
+							<?php esc_html_e( 'Use a CSS selector list, such as *.site-header, #wpadminbar or .announcement-bar. Matched element heights are added together; missing selectors contribute zero.', 'elodin-bridge' ); ?>
 						</p>
 					</div>
 
 					<div class="elodin-bridge-admin__header-aware-features">
+						<div class="elodin-bridge-admin__header-aware-feature <?php echo $header_sizing_block_enabled ? 'is-enabled' : ''; ?>">
+							<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-header-sizing-block-enabled">
+								<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[header_sizing][enabled]" value="0" />
+								<input
+									type="checkbox"
+									class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+									id="elodin-bridge-header-sizing-block-enabled"
+									name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[header_sizing][enabled]"
+									value="1"
+									<?php checked( $header_sizing_block_enabled ); ?>
+								/>
+								<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+								<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Header sizing block', 'elodin-bridge' ); ?></span>
+							</label>
+							<div class="elodin-bridge-admin__feature-body">
+								<p class="elodin-bridge-admin__description"><?php esc_html_e( 'Adds a spacer block that matches the measured page chrome, excluding the WordPress admin bar.', 'elodin-bridge' ); ?></p>
+							</div>
+						</div>
+
+						<div class="elodin-bridge-admin__header-aware-feature <?php echo $header_fixed_position_enabled ? 'is-enabled' : ''; ?>">
+							<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-header-fixed-position-enabled">
+								<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[fixed_position][enabled]" value="0" />
+								<input
+									type="checkbox"
+									class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+									id="elodin-bridge-header-fixed-position-enabled"
+									name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[fixed_position][enabled]"
+									value="1"
+									<?php checked( $header_fixed_position_enabled ); ?>
+								/>
+								<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+								<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Force fixed positioning', 'elodin-bridge' ); ?></span>
+							</label>
+							<div class="elodin-bridge-admin__feature-body">
+								<p class="elodin-bridge-admin__description"><?php esc_html_e( 'Forces matching elements to use fixed positioning while retaining their existing placement rules.', 'elodin-bridge' ); ?></p>
+								<label class="elodin-bridge-admin__setting-control elodin-bridge-admin__setting-control--full">
+									<span><?php esc_html_e( 'Fixed selectors', 'elodin-bridge' ); ?></span>
+									<input
+										type="text"
+										class="regular-text code elodin-bridge-admin__code-input"
+										name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[fixed_position][selectors]"
+										value="<?php echo esc_attr( $header_aware_positioning_settings['fixed_position']['selectors'] ); ?>"
+										placeholder="*.site-header"
+									/>
+								</label>
+							</div>
+						</div>
+
 						<div class="elodin-bridge-admin__header-aware-feature <?php echo $sticky_below_header_block_style_enabled ? 'is-enabled' : ''; ?>">
 							<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-sticky-below-header-enabled">
 								<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[sticky][enabled]" value="0" />
@@ -314,6 +362,9 @@
 				<div class="elodin-bridge-admin__feature-body">
 					<p class="elodin-bridge-admin__description">
 						<?php esc_html_e( 'Collapses configured elements after the visitor scrolls beyond each rule threshold.', 'elodin-bridge' ); ?>
+					</p>
+					<p class="elodin-bridge-admin__note elodin-bridge-admin__note--compact">
+						<?php esc_html_e( '“Hide after” is the distance down the page where the element collapses. “Show again below” is the smaller distance where it returns as the visitor scrolls back up. Keep the values comfortably apart—for example, hide after 150px and show again below 50px—to avoid jitter near the boundary.', 'elodin-bridge' ); ?>
 					</p>
 					<div
 						class="elodin-bridge-admin__scroll-hide-builder"
@@ -659,7 +710,7 @@
 
 					<div class="elodin-bridge-admin__feature-body">
 						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Allows SVG files in the Media Library by registering the image/svg+xml MIME type.', 'elodin-bridge' ); ?>
+							<?php esc_html_e( 'Allows administrators to upload SVG files to the Media Library.', 'elodin-bridge' ); ?>
 						</p>
 					</div>
 				</div>

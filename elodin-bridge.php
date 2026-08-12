@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.6.7
+	Version: 0.6.8
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.6.7' );
+define( 'ELODIN_BRIDGE_VERSION', '0.6.8' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
@@ -41,7 +41,6 @@ define( 'ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS', 'elodi
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_GROUP_BORDER', 'elodin_bridge_enable_editor_group_border' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDIT_SITE_ADMIN_BAR_LINKS', 'elodin_bridge_enable_edit_site_admin_bar_links' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SITE_EDITOR_ADMIN_BAR', 'elodin_bridge_enable_site_editor_admin_bar' );
-define( 'ELODIN_BRIDGE_OPTION_THEME_JSON_SOURCE_MODE', 'elodin_bridge_theme_json_source_mode' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR', 'elodin_bridge_enable_mobile_fixed_background_repair' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_STICKY_BELOW_HEADER_BLOCK_STYLE', 'elodin_bridge_enable_sticky_below_header_block_style' );
 define( 'ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING', 'elodin_bridge_header_aware_positioning' );
@@ -52,8 +51,6 @@ define( 'ELODIN_BRIDGE_OPTION_ENABLE_NESTED_GROUP_SHORTCUT', 'elodin_bridge_enab
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN', 'elodin_bridge_enable_checkerboard_pattern' );
 define( 'ELODIN_BRIDGE_OPTION_BLOCK_EDGE_CLASSES', 'elodin_bridge_block_edge_classes' );
 define( 'ELODIN_BRIDGE_OPTION_IMAGE_SIZES', 'elodin_bridge_image_sizes' );
-define( 'ELODIN_BRIDGE_OPTION_SPACING_VARIABLES', 'elodin_bridge_spacing_variables' );
-define( 'ELODIN_BRIDGE_OPTION_FONT_SIZE_VARIABLES', 'elodin_bridge_font_size_variables' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_CSS_VARIABLE_AUTOWRAP', 'elodin_bridge_enable_css_variable_autowrap' );
 define( 'ELODIN_BRIDGE_UPDATE_REPOSITORY', 'https://github.com/jonschr/elodin-ollie-bridge' );
 define( 'ELODIN_BRIDGE_UPDATE_BRANCH', 'master' );
@@ -67,6 +64,7 @@ require_once ELODIN_BRIDGE_DIR . '/inc/shortcodes.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/svg-uploads.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/mobile-fixed-background-repair.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/header-aware-positioning.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/header-sizing-block.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/sticky-below-header-block-style.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/anchor-smooth-scroll.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/scroll-hide-elements.php';

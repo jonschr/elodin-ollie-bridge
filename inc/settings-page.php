@@ -11,27 +11,6 @@ function elodin_bridge_sanitize_toggle( $value ) {
 }
 
 /**
- * Build main settings page URL.
- *
- * @param string $anchor Optional hash anchor.
- * @return string
- */
-function elodin_bridge_get_settings_page_url( $anchor = '' ) {
-	$url = add_query_arg(
-		array(
-			'page' => 'elodin-bridge',
-		),
-		admin_url( 'themes.php' )
-	);
-
-	if ( '' !== $anchor ) {
-		$url .= '#' . rawurlencode( ltrim( (string) $anchor, '#' ) );
-	}
-
-	return $url;
-}
-
-/**
  * Sanitize a single CSS length/expression field used in settings.
  *
  * @param mixed  $value    Raw setting value.
@@ -365,7 +344,7 @@ function elodin_bridge_is_block_edge_classes_enabled() {
 function elodin_bridge_get_sticky_below_header_block_style_defaults() {
 	return array(
 		'enabled'   => 1,
-		'selectors' => 'header, #wpadminbar',
+		'selectors' => '*.site-header, #wpadminbar',
 		'offset'    => 'var(--wp--preset--spacing--large, 3rem)',
 	);
 }
@@ -377,7 +356,7 @@ function elodin_bridge_get_sticky_below_header_block_style_defaults() {
  * @param string $fallback Fallback selector list.
  * @return string
  */
-function elodin_bridge_sanitize_selector_list( $value, $fallback = 'header, #wpadminbar' ) {
+function elodin_bridge_sanitize_selector_list( $value, $fallback = '*.site-header, #wpadminbar' ) {
 	$value = trim( wp_strip_all_tags( (string) $value ) );
 	if ( '' === $value ) {
 		return $fallback;
@@ -419,28 +398,20 @@ function elodin_bridge_sanitize_sticky_below_header_block_style_settings( $value
 }
 
 /**
- * Get normalized Sticky Below Header block style settings.
- *
- * @return array{enabled:int,selectors:string,offset:string}
- */
-function elodin_bridge_get_sticky_below_header_block_style_settings() {
-	$settings = elodin_bridge_get_header_aware_positioning_settings();
-
-	return array(
-		'enabled'   => $settings['sticky']['enabled'],
-		'selectors' => $settings['selectors'],
-		'offset'    => $settings['sticky']['offset'],
-	);
-}
-
-/**
  * Default values for shared header-aware positioning settings.
  *
- * @return array{selectors:string,sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ * @return array{selectors:string,header_sizing:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
  */
 function elodin_bridge_get_header_aware_positioning_defaults() {
 	return array(
-		'selectors'     => 'header, #wpadminbar',
+		'selectors'     => '*.site-header, #wpadminbar',
+		'header_sizing' => array(
+			'enabled' => 1,
+		),
+		'fixed_position' => array(
+			'enabled'   => 0,
+			'selectors' => '*.site-header',
+		),
 		'sticky'        => array(
 			'enabled' => 1,
 			'offset'  => 'var(--wp--preset--spacing--large, 3rem)',
@@ -456,16 +427,25 @@ function elodin_bridge_get_header_aware_positioning_defaults() {
  * Sanitize shared header-aware positioning settings.
  *
  * @param mixed $value Raw settings.
- * @return array{selectors:string,sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ * @return array{selectors:string,header_sizing:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
  */
 function elodin_bridge_sanitize_header_aware_positioning_settings( $value ) {
 	$defaults = elodin_bridge_get_header_aware_positioning_defaults();
 	$value = is_array( $value ) ? $value : array();
+	$header_sizing = isset( $value['header_sizing'] ) && is_array( $value['header_sizing'] ) ? $value['header_sizing'] : array();
+	$fixed_position = isset( $value['fixed_position'] ) && is_array( $value['fixed_position'] ) ? $value['fixed_position'] : array();
 	$sticky = isset( $value['sticky'] ) && is_array( $value['sticky'] ) ? $value['sticky'] : array();
 	$smooth_scroll = isset( $value['smooth_scroll'] ) && is_array( $value['smooth_scroll'] ) ? $value['smooth_scroll'] : array();
 
 	return array(
 		'selectors'     => elodin_bridge_sanitize_selector_list( $value['selectors'] ?? $defaults['selectors'], $defaults['selectors'] ),
+		'header_sizing' => array(
+			'enabled' => elodin_bridge_sanitize_toggle( $header_sizing['enabled'] ?? $defaults['header_sizing']['enabled'] ),
+		),
+		'fixed_position' => array(
+			'enabled'   => elodin_bridge_sanitize_toggle( $fixed_position['enabled'] ?? $defaults['fixed_position']['enabled'] ),
+			'selectors' => elodin_bridge_sanitize_selector_list( $fixed_position['selectors'] ?? $defaults['fixed_position']['selectors'], $defaults['fixed_position']['selectors'] ),
+		),
 		'sticky'        => array(
 			'enabled' => elodin_bridge_sanitize_toggle( $sticky['enabled'] ?? $defaults['sticky']['enabled'] ),
 			'offset'  => elodin_bridge_sanitize_css_value( $sticky['offset'] ?? $defaults['sticky']['offset'], $defaults['sticky']['offset'] ),
@@ -483,7 +463,7 @@ function elodin_bridge_sanitize_header_aware_positioning_settings( $value ) {
  * Existing sticky settings are used as a compatibility fallback until the
  * combined setting is first saved.
  *
- * @return array{selectors:string,sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ * @return array{selectors:string,header_sizing:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
  */
 function elodin_bridge_get_header_aware_positioning_settings() {
 	$saved = get_option( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING, null );
@@ -501,6 +481,8 @@ function elodin_bridge_get_header_aware_positioning_settings() {
 
 	return array(
 		'selectors'     => $legacy['selectors'],
+		'header_sizing' => $defaults['header_sizing'],
+		'fixed_position' => $defaults['fixed_position'],
 		'sticky'        => array(
 			'enabled' => $legacy['enabled'],
 			'offset'  => $legacy['offset'],
@@ -692,21 +674,6 @@ function elodin_bridge_get_plugin_theme_defaults_path() {
 	}
 
 	return '';
-}
-
-/**
- * Sanitize the theme.json source mode setting.
- *
- * @param mixed $value Raw setting value.
- * @return string
- */
-function elodin_bridge_sanitize_theme_json_source_mode( $value ) {
-	$value = sanitize_key( (string) $value );
-	if ( 'plugin' === $value ) {
-		return 'plugin';
-	}
-
-	return 'theme';
 }
 
 /**
@@ -1336,92 +1303,12 @@ function elodin_bridge_get_font_size_variable_aliases() {
 }
 
 /**
- * Get default values for spacing variable settings.
- *
- * @return array{enabled:int}
- */
-function elodin_bridge_get_spacing_variables_defaults() {
-	return array(
-		'enabled' => 1,
-	);
-}
-
-/**
- * Sanitize spacing variable settings.
- *
- * @param mixed $value Raw setting value.
- * @return array{enabled:int}
- */
-function elodin_bridge_sanitize_spacing_variables_settings( $value ) {
-	$defaults = elodin_bridge_get_spacing_variables_defaults();
-	$value = is_array( $value ) ? $value : array();
-
-	return array(
-		'enabled' => elodin_bridge_sanitize_toggle( $value['enabled'] ?? $defaults['enabled'] ),
-	);
-}
-
-/**
- * Get normalized spacing variable settings.
- *
- * @return array{enabled:int}
- */
-function elodin_bridge_get_spacing_variables_settings() {
-	$saved = get_option( ELODIN_BRIDGE_OPTION_SPACING_VARIABLES, null );
-	if ( null === $saved || false === $saved ) {
-		return elodin_bridge_get_spacing_variables_defaults();
-	}
-
-	return elodin_bridge_sanitize_spacing_variables_settings( $saved );
-}
-
-/**
  * Check if spacing variables output is enabled.
  *
  * @return bool
  */
 function elodin_bridge_is_spacing_variables_enabled() {
 	return true;
-}
-
-/**
- * Get default values for font-size variable settings.
- *
- * @return array{enabled:int}
- */
-function elodin_bridge_get_font_size_variables_defaults() {
-	return array(
-		'enabled' => 1,
-	);
-}
-
-/**
- * Sanitize font-size variable settings.
- *
- * @param mixed $value Raw setting value.
- * @return array{enabled:int}
- */
-function elodin_bridge_sanitize_font_size_variables_settings( $value ) {
-	$defaults = elodin_bridge_get_font_size_variables_defaults();
-	$value = is_array( $value ) ? $value : array();
-
-	return array(
-		'enabled' => elodin_bridge_sanitize_toggle( $value['enabled'] ?? $defaults['enabled'] ),
-	);
-}
-
-/**
- * Get normalized font-size variable settings.
- *
- * @return array{enabled:int}
- */
-function elodin_bridge_get_font_size_variables_settings() {
-	$saved = get_option( ELODIN_BRIDGE_OPTION_FONT_SIZE_VARIABLES, null );
-	if ( null === $saved || false === $saved ) {
-		return elodin_bridge_get_font_size_variables_defaults();
-	}
-
-	return elodin_bridge_sanitize_font_size_variables_settings( $saved );
 }
 
 /**
@@ -1586,6 +1473,26 @@ function elodin_bridge_is_sticky_below_header_block_style_enabled() {
 function elodin_bridge_is_anchor_smooth_scroll_enabled() {
 	$settings = elodin_bridge_get_header_aware_positioning_settings();
 	return ! empty( $settings['smooth_scroll']['enabled'] );
+}
+
+/**
+ * Check if the Header Sizing block is enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_header_sizing_block_enabled() {
+	$settings = elodin_bridge_get_header_aware_positioning_settings();
+	return ! empty( $settings['header_sizing']['enabled'] );
+}
+
+/**
+ * Check if fixed positioning is enabled for configured elements.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_header_fixed_position_enabled() {
+	$settings = elodin_bridge_get_header_aware_positioning_settings();
+	return ! empty( $settings['fixed_position']['enabled'] );
 }
 
 /**

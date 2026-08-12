@@ -27,6 +27,26 @@
 	let lastSerializedState = '';
 	const actionAttribute = form.getAttribute( 'action' ) || '';
 	const saveEndpoint = actionAttribute ? new URL( actionAttribute, window.location.href ).toString() : window.location.href;
+	const isSelectorInput = ( input ) => ( input.getAttribute( 'name' ) || '' ).endsWith( '[selectors]' );
+	const validateSelectorInput = ( input ) => {
+		if ( ! isSelectorInput( input ) ) {
+			return true;
+		}
+
+		if ( ! input.value.trim() ) {
+			input.setCustomValidity( '' );
+			return true;
+		}
+
+		try {
+			document.querySelector( input.value );
+			input.setCustomValidity( '' );
+			return true;
+		} catch ( error ) {
+			input.setCustomValidity( 'Enter a valid CSS selector list.' );
+			return false;
+		}
+	};
 
 	const setStatus = ( state ) => {
 		statusElement.setAttribute( 'data-state', state );
@@ -83,6 +103,14 @@
 	const saveSettings = async () => {
 		if ( isSaving ) {
 			shouldSaveAgain = true;
+			return;
+		}
+
+		const invalidSelector = Array.from( form.querySelectorAll( 'input[name$="[selectors]"]' ) )
+			.find( ( input ) => ! validateSelectorInput( input ) );
+		if ( invalidSelector ) {
+			invalidSelector.reportValidity();
+			setStatus( 'error' );
 			return;
 		}
 
@@ -214,6 +242,11 @@
 		}
 
 		if ( 'checkbox' === target.type || 'radio' === target.type || 'hidden' === target.type ) {
+			return;
+		}
+
+		if ( ! validateSelectorInput( target ) ) {
+			setStatus( 'error' );
 			return;
 		}
 

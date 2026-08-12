@@ -1,3 +1,12 @@
+## Version 0.6.8
+
+- Added the default-on Header Sizing block, including an accurate editor placeholder and early, live frontend height measurement that excludes the WordPress admin bar.
+- Added optional fixed positioning for configured selectors with full container width, elevated stacking, and an `.is-scrolled` state that stays synchronized with live header sizing.
+- Updated default header selectors to `*.site-header`, added selector validation, and improved handling of hidden or dynamically resized header elements.
+- Improved the Hide Elements on Scroll settings layout and added guidance for separating hide and restore thresholds to prevent jitter.
+- Restricted SVG uploads to administrators and disabled network access while parsing SVG dimensions.
+- Removed unused legacy settings helpers, constants, and style-variation scanning code.
+
 ## Version 0.6.7
 
 - Completed heading and paragraph typography presets with omission resets so properties attached to the source element cannot leak through when it is made to appear as another type.

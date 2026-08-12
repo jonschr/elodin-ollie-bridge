@@ -8,9 +8,7 @@
  * @return array<string,string>
  */
 function elodin_bridge_allow_svg_uploads( $mime_types, $user ) {
-	unset( $user );
-
-	if ( ! elodin_bridge_is_svg_uploads_enabled() ) {
+	if ( ! elodin_bridge_is_svg_uploads_enabled() || ! user_can( $user, 'manage_options' ) ) {
 		return $mime_types;
 	}
 
@@ -33,7 +31,7 @@ add_filter( 'upload_mimes', 'elodin_bridge_allow_svg_uploads', 10, 2 );
 function elodin_bridge_svg_upload_check( $checked, $file, $filename, $mimes ) {
 	unset( $file );
 
-	if ( ! elodin_bridge_is_svg_uploads_enabled() ) {
+	if ( ! elodin_bridge_is_svg_uploads_enabled() || ! current_user_can( 'manage_options' ) ) {
 		return $checked;
 	}
 
@@ -97,7 +95,7 @@ function elodin_bridge_get_svg_dimensions( $svg_path ) {
 	}
 
 	$previous_libxml_state = libxml_use_internal_errors( true );
-	$svg = simplexml_load_string( $svg_content );
+	$svg = simplexml_load_string( $svg_content, SimpleXMLElement::class, LIBXML_NONET );
 	libxml_clear_errors();
 	libxml_use_internal_errors( $previous_libxml_state );
 
