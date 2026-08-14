@@ -210,6 +210,7 @@ function elodin_bridge_render_admin_page() {
 	$media_library_infinite_scrolling_enabled = elodin_bridge_is_media_library_infinite_scrolling_enabled();
 	$shortcodes_enabled = elodin_bridge_is_shortcodes_enabled();
 	$svg_uploads_enabled = elodin_bridge_is_svg_uploads_enabled();
+	$direct_cover_video_urls_enabled = elodin_bridge_is_direct_cover_video_urls_enabled();
 	$css_variable_autowrap_enabled = elodin_bridge_is_css_variable_autowrap_enabled();
 	$generateblocks_boundary_highlights_enabled = elodin_bridge_is_generateblocks_boundary_highlights_enabled();
 	$editor_group_border_enabled = elodin_bridge_is_editor_group_border_enabled();

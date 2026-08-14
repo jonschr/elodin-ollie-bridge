@@ -717,6 +717,36 @@
 			</div>
 
 			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
+				<div class="elodin-bridge-admin__feature <?php echo $direct_cover_video_urls_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS ); ?>">
+						<input
+							type="hidden"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS ); ?>"
+							value="0"
+						/>
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS ); ?>"
+							value="1"
+							<?php checked( $direct_cover_video_urls_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+							<span class="elodin-bridge-admin__toggle-thumb"></span>
+						</span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable direct MP4 video URLs', 'elodin-bridge' ); ?></span>
+					</label>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Allows public HTTP(S) MP4 links in Cover backgrounds and Ollie Pro button video modals via the YouTube URL field.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
 				<div class="elodin-bridge-admin__feature <?php echo $css_variable_autowrap_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_CSS_VARIABLE_AUTOWRAP ); ?>">
 						<input

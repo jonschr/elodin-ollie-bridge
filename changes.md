@@ -1,3 +1,7 @@
+## Version 0.6.9
+
+- Added a default-on miscellaneous option that accepts public direct MP4 URLs in core Cover backgrounds and Ollie Pro button video modals.
+
 ## Version 0.6.8
 
 - Added the default-on Header Sizing block, including an accurate editor placeholder and early, live frontend height measurement that excludes the WordPress admin bar.

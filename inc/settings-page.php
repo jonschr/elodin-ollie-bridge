@@ -1402,6 +1402,15 @@ function elodin_bridge_is_svg_uploads_enabled() {
 }
 
 /**
+ * Check if direct MP4 URLs are enabled for Cover backgrounds and button modals.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_direct_cover_video_urls_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS, 1 );
+}
+
+/**
  * Check if CSS variable token auto-wrap is enabled.
  *
  * @return bool
@@ -1651,6 +1660,16 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
