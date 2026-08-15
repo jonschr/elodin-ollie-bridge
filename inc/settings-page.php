@@ -1407,7 +1407,16 @@ function elodin_bridge_is_svg_uploads_enabled() {
  * @return bool
  */
 function elodin_bridge_is_direct_cover_video_urls_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS, 1 );
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS, 0 );
+}
+
+/**
+ * Check if video download deterrents are enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_video_download_deterrents_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_DISABLE_VIDEO_DOWNLOADS, 0 );
 }
 
 /**
@@ -1673,7 +1682,17 @@ function elodin_bridge_register_settings() {
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 1,
+			'default'           => 0,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_DISABLE_VIDEO_DOWNLOADS,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 0,
 		)
 	);
 

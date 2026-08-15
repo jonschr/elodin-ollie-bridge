@@ -1,3 +1,8 @@
+## Version 0.6.10
+
+- Changed the direct MP4 video URL option to default off.
+- Added a separate default-off option that discourages downloading direct video files from internal or external URLs in Cover backgrounds and Ollie Pro modals.
+
 ## Version 0.6.9
 
 - Added a default-on miscellaneous option that accepts public direct MP4 URLs in core Cover backgrounds and Ollie Pro button video modals.
