@@ -8,16 +8,77 @@
  * @return array<string,string>
  */
 function elodin_bridge_allow_svg_uploads( $mime_types, $user ) {
-	if ( ! elodin_bridge_is_svg_uploads_enabled() || ! user_can( $user, 'manage_options' ) ) {
+	$can_upload_svg = $user ? user_can( $user, 'manage_options' ) : current_user_can( 'manage_options' );
+
+	if ( ! elodin_bridge_is_svg_uploads_enabled() || ! $can_upload_svg ) {
 		return $mime_types;
 	}
 
 	$mime_types['svg'] = 'image/svg+xml';
-	$mime_types['svgz'] = 'image/svg+xml';
 
 	return $mime_types;
 }
 add_filter( 'upload_mimes', 'elodin_bridge_allow_svg_uploads', 10, 2 );
+
+/**
+ * Reject SVGs containing executable or externally loaded content.
+ *
+ * @param array<string,mixed> $file Uploaded file data.
+ * @return array<string,mixed>
+ */
+function elodin_bridge_validate_svg_upload( $file ) {
+	if (
+		! elodin_bridge_is_svg_uploads_enabled() ||
+		! current_user_can( 'manage_options' ) ||
+		'svg' !== strtolower( pathinfo( $file['name'] ?? '', PATHINFO_EXTENSION ) )
+	) {
+		return $file;
+	}
+
+	$contents = file_get_contents( $file['tmp_name'] ?? '' );
+	if ( false === $contents || preg_match( '/<!DOCTYPE|<!ENTITY/i', $contents ) ) {
+		$file['error'] = __( 'This SVG could not be safely read.', 'elodin-bridge' );
+		return $file;
+	}
+
+	$previous_libxml_state = libxml_use_internal_errors( true );
+	$document = new DOMDocument();
+	$loaded = $document->loadXML( $contents, LIBXML_NONET );
+	libxml_clear_errors();
+	libxml_use_internal_errors( $previous_libxml_state );
+
+	if ( ! $loaded || 'svg' !== strtolower( $document->documentElement->localName ?? '' ) ) {
+		$file['error'] = __( 'This file is not a valid SVG.', 'elodin-bridge' );
+		return $file;
+	}
+
+	$blocked_elements = array( 'script', 'style', 'foreignobject', 'iframe', 'object', 'embed', 'audio', 'video' );
+	foreach ( $document->getElementsByTagName( '*' ) as $element ) {
+		if ( in_array( strtolower( $element->localName ), $blocked_elements, true ) ) {
+			$file['error'] = __( 'This SVG contains unsafe content.', 'elodin-bridge' );
+			return $file;
+		}
+
+		foreach ( $element->attributes as $attribute ) {
+			$name = strtolower( $attribute->localName );
+			$value = trim( $attribute->value );
+			if (
+				'on' === substr( $name, 0, 2 ) ||
+				'style' === $name ||
+				( in_array( $name, array( 'href', 'src' ), true ) && '' !== $value && '#' !== $value[0] ) ||
+				preg_match( '/url\s*\(\s*(?![\'\"]?#)/i', $value ) ||
+				preg_match( '/(?:javascript|data|vbscript)\s*:/i', $value )
+			) {
+				$file['error'] = __( 'This SVG contains unsafe content.', 'elodin-bridge' );
+				return $file;
+			}
+		}
+	}
+
+	return $file;
+}
+add_filter( 'wp_handle_upload_prefilter', 'elodin_bridge_validate_svg_upload' );
+add_filter( 'wp_handle_sideload_prefilter', 'elodin_bridge_validate_svg_upload' );
 
 /**
  * Mirror SVG Support's upload check fallback when WordPress reports an empty type.
@@ -45,7 +106,7 @@ function elodin_bridge_svg_upload_check( $checked, $file, $filename, $mimes ) {
 	$proper_filename = $filename;
 
 	if (
-		( 'svg' === $ext || 'svgz' === $ext ) &&
+		'svg' === $ext &&
 		'image/svg+xml' === $type
 	) {
 		$checked = compact( 'ext', 'type', 'proper_filename' );

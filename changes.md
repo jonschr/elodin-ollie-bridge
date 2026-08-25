@@ -1,3 +1,9 @@
+## Version 0.6.11
+
+- Fixed administrator SVG uploads when WordPress does not pass a user to the MIME-type filter.
+- Added upload-time SVG validation that rejects executable, externally loaded, or malformed content.
+- Removed unsupported compressed SVG (`.svgz`) uploads.
+
 ## Version 0.6.10
 
 - Changed the direct MP4 video URL option to default off.
