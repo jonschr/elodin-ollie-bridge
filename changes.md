@@ -1,3 +1,8 @@
+## Version 0.6.12
+
+- Added a `Sticky Below Header — Flush` block style that keeps measured header clearance without the additional spacing offset.
+- Updated header-aware sticky positioning to exclude a sticky element's own height when it is also a configured measured element.
+
 ## Version 0.6.11
 
 - Fixed administrator SVG uploads when WordPress does not pass a user to the MIME-type filter.

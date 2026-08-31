@@ -1,7 +1,25 @@
-( function () {
+( function ( global ) {
 	'use strict';
 
-	const config = window.elodinBridgeHeaderAwarePositioning || {};
+	const bonusOffset = 'var(--elodin-bridge-sticky-below-header-bonus-offset,var(--wp--preset--spacing--large,3rem))';
+	const selfAwareOffsetProperty = '--elodin-bridge-sticky-below-header-self-aware-offset';
+	const stickySelector = '.is-style-sticky-below-header, .is-style-sticky-below-header-flush';
+
+	function getSelfAwareOffset( totalHeight, elementHeight, flush ) {
+		const headerHeight = Math.max( 0, totalHeight - elementHeight );
+		return flush ? `${ headerHeight }px` : `calc(${ headerHeight }px + ${ bonusOffset })`;
+	}
+
+	if ( 'object' === typeof module && module.exports ) {
+		module.exports = getSelfAwareOffset;
+	}
+
+	const { document } = global;
+	if ( ! document ) {
+		return;
+	}
+
+	const config = global.elodinBridgeHeaderAwarePositioning || {};
 	const root = document.documentElement;
 	const body = document.body;
 	const selectors = config.selectors || '*.site-header, #wpadminbar';
@@ -80,6 +98,22 @@
 	};
 
 	const setHeaderHeight = function ( height, sizingHeight ) {
+		measuredElements.forEach( function ( element ) {
+			if ( ! element.matches( stickySelector ) ) {
+				element.style.removeProperty( selfAwareOffsetProperty );
+				return;
+			}
+
+			element.style.setProperty(
+				selfAwareOffsetProperty,
+				getSelfAwareOffset(
+					height,
+					measureElementHeight( element ),
+					element.classList.contains( 'is-style-sticky-below-header-flush' )
+				)
+			);
+		} );
+
 		if ( currentHeight && height === currentHeight.height && sizingHeight === currentHeight.sizing ) {
 			return;
 		}
@@ -146,7 +180,7 @@
 		} );
 	};
 
-	window.elodinBridgeHeaderOffset = {
+	global.elodinBridgeHeaderOffset = {
 		getHeight: function () {
 			return currentHeight ? currentHeight.height : 0;
 		},
@@ -156,14 +190,14 @@
 	// Establish the CSS contract before the browser performs initial hash navigation.
 	update();
 	updateScrolledElements();
-	window.addEventListener( 'load', requestUpdate, { once: true } );
-	window.addEventListener( 'scroll', requestScrolledElementsUpdate, { passive: true } );
-	window.addEventListener( 'resize', function () {
+	global.addEventListener( 'load', requestUpdate, { once: true } );
+	global.addEventListener( 'scroll', requestScrolledElementsUpdate, { passive: true } );
+	global.addEventListener( 'resize', function () {
 		pendingElementHeights.clear();
 		requestUpdate();
 	}, { passive: true } );
 
-	if ( 'ResizeObserver' in window ) {
+	if ( 'ResizeObserver' in global ) {
 		const resizeObserver = new ResizeObserver( function ( entries ) {
 			entries.forEach( function ( entry ) {
 				pendingElementHeights.set( entry.target, getObservedHeight( entry ) );
@@ -176,4 +210,4 @@
 			resizeObserver.observe( element );
 		} );
 	}
-}() );
+} )( 'undefined' === typeof window ? globalThis : window );

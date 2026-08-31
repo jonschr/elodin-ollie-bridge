@@ -21,6 +21,14 @@ function elodin_bridge_register_sticky_below_header_block_style() {
 			'label' => __( 'Sticky Below Header', 'elodin-bridge' ),
 		)
 	);
+
+	register_block_style(
+		$block_names,
+		array(
+			'name'  => 'sticky-below-header-flush',
+			'label' => __( 'Sticky Below Header — Flush', 'elodin-bridge' ),
+		)
+	);
 }
 add_action( 'init', 'elodin_bridge_register_sticky_below_header_block_style' );
 
@@ -35,7 +43,7 @@ function elodin_bridge_enqueue_sticky_below_header_block_style_assets() {
 
 	$handle = 'elodin-bridge-sticky-below-header-block-style';
 	$css = sprintf(
-		':root{--elodin-bridge-sticky-below-header-bonus-offset:%1$s;--elodin-bridge-sticky-below-header-offset:calc(var(--elodin-bridge-header-height,0px) + var(--elodin-bridge-sticky-below-header-bonus-offset,var(--wp--preset--spacing--large,3rem)));}.is-style-sticky-below-header{position:sticky;top:var(--elodin-bridge-sticky-below-header-offset);z-index:2;}',
+		':root{--elodin-bridge-sticky-below-header-bonus-offset:%1$s;--elodin-bridge-sticky-below-header-offset:calc(var(--elodin-bridge-header-height,0px) + var(--elodin-bridge-sticky-below-header-bonus-offset,var(--wp--preset--spacing--large,3rem)));}.is-style-sticky-below-header,.is-style-sticky-below-header-flush{position:sticky;z-index:2;}.is-style-sticky-below-header{top:var(--elodin-bridge-sticky-below-header-self-aware-offset,var(--elodin-bridge-sticky-below-header-offset));}.is-style-sticky-below-header-flush{top:var(--elodin-bridge-sticky-below-header-self-aware-offset,var(--elodin-bridge-header-height,0px));}',
 		$settings['sticky']['offset']
 	);
 
