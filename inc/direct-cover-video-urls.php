@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Enable direct MP4 URLs in Cover backgrounds and Ollie Pro button modals.
+ * Enable direct MP4 URLs in Cover backgrounds.
  */
 function elodin_bridge_enqueue_direct_cover_video_urls() {
 	if ( ! elodin_bridge_is_direct_cover_video_urls_enabled() ) {
@@ -51,42 +51,48 @@ function elodin_bridge_is_direct_mp4_url( $url ) {
 }
 
 /**
- * Let Ollie Pro's button modal play a direct MP4 entered in its YouTube field.
+ * Let Ollie Pro video modals play a direct MP4 entered in their YouTube field.
  *
- * @param string $block_content Rendered block markup.
- * @param array  $block         Parsed block data.
+ * @param string        $block_content Rendered block markup.
+ * @param array         $block         Parsed block data.
+ * @param WP_Block|null $instance      Rendered block instance.
  * @return string
  */
-function elodin_bridge_render_direct_button_video_modal( $block_content, $block ) {
+function elodin_bridge_render_direct_video_modal( $block_content, $block, $instance = null ) {
+	$block_name = $block['blockName'] ?? '';
 	if (
-		! elodin_bridge_is_direct_cover_video_urls_enabled()
-		|| 'core/button' !== ( $block['blockName'] ?? '' )
-		|| ! function_exists( 'ollie_pro_video_modal_enqueue_assets' )
+		! elodin_bridge_is_direct_video_modal_urls_enabled()
+		|| ! function_exists( 'ollie_pro_video_modal_render_block' )
+		|| ! defined( 'OLLIE_PRO_VIDEO_MODAL_BLOCKS' )
+		|| ! in_array( $block_name, OLLIE_PRO_VIDEO_MODAL_BLOCKS, true )
 	) {
 		return $block_content;
 	}
 
-	$attributes = $block['attrs'] ?? array();
+	$attributes = $instance instanceof WP_Block ? $instance->attributes : ( $block['attrs'] ?? array() );
 	$video_url  = $attributes['ollieVideoUrl'] ?? '';
 
 	if ( 'youtube' !== ( $attributes['ollieVideoSource'] ?? 'youtube' ) || ! elodin_bridge_is_direct_mp4_url( $video_url ) ) {
 		return $block_content;
 	}
 
+	$ollie_block                             = $block;
+	$ollie_block['attrs']                    = $attributes;
+	$ollie_block['attrs']['ollieVideoModal'] = true;
+	$ollie_block['attrs']['ollieVideoUrl']   = 'https://www.youtube.com/watch?v=bridgeMp4';
+	$block_content                           = ollie_pro_video_modal_render_block( $block_content, $ollie_block );
+
 	$processor = new WP_HTML_Tag_Processor( $block_content );
-	if ( ! $processor->next_tag( 'a' ) ) {
+	if ( ! $processor->next_tag( array( 'class_name' => 'ollie-video-modal-trigger' ) ) ) {
 		return $block_content;
 	}
 
-	ollie_pro_video_modal_enqueue_assets();
-
-	$processor->add_class( 'ollie-video-modal-trigger' );
 	$processor->set_attribute( 'data-video-source', 'library' );
 	$processor->set_attribute( 'data-video-url', esc_url( trim( $video_url ) ) );
-	$video_autoplay = isset( $attributes['ollieVideoAutoplay'] ) ? (bool) $attributes['ollieVideoAutoplay'] : true;
-	$processor->set_attribute( 'data-video-autoplay', $video_autoplay ? 'true' : 'false' );
-	$processor->set_attribute( 'aria-label', __( 'Play video', 'elodin-bridge' ) );
+	$processor->remove_attribute( 'data-youtube-id' );
+	$processor->remove_attribute( 'data-video-start' );
+	$processor->remove_attribute( 'data-embed-url' );
 
 	return $processor->get_updated_html();
 }
-add_filter( 'render_block', 'elodin_bridge_render_direct_button_video_modal', 11, 2 );
+add_filter( 'render_block', 'elodin_bridge_render_direct_video_modal', 11, 3 );

@@ -211,6 +211,9 @@ function elodin_bridge_render_admin_page() {
 	$shortcodes_enabled = elodin_bridge_is_shortcodes_enabled();
 	$svg_uploads_enabled = elodin_bridge_is_svg_uploads_enabled();
 	$direct_cover_video_urls_enabled = elodin_bridge_is_direct_cover_video_urls_enabled();
+	$direct_video_modal_urls_enabled = elodin_bridge_is_direct_video_modal_urls_enabled();
+	$cover_youtube_controls_hidden = elodin_bridge_is_cover_youtube_controls_hidden();
+	$cover_youtube_video_cover_enabled = elodin_bridge_is_cover_youtube_video_cover_enabled();
 	$video_download_deterrents_enabled = elodin_bridge_is_video_download_deterrents_enabled();
 	$css_variable_autowrap_enabled = elodin_bridge_is_css_variable_autowrap_enabled();
 	$generateblocks_boundary_highlights_enabled = elodin_bridge_is_generateblocks_boundary_highlights_enabled();

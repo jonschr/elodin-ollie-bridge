@@ -735,12 +735,84 @@
 						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
 							<span class="elodin-bridge-admin__toggle-thumb"></span>
 						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable direct MP4 video URLs', 'elodin-bridge' ); ?></span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable direct MP4 URLs in Cover backgrounds', 'elodin-bridge' ); ?></span>
 					</label>
 
 					<div class="elodin-bridge-admin__feature-body">
 						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Allows public HTTP(S) MP4 links in Cover backgrounds and Ollie Pro button video modals via the YouTube URL field.', 'elodin-bridge' ); ?>
+							<?php esc_html_e( 'Allows public HTTP(S) MP4 links in Cover backgrounds.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
+				<div class="elodin-bridge-admin__feature <?php echo $direct_video_modal_urls_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS ); ?>">
+						<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS ); ?>" value="0" />
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS ); ?>"
+							value="1"
+							<?php checked( $direct_video_modal_urls_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable direct MP4 URLs in video modals', 'elodin-bridge' ); ?></span>
+					</label>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Allows public HTTP(S) MP4 links in Ollie Pro Video Modal YouTube URL fields.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
+				<div class="elodin-bridge-admin__feature <?php echo $cover_youtube_controls_hidden ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HIDE_COVER_YOUTUBE_CONTROLS ); ?>">
+						<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HIDE_COVER_YOUTUBE_CONTROLS ); ?>" value="0" />
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HIDE_COVER_YOUTUBE_CONTROLS ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HIDE_COVER_YOUTUBE_CONTROLS ); ?>"
+							value="1"
+							<?php checked( $cover_youtube_controls_hidden ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Hide YouTube controls in Cover backgrounds', 'elodin-bridge' ); ?></span>
+					</label>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Disables supported player controls, keyboard shortcuts, fullscreen controls, and annotations. YouTube may still show required branding or video information before playback.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
+				<div class="elodin-bridge-admin__feature <?php echo $cover_youtube_video_cover_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS ); ?>">
+						<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS ); ?>" value="0" />
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS ); ?>"
+							value="1"
+							<?php checked( $cover_youtube_video_cover_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Make YouTube videos fill Cover backgrounds', 'elodin-bridge' ); ?></span>
+					</label>
+
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Sizes YouTube players at 16:9 so the video fills the Cover block instead of adding letterbox bars.', 'elodin-bridge' ); ?>
 						</p>
 					</div>
 				</div>

@@ -1,3 +1,8 @@
+## Version 0.6.13
+
+- Added optional settings to hide supported YouTube controls and make YouTube videos cover Cover block backgrounds without viewport-based letterboxing.
+- Split direct MP4 URL support into separate default-off settings for Cover backgrounds and Ollie Pro video modals.
+
 ## Version 0.6.12
 
 - Added a `Sticky Below Header — Flush` block style that keeps measured header clearance without the additional spacing offset.

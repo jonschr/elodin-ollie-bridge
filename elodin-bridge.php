@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.6.12
+	Version: 0.6.13
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.6.12' );
+define( 'ELODIN_BRIDGE_VERSION', '0.6.13' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
@@ -38,6 +38,9 @@ define( 'ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING', 'elodin_
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SHORTCODES', 'elodin_bridge_enable_shortcodes' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS', 'elodin_bridge_enable_svg_uploads' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS', 'elodin_bridge_enable_direct_cover_video_urls' );
+define( 'ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS', 'elodin_bridge_enable_direct_video_modal_urls' );
+define( 'ELODIN_BRIDGE_OPTION_HIDE_COVER_YOUTUBE_CONTROLS', 'elodin_bridge_hide_cover_youtube_controls' );
+define( 'ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS', 'elodin_bridge_cover_youtube_videos' );
 define( 'ELODIN_BRIDGE_OPTION_DISABLE_VIDEO_DOWNLOADS', 'elodin_bridge_disable_video_downloads' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS', 'elodin_bridge_enable_generateblocks_boundary_highlights' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_GROUP_BORDER', 'elodin_bridge_enable_editor_group_border' );
@@ -65,6 +68,7 @@ require_once ELODIN_BRIDGE_DIR . '/inc/media-library-infinite-scrolling.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/shortcodes.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/svg-uploads.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/direct-cover-video-urls.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/cover-youtube-backgrounds.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/video-download-deterrents.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/mobile-fixed-background-repair.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/header-aware-positioning.php';

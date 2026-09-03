@@ -1402,12 +1402,39 @@ function elodin_bridge_is_svg_uploads_enabled() {
 }
 
 /**
- * Check if direct MP4 URLs are enabled for Cover backgrounds and button modals.
+ * Check if direct MP4 URLs are enabled for Cover backgrounds.
  *
  * @return bool
  */
 function elodin_bridge_is_direct_cover_video_urls_enabled() {
 	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS, 0 );
+}
+
+/**
+ * Check if direct MP4 URLs are enabled for Ollie Pro video modals.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_direct_video_modal_urls_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS, 0 );
+}
+
+/**
+ * Check if YouTube controls are hidden in Cover backgrounds.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_cover_youtube_controls_hidden() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_HIDE_COVER_YOUTUBE_CONTROLS, 0 );
+}
+
+/**
+ * Check if YouTube videos cover Cover backgrounds.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_cover_youtube_video_cover_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS, 0 );
 }
 
 /**
@@ -1679,6 +1706,36 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 0,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 0,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_HIDE_COVER_YOUTUBE_CONTROLS,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 0,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
