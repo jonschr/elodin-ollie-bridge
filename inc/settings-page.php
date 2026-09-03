@@ -1402,6 +1402,15 @@ function elodin_bridge_is_svg_uploads_enabled() {
 }
 
 /**
+ * Check if custom Cover minimum heights are enabled.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_cover_min_heights_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_COVER_MIN_HEIGHTS, 1 );
+}
+
+/**
  * Check if direct MP4 URLs are enabled for Cover backgrounds.
  *
  * @return bool
@@ -1453,15 +1462,6 @@ function elodin_bridge_is_video_download_deterrents_enabled() {
  */
 function elodin_bridge_is_css_variable_autowrap_enabled() {
 	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_CSS_VARIABLE_AUTOWRAP, 1 );
-}
-
-/**
- * Check if GenerateBlocks boundary highlights are enabled.
- *
- * @return bool
- */
-function elodin_bridge_is_generateblocks_boundary_highlights_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS, 0 );
 }
 
 /**
@@ -1705,6 +1705,16 @@ function elodin_bridge_register_settings() {
 
 	register_setting(
 		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_COVER_MIN_HEIGHTS,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS,
 		array(
 			'type'              => 'boolean',
@@ -1760,16 +1770,6 @@ function elodin_bridge_register_settings() {
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
 			'default'           => 1,
-		)
-	);
-
-	register_setting(
-		'elodin_bridge_settings',
-		ELODIN_BRIDGE_OPTION_ENABLE_GENERATEBLOCKS_BOUNDARY_HIGHLIGHTS,
-		array(
-			'type'              => 'boolean',
-			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 0,
 		)
 	);
 

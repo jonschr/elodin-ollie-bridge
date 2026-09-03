@@ -51,146 +51,8 @@ function elodin_bridge_enqueue_admin_assets( $hook_suffix ) {
 		);
 	}
 
-	$feature_video_script_path = ELODIN_BRIDGE_DIR . '/assets/admin-feature-videos.js';
-	$feature_video_script_url = ELODIN_BRIDGE_URL . 'assets/admin-feature-videos.js';
-	if ( file_exists( $feature_video_script_path ) ) {
-		wp_enqueue_script(
-			'elodin-bridge-admin-feature-videos',
-			$feature_video_script_url,
-			array(),
-			(string) filemtime( $feature_video_script_path ),
-			true
-		);
-	}
 }
 add_action( 'admin_enqueue_scripts', 'elodin_bridge_enqueue_admin_assets' );
-
-/**
- * Get the library of feature walkthrough videos for the Bridge settings UI.
- *
- * @return array<string,array{url:string,title:string,aspect_ratio?:string}>
- */
-function elodin_bridge_get_feature_videos() {
-	$videos = array(
-		'heading_paragraph_overrides' => array(
-			'url'          => 'https://www.loom.com/embed/7e19ac22e9eb4bf38fa53e37465edd53',
-			'title'        => __( 'Heading and paragraph style overrides walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
-		'edit_site_admin_bar_links' => array(
-			'url'          => 'https://www.loom.com/embed/547f756e6160489cb276ae7e9e6882ef',
-			'title'        => __( 'Edit Site admin bar shortcut links walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
-		'site_editor_admin_bar' => array(
-			'url'          => 'https://www.loom.com/embed/66392e10c52a4722888f67d1950f30a5',
-			'title'        => __( 'Show WP admin bar in Site Editor walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
-		'editor_group_border' => array(
-			'url'          => 'https://www.loom.com/embed/044ba4428a3848b7b47f1fc053e250d4',
-			'title'        => __( 'Core block boundary highlights walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
-		'editor_fullscreen_show_template' => array(
-			'url'          => 'https://www.loom.com/embed/6a5f02ab693c4eeb8eb6eeb7b23382fb',
-			'title'        => __( 'Editor fullscreen and Show template walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
-		'css_variable_autowrap' => array(
-			'url'          => 'https://www.loom.com/embed/4613c2bdd96c445fb795765fe181084d',
-			'title'        => __( 'Auto-wrap spacing/font variables walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
-		'remove_ollie_color_palettes' => array(
-			'url'          => 'https://www.loom.com/embed/d1e8c447d0e54ca6b2a3e1954e2fbe7d',
-			'title'        => __( 'Remove Ollie color palettes walkthrough', 'elodin-bridge' ),
-			'aspect_ratio' => '16:9',
-		),
-	);
-
-	/**
-	 * Filter the feature video library used in the Bridge settings UI.
-	 *
-	 * @param array<string,array{url:string,title:string,aspect_ratio?:string}> $videos Feature video map.
-	 */
-	return apply_filters( 'elodin_bridge_feature_videos', $videos );
-}
-
-/**
- * Get normalized feature video data for a specific settings feature key.
- *
- * @param string $feature_key Feature key.
- * @return array{url:string,title:string,aspect_ratio:string}
- */
-function elodin_bridge_get_feature_video( $feature_key ) {
-	$feature_key = sanitize_key( (string) $feature_key );
-	if ( '' === $feature_key ) {
-		return array();
-	}
-
-	$videos = elodin_bridge_get_feature_videos();
-	if ( ! isset( $videos[ $feature_key ] ) || ! is_array( $videos[ $feature_key ] ) ) {
-		return array();
-	}
-
-	$video = $videos[ $feature_key ];
-	$url = esc_url_raw( (string) ( $video['url'] ?? '' ) );
-	if ( '' === $url ) {
-		return array();
-	}
-
-	$title = sanitize_text_field( (string) ( $video['title'] ?? __( 'Feature walkthrough', 'elodin-bridge' ) ) );
-	if ( '' === $title ) {
-		$title = __( 'Feature walkthrough', 'elodin-bridge' );
-	}
-
-	$aspect_ratio = (string) ( $video['aspect_ratio'] ?? '16:9' );
-	if ( ! preg_match( '/^\s*\d+\s*[:\/]\s*\d+\s*$/', $aspect_ratio ) ) {
-		$aspect_ratio = '16:9';
-	}
-	$aspect_ratio = preg_replace( '/\s+/', '', $aspect_ratio );
-	if ( ! is_string( $aspect_ratio ) || '' === $aspect_ratio ) {
-		$aspect_ratio = '16:9';
-	}
-
-	return array(
-		'url'          => $url,
-		'title'        => $title,
-		'aspect_ratio' => (string) $aspect_ratio,
-	);
-}
-
-/**
- * Render a reusable "Learn about this feature" video trigger button.
- *
- * @param string $feature_key Feature key in the video map.
- */
-function elodin_bridge_render_feature_video_trigger( $feature_key ) {
-	$video = elodin_bridge_get_feature_video( $feature_key );
-	if ( empty( $video['url'] ) ) {
-		return;
-	}
-	?>
-	<div class="elodin-bridge-admin__feature-actions">
-		<button
-			type="button"
-			class="elodin-bridge-admin__learn-link"
-			data-elodin-video-open
-			data-elodin-video-url="<?php echo esc_url( $video['url'] ); ?>"
-			data-elodin-video-title="<?php echo esc_attr( $video['title'] ); ?>"
-			data-elodin-video-aspect-ratio="<?php echo esc_attr( $video['aspect_ratio'] ); ?>"
-		>
-			<span class="elodin-bridge-admin__learn-link-icon elodin-bridge-admin__learn-link-icon--play" aria-hidden="true">
-				<svg viewBox="0 0 12 12" role="presentation" focusable="false" aria-hidden="true">
-					<path d="M3 2.2v7.6L9 6 3 2.2z"></path>
-				</svg>
-			</span>
-			<?php esc_html_e( 'See this in action', 'elodin-bridge' ); ?>
-		</button>
-	</div>
-	<?php
-}
 
 /**
  * Render the Ollie Bridge admin page under Appearance.
@@ -202,7 +64,6 @@ function elodin_bridge_render_admin_page() {
 
 	$heading_paragraph_overrides_enabled = elodin_bridge_is_heading_paragraph_overrides_enabled();
 	$heading_non_first_margin_top_enabled = elodin_bridge_is_heading_non_first_margin_top_enabled();
-	$generateblocks_available = elodin_bridge_is_generateblocks_available();
 	$editor_ui_restrictions_enabled = elodin_bridge_is_editor_ui_restrictions_enabled();
 	$editor_publish_sidebar_restriction_enabled = elodin_bridge_is_editor_publish_sidebar_restriction_enabled();
 	$editor_show_template_default_enabled = elodin_bridge_is_editor_show_template_default_enabled();
@@ -210,13 +71,13 @@ function elodin_bridge_render_admin_page() {
 	$media_library_infinite_scrolling_enabled = elodin_bridge_is_media_library_infinite_scrolling_enabled();
 	$shortcodes_enabled = elodin_bridge_is_shortcodes_enabled();
 	$svg_uploads_enabled = elodin_bridge_is_svg_uploads_enabled();
+	$cover_min_heights_enabled = elodin_bridge_is_cover_min_heights_enabled();
 	$direct_cover_video_urls_enabled = elodin_bridge_is_direct_cover_video_urls_enabled();
 	$direct_video_modal_urls_enabled = elodin_bridge_is_direct_video_modal_urls_enabled();
 	$cover_youtube_controls_hidden = elodin_bridge_is_cover_youtube_controls_hidden();
 	$cover_youtube_video_cover_enabled = elodin_bridge_is_cover_youtube_video_cover_enabled();
 	$video_download_deterrents_enabled = elodin_bridge_is_video_download_deterrents_enabled();
 	$css_variable_autowrap_enabled = elodin_bridge_is_css_variable_autowrap_enabled();
-	$generateblocks_boundary_highlights_enabled = elodin_bridge_is_generateblocks_boundary_highlights_enabled();
 	$editor_group_border_enabled = elodin_bridge_is_editor_group_border_enabled();
 	$edit_site_admin_bar_links_enabled = elodin_bridge_is_edit_site_admin_bar_links_enabled();
 	$site_editor_admin_bar_enabled = elodin_bridge_is_site_editor_admin_bar_enabled();

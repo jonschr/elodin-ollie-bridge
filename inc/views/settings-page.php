@@ -163,6 +163,31 @@
 		</div>
 
 		<div class="elodin-bridge-admin__card" data-bridge-category="style">
+			<div class="elodin-bridge-admin__feature <?php echo $cover_min_heights_enabled ? 'is-enabled' : ''; ?>">
+				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_COVER_MIN_HEIGHTS ); ?>">
+					<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_COVER_MIN_HEIGHTS ); ?>" value="0" />
+					<input
+						type="checkbox"
+						class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+						id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_COVER_MIN_HEIGHTS ); ?>"
+						name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_COVER_MIN_HEIGHTS ); ?>"
+						value="1"
+						<?php checked( $cover_min_heights_enabled ); ?>
+					/>
+					<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
+						<span class="elodin-bridge-admin__toggle-thumb"></span>
+					</span>
+					<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Respect custom Cover minimum heights', 'elodin-bridge' ); ?></span>
+				</label>
+				<div class="elodin-bridge-admin__feature-body">
+					<p class="elodin-bridge-admin__description">
+						<?php esc_html_e( 'Allows Cover minimum heights from 0px upward and makes each saved value override the WordPress and Ollie 430px default, including on mobile.', 'elodin-bridge' ); ?>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="elodin-bridge-admin__card" data-bridge-category="style">
 			<div class="elodin-bridge-admin__feature <?php echo $mobile_fixed_background_repair_enabled ? 'is-enabled' : ''; ?>">
 				<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MOBILE_FIXED_BACKGROUND_REPAIR ); ?>">
 					<input
