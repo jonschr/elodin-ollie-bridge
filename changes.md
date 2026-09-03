@@ -1,3 +1,11 @@
+## Version 0.7
+
+- Added a default-on setting that allows Cover minimum heights from 0px upward and ensures saved values override WordPress and Ollie defaults on the front end.
+- Moved the Nested Group Shortcut setting to the Patterns category.
+- Removed the GenerateBlocks boundary highlights setting and its editor styles.
+- Removed settings-page walkthrough buttons, video modal support, and requirement/status tags.
+- Shortened the missing gradients and duotones setting label.
+
 ## Version 0.6.13
 
 - Added optional settings to hide supported YouTube controls and make YouTube videos cover Cover block backgrounds without viewport-based letterboxing.
