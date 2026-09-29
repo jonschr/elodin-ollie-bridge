@@ -1,3 +1,7 @@
+## Version 0.7.1
+
+- Fixed update checks by loading the bundled Plugin Update Checker 5.6 factory and reading static JSON release metadata instead of the GitHub API.
+
 ## Version 0.7
 
 - Added a default-on setting that allows Cover minimum heights from 0px upward and ensures saved values override WordPress and Ollie defaults on the front end.

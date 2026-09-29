@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.7
+	Version: 0.7.1
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.7' );
+define( 'ELODIN_BRIDGE_VERSION', '0.7.1' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
@@ -57,8 +57,6 @@ define( 'ELODIN_BRIDGE_OPTION_ENABLE_CHECKERBOARD_PATTERN', 'elodin_bridge_enabl
 define( 'ELODIN_BRIDGE_OPTION_BLOCK_EDGE_CLASSES', 'elodin_bridge_block_edge_classes' );
 define( 'ELODIN_BRIDGE_OPTION_IMAGE_SIZES', 'elodin_bridge_image_sizes' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_CSS_VARIABLE_AUTOWRAP', 'elodin_bridge_enable_css_variable_autowrap' );
-define( 'ELODIN_BRIDGE_UPDATE_REPOSITORY', 'https://github.com/jonschr/elodin-ollie-bridge' );
-define( 'ELODIN_BRIDGE_UPDATE_BRANCH', 'master' );
 
 require_once ELODIN_BRIDGE_DIR . '/inc/settings-page.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/heading-paragraph-overrides.php';
