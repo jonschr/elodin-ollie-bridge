@@ -84,6 +84,7 @@ function elodin_bridge_render_admin_page() {
 	$mobile_fixed_background_repair_enabled = elodin_bridge_is_mobile_fixed_background_repair_enabled();
 	$header_aware_positioning_settings = elodin_bridge_get_header_aware_positioning_settings();
 	$header_sizing_block_enabled = elodin_bridge_is_header_sizing_block_enabled();
+	$full_height_enabled = ! empty( $header_aware_positioning_settings['full_height']['enabled'] );
 	$header_fixed_position_enabled = elodin_bridge_is_header_fixed_position_enabled();
 	$sticky_below_header_block_style_enabled = elodin_bridge_is_sticky_below_header_block_style_enabled();
 	$anchor_smooth_scroll_enabled = elodin_bridge_is_anchor_smooth_scroll_enabled();

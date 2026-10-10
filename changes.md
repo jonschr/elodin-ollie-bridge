@@ -1,3 +1,8 @@
+## Version 0.7.2
+
+- Added a default-on Header-aware Positioning setting that subtracts the measured header and visible admin bar from exact full-viewport block heights, including Cover's native Full height control.
+- Preserved saved native height values and custom heights, with matching sizing in the editor canvas.
+
 ## Version 0.7.1
 
 - Fixed update checks by loading the bundled Plugin Update Checker 5.6 factory and reading static JSON release metadata instead of the GitHub API.

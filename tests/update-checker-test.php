@@ -2,6 +2,9 @@
 
 // Run from the plugin directory: wp eval-file tests/update-checker-test.php
 $metadata = json_decode( file_get_contents( dirname( __DIR__ ) . '/update.json' ), true, 512, JSON_THROW_ON_ERROR );
+if ( ELODIN_BRIDGE_VERSION !== $metadata['version'] || get_file_data( ELODIN_BRIDGE_PLUGIN_FILE, array( 'Version' => 'Version' ) )['Version'] !== $metadata['version'] ) {
+	throw new RuntimeException( 'Plugin header, runtime version, and JSON release version must match.' );
+}
 $url      = 'https://raw.githubusercontent.com/jonschr/elodin-ollie-bridge/master/update.json';
 $found    = array();
 

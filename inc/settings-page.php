@@ -400,12 +400,15 @@ function elodin_bridge_sanitize_sticky_below_header_block_style_settings( $value
 /**
  * Default values for shared header-aware positioning settings.
  *
- * @return array{selectors:string,header_sizing:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ * @return array{selectors:string,header_sizing:array{enabled:int},full_height:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
  */
 function elodin_bridge_get_header_aware_positioning_defaults() {
 	return array(
 		'selectors'     => '*.site-header, #wpadminbar',
 		'header_sizing' => array(
+			'enabled' => 1,
+		),
+		'full_height' => array(
 			'enabled' => 1,
 		),
 		'fixed_position' => array(
@@ -427,12 +430,13 @@ function elodin_bridge_get_header_aware_positioning_defaults() {
  * Sanitize shared header-aware positioning settings.
  *
  * @param mixed $value Raw settings.
- * @return array{selectors:string,header_sizing:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ * @return array{selectors:string,header_sizing:array{enabled:int},full_height:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
  */
 function elodin_bridge_sanitize_header_aware_positioning_settings( $value ) {
 	$defaults = elodin_bridge_get_header_aware_positioning_defaults();
 	$value = is_array( $value ) ? $value : array();
 	$header_sizing = isset( $value['header_sizing'] ) && is_array( $value['header_sizing'] ) ? $value['header_sizing'] : array();
+	$full_height = isset( $value['full_height'] ) && is_array( $value['full_height'] ) ? $value['full_height'] : array();
 	$fixed_position = isset( $value['fixed_position'] ) && is_array( $value['fixed_position'] ) ? $value['fixed_position'] : array();
 	$sticky = isset( $value['sticky'] ) && is_array( $value['sticky'] ) ? $value['sticky'] : array();
 	$smooth_scroll = isset( $value['smooth_scroll'] ) && is_array( $value['smooth_scroll'] ) ? $value['smooth_scroll'] : array();
@@ -441,6 +445,9 @@ function elodin_bridge_sanitize_header_aware_positioning_settings( $value ) {
 		'selectors'     => elodin_bridge_sanitize_selector_list( $value['selectors'] ?? $defaults['selectors'], $defaults['selectors'] ),
 		'header_sizing' => array(
 			'enabled' => elodin_bridge_sanitize_toggle( $header_sizing['enabled'] ?? $defaults['header_sizing']['enabled'] ),
+		),
+		'full_height' => array(
+			'enabled' => elodin_bridge_sanitize_toggle( $full_height['enabled'] ?? $defaults['full_height']['enabled'] ),
 		),
 		'fixed_position' => array(
 			'enabled'   => elodin_bridge_sanitize_toggle( $fixed_position['enabled'] ?? $defaults['fixed_position']['enabled'] ),
@@ -463,7 +470,7 @@ function elodin_bridge_sanitize_header_aware_positioning_settings( $value ) {
  * Existing sticky settings are used as a compatibility fallback until the
  * combined setting is first saved.
  *
- * @return array{selectors:string,header_sizing:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
+ * @return array{selectors:string,header_sizing:array{enabled:int},full_height:array{enabled:int},fixed_position:array{enabled:int,selectors:string},sticky:array{enabled:int,offset:string},smooth_scroll:array{enabled:int,offset:string}}
  */
 function elodin_bridge_get_header_aware_positioning_settings() {
 	$saved = get_option( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING, null );
@@ -482,6 +489,7 @@ function elodin_bridge_get_header_aware_positioning_settings() {
 	return array(
 		'selectors'     => $legacy['selectors'],
 		'header_sizing' => $defaults['header_sizing'],
+		'full_height' => $defaults['full_height'],
 		'fixed_position' => $defaults['fixed_position'],
 		'sticky'        => array(
 			'enabled' => $legacy['enabled'],

@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.7.1
+	Version: 0.7.2
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.7.1' );
+define( 'ELODIN_BRIDGE_VERSION', '0.7.2' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
@@ -71,6 +71,7 @@ require_once ELODIN_BRIDGE_DIR . '/inc/cover-youtube-backgrounds.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/video-download-deterrents.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/mobile-fixed-background-repair.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/header-aware-positioning.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/full-viewport-height.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/header-sizing-block.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/sticky-below-header-block-style.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/anchor-smooth-scroll.php';

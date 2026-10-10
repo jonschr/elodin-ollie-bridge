@@ -24,6 +24,7 @@
 	const body = document.body;
 	const selectors = config.selectors || '*.site-header, #wpadminbar';
 	const fixedSelectors = config.fixedSelectors || '';
+	const adminBar = document.getElementById( 'wpadminbar' );
 	let animationFrame = null;
 	let scrollAnimationFrame = null;
 	let currentHeight = null;
@@ -51,7 +52,7 @@
 
 	}
 
-	observedElements = Array.from( new Set( measuredElements.concat( fixedElements ) ) );
+	observedElements = Array.from( new Set( measuredElements.concat( fixedElements, adminBar ? [ adminBar ] : [] ) ) );
 
 	const getElementHeight = function ( element, height ) {
 		if ( ! element.getClientRects().length ) {
@@ -97,7 +98,7 @@
 		}, 0 );
 	};
 
-	const setHeaderHeight = function ( height, sizingHeight ) {
+	const setHeaderHeight = function ( height, sizingHeight, fullHeightOffset ) {
 		measuredElements.forEach( function ( element ) {
 			if ( ! element.matches( stickySelector ) ) {
 				element.style.removeProperty( selfAwareOffsetProperty );
@@ -114,11 +115,11 @@
 			);
 		} );
 
-		if ( currentHeight && height === currentHeight.height && sizingHeight === currentHeight.sizing ) {
+		if ( currentHeight && height === currentHeight.height && sizingHeight === currentHeight.sizing && fullHeightOffset === currentHeight.fullHeightOffset ) {
 			return;
 		}
 
-		currentHeight = { height, sizing: sizingHeight };
+		currentHeight = { height, sizing: sizingHeight, fullHeightOffset };
 		const value = `${ height }px`;
 		const sizingValue = `${ sizingHeight }px`;
 
@@ -126,6 +127,9 @@
 		root.style.setProperty( '--elodin-bridge-header-sizing-height', sizingValue );
 		body.style.setProperty( '--elodin-bridge-header-height', value );
 		body.style.setProperty( '--elodin-bridge-header-sizing-height', sizingValue );
+		// The admin bar always counts once, even when custom header selectors omit it.
+		root.style.setProperty( '--elodin-bridge-full-height-offset', `${ fullHeightOffset }px` );
+		body.style.setProperty( '--elodin-bridge-full-height-offset', `${ fullHeightOffset }px` );
 		document.dispatchEvent(
 			new CustomEvent( 'elodinBridgeHeaderHeightChange', {
 				detail: { height },
@@ -137,9 +141,10 @@
 		animationFrame = null;
 		const height = measureSelectedElementsHeight();
 		const sizingHeight = measureHeaderSizingHeight();
+		const fullHeightOffset = sizingHeight + ( pendingElementHeights.get( adminBar ) ?? measureElementHeight( adminBar ) );
 
 		pendingElementHeights.clear();
-		setHeaderHeight( height, sizingHeight );
+		setHeaderHeight( height, sizingHeight, fullHeightOffset );
 	};
 
 	const requestUpdate = function () {

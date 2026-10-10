@@ -230,7 +230,7 @@
 				</div>
 				<div class="elodin-bridge-admin__feature-body">
 					<p class="elodin-bridge-admin__description">
-						<?php esc_html_e( 'Measures page chrome once and shares its live height with sticky positioning and anchor scrolling.', 'elodin-bridge' ); ?>
+						<?php esc_html_e( 'Measures page chrome once and shares its live height with full-height blocks, sticky positioning, and anchor scrolling.', 'elodin-bridge' ); ?>
 					</p>
 					<div class="elodin-bridge-admin__sticky-controls">
 						<label class="elodin-bridge-admin__setting-control elodin-bridge-admin__setting-control--full">
@@ -249,6 +249,25 @@
 					</div>
 
 					<div class="elodin-bridge-admin__header-aware-features">
+						<div class="elodin-bridge-admin__header-aware-feature <?php echo $full_height_enabled ? 'is-enabled' : ''; ?>">
+							<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-full-height-enabled">
+								<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[full_height][enabled]" value="0" />
+								<input
+									type="checkbox"
+									class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+									id="elodin-bridge-full-height-enabled"
+									name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[full_height][enabled]"
+									value="1"
+									<?php checked( $full_height_enabled ); ?>
+								/>
+								<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+								<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Subtract header from full viewport heights', 'elodin-bridge' ); ?></span>
+							</label>
+							<div class="elodin-bridge-admin__feature-body">
+								<p class="elodin-bridge-admin__description"><?php esc_html_e( 'Makes full viewport height blocks fit below the measured header and the visible WordPress admin bar. Custom heights and percentages stay unchanged.', 'elodin-bridge' ); ?></p>
+							</div>
+						</div>
+
 						<div class="elodin-bridge-admin__header-aware-feature <?php echo $header_sizing_block_enabled ? 'is-enabled' : ''; ?>">
 							<label class="elodin-bridge-admin__feature-header" for="elodin-bridge-header-sizing-block-enabled">
 								<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_HEADER_AWARE_POSITIONING ); ?>[header_sizing][enabled]" value="0" />
