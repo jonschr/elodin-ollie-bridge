@@ -1,3 +1,11 @@
+## Version 0.7.3
+
+- Removed the Media Library infinite-scrolling option and override; WordPress now controls this behavior and each user's preference.
+- Grouped the related direct MP4 URL settings into one card and the YouTube Cover settings into another, retaining separate toggles.
+- Added a default-on Miscellaneous setting to output used duotone SVG definitions at the start of the body in block themes, preventing unfiltered images flashing during page load.
+- Removed the scroll-hide opacity fade so expanding elements do not briefly reveal the page background.
+- Fixed scroll-hidden elements retaining inline minimum heights by temporarily overriding them with zero and restoring the original value and priority when shown.
+
 ## Version 0.7.2
 
 - Added a default-on Header-aware Positioning setting that subtracts the measured header and visible admin bar from exact full-viewport block heights, including Cover's native Full height control.

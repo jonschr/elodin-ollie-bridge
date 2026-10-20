@@ -2,6 +2,7 @@
 	const config = window.elodinBridgeScrollHideElements || {};
 	const body = document.body;
 	const rules = Array.isArray( config.rules ) ? config.rules : [];
+	const hiddenMinHeights = new WeakMap();
 	let isTicking = false;
 
 	if ( ! body || ! rules.length ) {
@@ -78,6 +79,23 @@
 			entry.isHidden = isHidden;
 
 			entry.elements.forEach( function ( element ) {
+				if ( isHidden && ! hiddenMinHeights.has( element ) ) {
+					hiddenMinHeights.set( element, {
+						value: element.style.getPropertyValue( 'min-height' ),
+						priority: element.style.getPropertyPriority( 'min-height' ),
+					} );
+					// Cover minimum heights can be inline !important, which a class cannot override.
+					element.style.setProperty( 'min-height', '0px', 'important' );
+				} else if ( ! isHidden && hiddenMinHeights.has( element ) ) {
+					const original = hiddenMinHeights.get( element );
+					if ( original.value ) {
+						element.style.setProperty( 'min-height', original.value, original.priority );
+					} else {
+						element.style.removeProperty( 'min-height' );
+					}
+					hiddenMinHeights.delete( element );
+				}
+
 				element.classList.toggle(
 					'is-elodin-bridge-scroll-hidden',
 					isHidden

@@ -68,9 +68,9 @@ function elodin_bridge_render_admin_page() {
 	$editor_publish_sidebar_restriction_enabled = elodin_bridge_is_editor_publish_sidebar_restriction_enabled();
 	$editor_show_template_default_enabled = elodin_bridge_is_editor_show_template_default_enabled();
 	$editor_list_view_default_enabled = elodin_bridge_is_editor_list_view_default_enabled();
-	$media_library_infinite_scrolling_enabled = elodin_bridge_is_media_library_infinite_scrolling_enabled();
 	$shortcodes_enabled = elodin_bridge_is_shortcodes_enabled();
 	$svg_uploads_enabled = elodin_bridge_is_svg_uploads_enabled();
+	$early_duotone_filters_enabled = elodin_bridge_is_early_duotone_filters_enabled();
 	$cover_min_heights_enabled = elodin_bridge_is_cover_min_heights_enabled();
 	$direct_cover_video_urls_enabled = elodin_bridge_is_direct_cover_video_urls_enabled();
 	$direct_video_modal_urls_enabled = elodin_bridge_is_direct_video_modal_urls_enabled();

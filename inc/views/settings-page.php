@@ -661,36 +661,6 @@
 			</div>
 
 			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
-				<div class="elodin-bridge-admin__feature <?php echo $media_library_infinite_scrolling_enabled ? 'is-enabled' : ''; ?>">
-					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING ); ?>">
-						<input
-							type="hidden"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING ); ?>"
-							value="0"
-						/>
-						<input
-							type="checkbox"
-							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
-							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING ); ?>"
-							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING ); ?>"
-							value="1"
-							<?php checked( $media_library_infinite_scrolling_enabled ); ?>
-						/>
-						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true">
-							<span class="elodin-bridge-admin__toggle-thumb"></span>
-						</span>
-						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Enable media library infinite scrolling', 'elodin-bridge' ); ?></span>
-					</label>
-
-					<div class="elodin-bridge-admin__feature-body">
-						<p class="elodin-bridge-admin__description">
-							<?php esc_html_e( 'Forces Media Library infinite scrolling on (equivalent to adding the media_library_infinite_scrolling filter).', 'elodin-bridge' ); ?>
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
 				<div class="elodin-bridge-admin__feature <?php echo $shortcodes_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_SHORTCODES ); ?>">
 						<input
@@ -751,6 +721,29 @@
 			</div>
 
 			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
+				<div class="elodin-bridge-admin__feature <?php echo $early_duotone_filters_enabled ? 'is-enabled' : ''; ?>">
+					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EARLY_DUOTONE_FILTERS ); ?>">
+						<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EARLY_DUOTONE_FILTERS ); ?>" value="0" />
+						<input
+							type="checkbox"
+							class="elodin-bridge-admin__toggle-input elodin-bridge-admin__feature-toggle"
+							id="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EARLY_DUOTONE_FILTERS ); ?>"
+							name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_EARLY_DUOTONE_FILTERS ); ?>"
+							value="1"
+							<?php checked( $early_duotone_filters_enabled ); ?>
+						/>
+						<span class="elodin-bridge-admin__toggle-track" aria-hidden="true"><span class="elodin-bridge-admin__toggle-thumb"></span></span>
+						<span class="elodin-bridge-admin__feature-title"><?php esc_html_e( 'Output duotone filters early', 'elodin-bridge' ); ?></span>
+					</label>
+					<div class="elodin-bridge-admin__feature-body">
+						<p class="elodin-bridge-admin__description">
+							<?php esc_html_e( 'Prevents unfiltered images from flashing as pages load when using a block theme.', 'elodin-bridge' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
 				<div class="elodin-bridge-admin__feature <?php echo $direct_cover_video_urls_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS ); ?>">
 						<input
@@ -778,9 +771,7 @@
 						</p>
 					</div>
 				</div>
-			</div>
 
-			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
 				<div class="elodin-bridge-admin__feature <?php echo $direct_video_modal_urls_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS ); ?>">
 						<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS ); ?>" value="0" />
@@ -826,9 +817,7 @@
 						</p>
 					</div>
 				</div>
-			</div>
 
-			<div class="elodin-bridge-admin__card" data-bridge-category="misc">
 				<div class="elodin-bridge-admin__feature <?php echo $cover_youtube_video_cover_enabled ? 'is-enabled' : ''; ?>">
 					<label class="elodin-bridge-admin__feature-header" for="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS ); ?>">
 						<input type="hidden" name="<?php echo esc_attr( ELODIN_BRIDGE_OPTION_COVER_YOUTUBE_VIDEOS ); ?>" value="0" />

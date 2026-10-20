@@ -1383,15 +1383,6 @@ function elodin_bridge_is_editor_list_view_default_enabled() {
 }
 
 /**
- * Check if media library infinite scrolling is enabled.
- *
- * @return bool
- */
-function elodin_bridge_is_media_library_infinite_scrolling_enabled() {
-	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING, 1 );
-}
-
-/**
  * Check if Bridge shortcodes are enabled.
  *
  * @return bool
@@ -1407,6 +1398,15 @@ function elodin_bridge_is_shortcodes_enabled() {
  */
 function elodin_bridge_is_svg_uploads_enabled() {
 	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS, 1 );
+}
+
+/**
+ * Check if duotone filters should be output before block-theme content.
+ *
+ * @return bool
+ */
+function elodin_bridge_is_early_duotone_filters_enabled() {
+	return (bool) get_option( ELODIN_BRIDGE_OPTION_ENABLE_EARLY_DUOTONE_FILTERS, 1 );
 }
 
 /**
@@ -1683,16 +1683,6 @@ function elodin_bridge_register_settings() {
 
 	register_setting(
 		'elodin_bridge_settings',
-		ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING,
-		array(
-			'type'              => 'boolean',
-			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
-			'default'           => 1,
-		)
-	);
-
-	register_setting(
-		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_SHORTCODES,
 		array(
 			'type'              => 'boolean',
@@ -1704,6 +1694,16 @@ function elodin_bridge_register_settings() {
 	register_setting(
 		'elodin_bridge_settings',
 		ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS,
+		array(
+			'type'              => 'boolean',
+			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',
+			'default'           => 1,
+		)
+	);
+
+	register_setting(
+		'elodin_bridge_settings',
+		ELODIN_BRIDGE_OPTION_ENABLE_EARLY_DUOTONE_FILTERS,
 		array(
 			'type'              => 'boolean',
 			'sanitize_callback' => 'elodin_bridge_sanitize_toggle',

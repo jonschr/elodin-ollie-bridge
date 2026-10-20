@@ -3,7 +3,7 @@
 	Plugin Name: Ollie Bridge
 	Plugin URI: https://elod.in
     Description: Just another plugin
-	Version: 0.7.2
+	Version: 0.7.3
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -27,16 +27,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ELODIN_BRIDGE_PLUGIN_FILE', __FILE__ );
 define( 'ELODIN_BRIDGE_DIR', dirname( __FILE__ ) );
 define( 'ELODIN_BRIDGE_URL', plugin_dir_url( __FILE__ ) );
-define( 'ELODIN_BRIDGE_VERSION', '0.7.2' );
+define( 'ELODIN_BRIDGE_VERSION', '0.7.3' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_PARAGRAPH_OVERRIDES', 'elodin_bridge_enable_heading_paragraph_overrides' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_HEADING_NON_FIRST_MARGIN_TOP', 'elodin_bridge_enable_heading_non_first_margin_top' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_UI_RESTRICTIONS', 'elodin_bridge_enable_editor_ui_restrictions' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_PUBLISH_SIDEBAR_RESTRICTION', 'elodin_bridge_enable_editor_publish_sidebar_restriction' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_SHOW_TEMPLATE_DEFAULT', 'elodin_bridge_enable_editor_show_template_default' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_EDITOR_LIST_VIEW_DEFAULT', 'elodin_bridge_enable_editor_list_view_default' );
-define( 'ELODIN_BRIDGE_OPTION_ENABLE_MEDIA_LIBRARY_INFINITE_SCROLLING', 'elodin_bridge_enable_media_library_infinite_scrolling' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SHORTCODES', 'elodin_bridge_enable_shortcodes' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_SVG_UPLOADS', 'elodin_bridge_enable_svg_uploads' );
+define( 'ELODIN_BRIDGE_OPTION_ENABLE_EARLY_DUOTONE_FILTERS', 'elodin_bridge_enable_early_duotone_filters' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_COVER_MIN_HEIGHTS', 'elodin_bridge_enable_cover_min_heights' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_COVER_VIDEO_URLS', 'elodin_bridge_enable_direct_cover_video_urls' );
 define( 'ELODIN_BRIDGE_OPTION_ENABLE_DIRECT_VIDEO_MODAL_URLS', 'elodin_bridge_enable_direct_video_modal_urls' );
@@ -62,7 +62,6 @@ require_once ELODIN_BRIDGE_DIR . '/inc/settings-page.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/heading-paragraph-overrides.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/content-type-behavior.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/editor-ui-restrictions.php';
-require_once ELODIN_BRIDGE_DIR . '/inc/media-library-infinite-scrolling.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/shortcodes.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/svg-uploads.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/cover-min-heights.php';
@@ -78,6 +77,7 @@ require_once ELODIN_BRIDGE_DIR . '/inc/anchor-smooth-scroll.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/scroll-hide-elements.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/ollie-color-palettes.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/auto-child-theme-gradient-duotones.php';
+require_once ELODIN_BRIDGE_DIR . '/inc/duotone-filters.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/editor-group-border.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/prettier-widgets.php';
 require_once ELODIN_BRIDGE_DIR . '/inc/block-edge-classes.php';

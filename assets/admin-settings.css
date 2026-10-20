@@ -213,6 +213,12 @@
 	display: none;
 }
 
+.elodin-bridge-admin__card > .elodin-bridge-admin__feature + .elodin-bridge-admin__feature {
+	margin-top: 24px;
+	padding-top: 24px;
+	border-top: 1px solid #dcdcde;
+}
+
 .elodin-bridge-admin__feature-header {
 	display: grid;
 	grid-template-columns: 38px minmax(0, 1fr);

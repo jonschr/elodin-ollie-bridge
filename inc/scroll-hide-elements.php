@@ -10,7 +10,7 @@ function elodin_bridge_enqueue_scroll_hide_elements_assets() {
 	}
 
 	$handle = 'elodin-bridge-scroll-hide-elements';
-	$css = '.elodin-bridge-scroll-hide-target{overflow:hidden;transition:height 200ms ease-out,padding 200ms ease-out,margin 200ms ease-out,opacity 200ms ease-out;}.elodin-bridge-scroll-hide-target.is-elodin-bridge-scroll-hidden{border-top:0!important;border-bottom:0!important;height:0!important;line-height:0!important;margin-top:0!important;margin-bottom:0!important;max-height:0!important;min-height:0!important;opacity:0;overflow:hidden!important;pointer-events:none;padding-top:0!important;padding-bottom:0!important;}';
+	$css = '.elodin-bridge-scroll-hide-target{overflow:hidden;transition:height 200ms ease-out,padding 200ms ease-out,margin 200ms ease-out;}.elodin-bridge-scroll-hide-target.is-elodin-bridge-scroll-hidden{border-top:0!important;border-bottom:0!important;height:0!important;line-height:0!important;margin-top:0!important;margin-bottom:0!important;max-height:0!important;min-height:0!important;opacity:0;overflow:hidden!important;pointer-events:none;padding-top:0!important;padding-bottom:0!important;}';
 
 	wp_register_style( $handle, false, array(), ELODIN_BRIDGE_VERSION );
 	wp_enqueue_style( $handle );
