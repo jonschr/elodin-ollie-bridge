@@ -1,3 +1,7 @@
+## Version 0.7.4
+
+- Keep header, admin-bar and sticky-subnav offsets in layout CSS pixels under page scaling. Use border-box heights consistently across initial sizing, ResizeObserver and resize refreshes, avoiding doubled scaling and overlap.
+
 ## Version 0.7.3
 
 - Removed the Media Library infinite-scrolling option and override; WordPress now controls this behavior and each user's preference.

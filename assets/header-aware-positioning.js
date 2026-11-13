@@ -59,7 +59,8 @@
 			return 0;
 		}
 
-		return Math.ceil( height );
+		// Match offsetHeight rounding so observer and fallback readings agree.
+		return Math.round( height );
 	};
 
 	const getObservedHeight = function ( entry ) {
@@ -69,13 +70,14 @@
 
 		return getElementHeight(
 			entry.target,
-			borderBoxSize ? borderBoxSize.blockSize : entry.contentRect.height
+			borderBoxSize ? borderBoxSize.blockSize : entry.target.offsetHeight
 		);
 	};
 
 	const measureElementHeight = function ( element ) {
+		// Sticky offsets are CSS lengths; viewport rectangles already include page zoom.
 		return element
-			? getElementHeight( element, element.getBoundingClientRect().height )
+			? getElementHeight( element, element.offsetHeight )
 			: 0;
 	};
 

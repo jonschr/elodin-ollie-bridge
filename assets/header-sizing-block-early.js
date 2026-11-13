@@ -13,7 +13,7 @@
 	const measure = function ( includeAdminBar ) {
 		return Array.from( elements ).reduce( function ( total, element ) {
 			return total + ( ( includeAdminBar || 'wpadminbar' !== element.id ) && element.getClientRects().length
-				? Math.ceil( element.getBoundingClientRect().height )
+				? element.offsetHeight
 				: 0 );
 		}, 0 );
 	};

@@ -18,7 +18,7 @@ const source = fs.readFileSync( require.resolve( '../assets/header-aware-positio
 for ( const [ present, selected, visible, expected ] of [ [ true, true, true, '82px' ], [ true, false, true, '82px' ], [ false, false, false, '50px' ], [ true, true, false, '50px' ] ] ) {
 	const values = new Map();
 	const style = { setProperty: ( key, value ) => values.set( key, value ), removeProperty() {} };
-	const makeElement = ( id, height, shown ) => ( { id, style, matches: () => false, getClientRects: () => shown ? [ {} ] : [], getBoundingClientRect: () => ( { height } ) } );
+	const makeElement = ( id, height, shown ) => ( { id, offsetHeight: height, style, matches: () => false, getClientRects: () => shown ? [ {} ] : [], getBoundingClientRect: () => ( { height } ) } );
 	const header = makeElement( 'header', 50, true );
 	const admin = present ? makeElement( 'wpadminbar', 32, visible ) : null;
 	const fakeWindow = {
